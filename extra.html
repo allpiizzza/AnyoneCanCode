@@ -6,159 +6,135 @@
 <title>여유 시 도전 과제 — 비개발자 웹사이트 워크샵</title>
 <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body data-file="extra.html">
 
-<div class="titlebar">
-  <div class="dots"><i class="dot r"></i><i class="dot y"></i><i class="dot g"></i></div>
-  <div class="path">workshop / extra.html — 여유 시 도전 과제</div>
-</div>
+<div class="ide">
 
-<div class="tabbar">
-  <a class="tab" href="index.html"><span class="ic">◆</span> README.md</a>
-  <a class="tab active" href="extra.html"><span class="ic">◆</span> extra.html</a>
-</div>
+  <header class="titlebar"></header>
 
-<div class="shell">
+  <div class="workbench">
+    <nav class="activitybar"></nav>
+    <aside class="sidebar"></aside>
 
-  <nav class="sidebar">
-    <div class="sec">Explorer</div>
-    <div class="folder">▾ WORKSHOP</div>
-    <a class="file" href="index.html"><span class="ic">◆</span> index.html</a>
-    <a class="file" href="checklist.html"><span class="ic">◆</span> checklist.html</a>
-    <a class="file" href="templates.html"><span class="ic">◆</span> templates.html</a>
-    <a class="file" href="step1.html"><span class="ic">◆</span> step1.html</a>
-    <a class="file" href="step2.html"><span class="ic">◆</span> step2.html</a>
-    <a class="file" href="step3.html"><span class="ic">◆</span> step3.html</a>
-    <a class="file active" href="extra.html"><span class="ic">◆</span> extra.html</a>
-    <a class="file" href="errors.html"><span class="ic">◆</span> errors.html</a>
-    <a class="file css" href="style.css"><span class="ic">◆</span> style.css</a>
-    <hr>
-    <div class="folder">▾ SAMPLE</div>
-    <a class="file" href="sample/index.html" target="_blank"><span class="ic">◆</span> 완성본 데모 ↗</a>
-  </nav>
+    <div class="editor">
+      <div class="tabbar"></div>
+      <div class="breadcrumb"></div>
 
-  <main class="main">
+      <div class="editor-area">
+        <div class="scroller" id="scroller">
+          <div class="code">
+            <div class="gutter" aria-hidden="true"></div>
+            <main class="main">
+      <noscript>
+        <div class="nojs">
+          <strong>JavaScript가 꺼져 있습니다.</strong> 탐색기·탭·명령 팔레트 같은 에디터 UI 없이 본문만 보입니다.
+          문서 이동 — <a href="index.html">README</a> ·
+          <a href="checklist.html">체크리스트</a> ·
+          <a href="templates.html">템플릿</a> ·
+          <a href="step1.html">STEP 1</a> ·
+          <a href="step2.html">STEP 2</a> ·
+          <a href="step3.html">STEP 3</a> ·
+          <a href="extra.html">여유 과제</a> ·
+          <a href="errors.html">에러 해결법</a>
+        </div>
+      </noscript>
+          <span class="badge purple">EXTRA</span>
+          <span class="badge">시간이 남으면</span>
 
-    <span class="badge purple">EXTRA</span>
-    <span class="badge">시간이 남으면</span>
+          <h1>여유 시 도전 과제</h1>
+          <p class="subtitle">배포까지 끝낸 분들을 위한 다음 단계</p>
 
-    <h1>여유 시 도전 과제</h1>
-    <p class="subtitle">배포까지 끝낸 분들을 위한 다음 단계</p>
+          <p class="lead">STEP 3까지 마쳤다면 이미 오늘의 목표는 다 이룬 겁니다. 여기서부터는 보너스예요. 둘 중 하나만 골라서 해도 충분하고, 집에 가서 천천히 해봐도 됩니다.</p>
 
-    <p class="lead">STEP 3까지 마쳤다면 이미 오늘의 목표는 다 이룬 겁니다. 여기서부터는 보너스예요. 둘 중 하나만 골라서 해도 충분하고, 집에 가서 천천히 해봐도 됩니다.</p>
+          <h2>① 답변달기 기능 (1:1 Q&amp;A 방식)</h2>
 
-    <h2>① 답변달기 기능 (1:1 Q&amp;A 방식)</h2>
+          <p>글 하나에 답변 하나만 달리는 방식입니다. 댓글처럼 여러 개가 아니라, 모임지기가 각 후기에 한마디씩 남기는 형태예요. 시트에 <strong>"답변" 컬럼 하나만 추가</strong>하면 되기 때문에 구조가 단순합니다.</p>
 
-    <p>글 하나에 답변 하나만 달리는 방식입니다. 댓글처럼 여러 개가 아니라, 모임지기가 각 후기에 한마디씩 남기는 형태예요. 시트에 <strong>"답변" 컬럼 하나만 추가</strong>하면 되기 때문에 구조가 단순합니다.</p>
+          <div class="callout">
+            <div class="title">✱ 먼저 시트부터</div>
+            <p>스프레드시트 E열에 <code>답변</code>이라고 입력해서 컬럼을 하나 늘려두세요. 컬럼을 안 만들고 코드만 고치면 저장이 안 됩니다.</p>
+          </div>
 
-    <div class="callout">
-      <div class="title">✱ 먼저 시트부터</div>
-      <p>스프레드시트 E열에 <code>답변</code>이라고 입력해서 컬럼을 하나 늘려두세요. 컬럼을 안 만들고 코드만 고치면 저장이 안 됩니다.</p>
-    </div>
+          <div class="term">
+            <div class="term-bar">
+              <div class="dots"><i class="dot r"></i><i class="dot y"></i><i class="dot g"></i></div>
+              <div class="name">extra-reply-prompt.txt</div>
+              <button class="copy-btn">COPY</button>
+            </div>
+            <pre>게시판에 "답변달기" 기능을 추가하고 싶어. 댓글처럼 여러 개가 아니라
+      글 하나에 답변 하나만 달리는 1:1 방식이야 (Q&A 게시판처럼).
 
-    <div class="term">
-      <div class="term-bar">
-        <div class="dots"><i class="dot r"></i><i class="dot y"></i><i class="dot g"></i></div>
-        <div class="name">extra-reply-prompt.txt</div>
-        <button class="copy-btn">COPY</button>
+      Google Sheets 컬럼에 "답변"을 하나 추가할 거야.
+
+      상세보기 페이지에 답변 입력창과 "답변 등록" 버튼을 추가해서,
+      등록하면 해당 글이 있는 행의 "답변" 컬럼에 저장되게 해줘.
+
+      이미 답변이 있으면 상세보기 페이지에 답변 내용도 함께 보여줘.</pre>
+          </div>
+
+          <div class="callout warn">
+            <div class="title">⚠ Apps Script 재배포 잊지 마세요</div>
+            <p>답변 저장은 Apps Script 코드도 같이 바뀝니다. 코드를 붙여넣은 뒤 <code>배포 → 배포 관리 → 수정 → 새 버전 → 배포</code>까지 해야 반영됩니다.</p>
+          </div>
+
+          <h2>② 한글 도메인 연결</h2>
+
+          <p><code>내프로젝트.vercel.app</code> 대신 <code>우리동네책모임.한국</code> 같은 주소를 쓸 수 있습니다. <a href="https://xn--bj0bj06e.xn--3e0b707e" target="_blank" rel="noopener">내도메인.한국</a>에서 한글 도메인을 무료로 발급받아 Vercel에 연결하는 방식이에요.</p>
+
+          <div class="term">
+            <div class="term-bar">
+              <div class="dots"><i class="dot r"></i><i class="dot y"></i><i class="dot g"></i></div>
+              <div class="name">extra-domain-prompt.txt</div>
+              <button class="copy-btn">COPY</button>
+            </div>
+            <pre>Vercel에 배포한 사이트에 내도메인.한국에서 발급받은 한글 도메인을 연결하고 싶어.
+
+      Vercel 프로젝트 설정에서 커스텀 도메인을 추가하는 방법과,
+      내도메인.한국에서 DNS 설정을 어떻게 해야 하는지
+      단계별로 아주 쉽게 설명해줘.</pre>
+          </div>
+
+          <div class="callout warn">
+            <div class="title">⚠ 3개월마다 무료 연장이 필요합니다</div>
+            <p>내도메인.한국의 무료 도메인은 <strong>3개월 단위</strong>로 유효합니다. 만료되기 전에 사이트에 로그인해서 연장 버튼을 눌러야 하고, 깜빡하면 주소가 끊깁니다. 발급받은 날 바로 <strong>휴대폰 캘린더에 3개월 뒤 알림</strong>을 걸어두세요.</p>
+            <p>DNS 설정을 바꾼 뒤 실제로 주소가 연결되기까지는 보통 몇 분, 길면 몇 시간이 걸립니다. 바로 안 된다고 설정을 계속 바꾸지 마세요. 오히려 더 늦어집니다.</p>
+          </div>
+
+          <h2>그 밖에 해볼 만한 것들</h2>
+
+          <ul>
+            <li><strong>검색창 추가</strong> — 제목이나 작성자로 글을 찾는 입력칸. "목록 페이지 위에 검색창을 만들고, 입력한 단어가 제목이나 작성자에 포함된 글만 보이게 해줘."</li>
+            <li><strong>별점 매기기</strong> — 시트에 "별점" 컬럼을 추가하고 글쓰기 폼에 ★ 1~5개 선택을 넣기.</li>
+            <li><strong>비밀번호로 글 삭제</strong> — 글 쓸 때 네 자리 숫자를 같이 저장해두고, 그 숫자를 맞춰야 삭제되게 하기.</li>
+            <li><strong>색과 폰트 바꾸기</strong> — 가장 만족도가 높은 작업입니다. "전체 색을 바다 느낌의 파란 계열로 바꿔줘" 한 줄이면 됩니다.</li>
+          </ul>
+
+          <div class="pagenav">
+            <a class="prev" href="step3.html">
+              <div class="dir">← 이전</div>
+              <div class="ttl">STEP 3 · GitHub + Vercel 배포</div>
+            </a>
+            <a class="next" href="errors.html">
+              <div class="dir">다음 →</div>
+              <div class="ttl">에러 해결법</div>
+            </a>
+          </div>
+
+
+            </main>
+          </div>
+        </div>
+        <div class="minimap"><div class="mm-inner"></div><div class="mm-view"></div></div>
       </div>
-      <pre>게시판에 "답변달기" 기능을 추가하고 싶어. 댓글처럼 여러 개가 아니라
-글 하나에 답변 하나만 달리는 1:1 방식이야 (Q&A 게시판처럼).
-
-Google Sheets 컬럼에 "답변"을 하나 추가할 거야.
-
-상세보기 페이지에 답변 입력창과 "답변 등록" 버튼을 추가해서,
-등록하면 해당 글이 있는 행의 "답변" 컬럼에 저장되게 해줘.
-
-이미 답변이 있으면 상세보기 페이지에 답변 내용도 함께 보여줘.</pre>
     </div>
+  </div>
 
-    <div class="callout warn">
-      <div class="title">⚠ Apps Script 재배포 잊지 마세요</div>
-      <p>답변 저장은 Apps Script 코드도 같이 바뀝니다. 코드를 붙여넣은 뒤 <code>배포 → 배포 관리 → 수정 → 새 버전 → 배포</code>까지 해야 반영됩니다.</p>
-    </div>
+  <section class="panel-dock"></section>
+  <footer class="statusbar"></footer>
 
-    <h2>② 한글 도메인 연결</h2>
-
-    <p><code>내프로젝트.vercel.app</code> 대신 <code>우리동네책모임.한국</code> 같은 주소를 쓸 수 있습니다. <a href="https://xn--bj0bj06e.xn--3e0b707e" target="_blank" rel="noopener">내도메인.한국</a>에서 한글 도메인을 무료로 발급받아 Vercel에 연결하는 방식이에요.</p>
-
-    <div class="term">
-      <div class="term-bar">
-        <div class="dots"><i class="dot r"></i><i class="dot y"></i><i class="dot g"></i></div>
-        <div class="name">extra-domain-prompt.txt</div>
-        <button class="copy-btn">COPY</button>
-      </div>
-      <pre>Vercel에 배포한 사이트에 내도메인.한국에서 발급받은 한글 도메인을 연결하고 싶어.
-
-Vercel 프로젝트 설정에서 커스텀 도메인을 추가하는 방법과,
-내도메인.한국에서 DNS 설정을 어떻게 해야 하는지
-단계별로 아주 쉽게 설명해줘.</pre>
-    </div>
-
-    <div class="callout warn">
-      <div class="title">⚠ 3개월마다 무료 연장이 필요합니다</div>
-      <p>내도메인.한국의 무료 도메인은 <strong>3개월 단위</strong>로 유효합니다. 만료되기 전에 사이트에 로그인해서 연장 버튼을 눌러야 하고, 깜빡하면 주소가 끊깁니다. 발급받은 날 바로 <strong>휴대폰 캘린더에 3개월 뒤 알림</strong>을 걸어두세요.</p>
-      <p>DNS 설정을 바꾼 뒤 실제로 주소가 연결되기까지는 보통 몇 분, 길면 몇 시간이 걸립니다. 바로 안 된다고 설정을 계속 바꾸지 마세요. 오히려 더 늦어집니다.</p>
-    </div>
-
-    <h2>그 밖에 해볼 만한 것들</h2>
-
-    <ul>
-      <li><strong>검색창 추가</strong> — 제목이나 작성자로 글을 찾는 입력칸. "목록 페이지 위에 검색창을 만들고, 입력한 단어가 제목이나 작성자에 포함된 글만 보이게 해줘."</li>
-      <li><strong>별점 매기기</strong> — 시트에 "별점" 컬럼을 추가하고 글쓰기 폼에 ★ 1~5개 선택을 넣기.</li>
-      <li><strong>비밀번호로 글 삭제</strong> — 글 쓸 때 네 자리 숫자를 같이 저장해두고, 그 숫자를 맞춰야 삭제되게 하기.</li>
-      <li><strong>색과 폰트 바꾸기</strong> — 가장 만족도가 높은 작업입니다. "전체 색을 바다 느낌의 파란 계열로 바꿔줘" 한 줄이면 됩니다.</li>
-    </ul>
-
-    <div class="pagenav">
-      <a class="prev" href="step3.html">
-        <div class="dir">← 이전</div>
-        <div class="ttl">STEP 3 · GitHub + Vercel 배포</div>
-      </a>
-      <a class="next" href="errors.html">
-        <div class="dir">다음 →</div>
-        <div class="ttl">에러 해결법</div>
-      </a>
-    </div>
-
-  </main>
 </div>
 
-<div class="statusbar">
-  <span>⎇ main</span>
-  <span class="hide-sm">extra.html</span>
-  <span class="right">비개발자 웹사이트 워크샵</span>
-</div>
-
-<script>
-document.querySelectorAll('.copy-btn').forEach(function(btn){
-  btn.addEventListener('click', function(){
-    var pre = btn.closest('.term').querySelector('pre');
-    if(!pre) return;
-    var text = pre.innerText;
-    var done = function(){
-      btn.textContent = '복사됨 ✓';
-      btn.classList.add('done');
-      setTimeout(function(){ btn.textContent = 'COPY'; btn.classList.remove('done'); }, 1500);
-    };
-    if(navigator.clipboard && navigator.clipboard.writeText){
-      navigator.clipboard.writeText(text).then(done, function(){ fallback(text, done); });
-    } else {
-      fallback(text, done);
-    }
-  });
-});
-function fallback(text, done){
-  var ta = document.createElement('textarea');
-  ta.value = text;
-  ta.style.position = 'fixed';
-  ta.style.opacity = '0';
-  document.body.appendChild(ta);
-  ta.select();
-  try { document.execCommand('copy'); done(); } catch(e){}
-  document.body.removeChild(ta);
-}
-</script>
+<script src="ide.js"></script>
 
 </body>
 </html>

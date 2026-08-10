@@ -4,7 +4,7 @@
 
 | 경로 | 정체 | 성격 |
 |---|---|---|
-| `/` | 워크샵 진행용 가이드 문서 사이트 | VSCode 다크테마 |
+| `/` | 워크샵 진행용 가이드 문서 사이트 | VSCode 워크벤치 (다크 기본 · 라이트 전환 가능) |
 | `/sample/` | 참가자에게 보여줄 "완성본 예시" 데모 | 버건디+크림 따뜻한 톤 |
 
 저장소 루트를 그대로 GitHub Pages / Vercel에 올리면 `/`가 가이드, `/sample/`이 데모가 됩니다. 빌드 설정 없음.
@@ -26,6 +26,7 @@
 ├── extra.html          ← 여유 시 도전 과제
 ├── errors.html         ← 에러 해결법
 ├── style.css           ← 가이드 전용 스타일시트
+├── ide.js              ← 가이드 전용 에디터 UI 스크립트 (8개 페이지 공용)
 ├── README.md           ← 이 파일
 └── sample/
     ├── index.html      ← 완성본 데모 메인 (타임라인 목록)
@@ -42,10 +43,10 @@
 
 - **인라인 스타일 금지.** 모든 CSS는 `style.css` 파일로 분리. `<style>` 블록도 쓰지 않음
 - **프레임워크 금지.** React·번들러·npm 없음. 브라우저에서 파일을 바로 열어도 동작해야 함
-- **전 페이지 한국어**, 반응형 (모바일에서 사이드바·그리드가 스택)
+- **전 페이지 한국어**, 반응형 (모바일에서 사이드바가 서랍으로, 그리드가 스택)
 - 구글 폰트는 각 `style.css` 최상단 `@import`로 로드
-- **localStorage는 `sample/`에서만** 사용. 가이드 사이트는 저장 기능 없음
-- JS는 각 HTML 하단 `<script>`에 인라인 (별도 .js 파일 없음)
+- 가이드 사이트의 JS는 **`ide.js` 한 파일**에 모읍니다 (HTML 안에 `<script>` 블록을 쓰지 않음). `sample/`은 예전대로 각 HTML 하단 인라인 스크립트
+- localStorage 사용처: `sample/`은 글 데이터, 가이드는 **UI 상태만**(테마 · 사이드바/패널 접힘 · 체크리스트 진행). 저장이 막혀 있어도 페이지는 정상 동작해야 함
 - 프롬프트 복사는 `navigator.clipboard.writeText()` + textarea 폴백
 
 ---
@@ -54,33 +55,82 @@
 
 ### 컨셉
 
-VSCode 같은 코드 에디터 화면을 흉내낸 다크테마. 좌측 파일 탐색기(Explorer), 상단 탭바, 각 프롬프트는 터미널 창(맥 신호등 도트 + 파일명 + COPY 버튼) 스타일.
+**코드 에디터(VSCode) 워크벤치를 통째로 흉내낸 화면.** 문서를 "열려 있는 파일"처럼 보여줍니다. 액티비티바 → 탐색기 → 탭바 → 빵부스러기 → 줄번호 거터 + 본문 + 미니맵 → 하단 터미널 패널 → 상태바가 모두 있고, `Ctrl+P` 명령 팔레트로 문서 사이를 이동합니다. 각 프롬프트는 터미널 창(맥 신호등 도트 + 파일명 + COPY 버튼) 스타일.
+
+브라우저 창 전체가 에디터입니다. `body`는 `overflow:hidden`이고 **본문 스크롤은 `.scroller`가 담당**합니다(`window`가 아니라 이 요소를 스크롤시켜야 합니다).
 
 ### 디자인 토큰 (`style.css`)
 
 ```css
---bg:#0b0d10;        --panel:#111317;    --panel-2:#14171c;
---sidebar:#0d0f13;   --border:#22262c;
---text:#d4d8dd;      --text-dim:#7d8590; --text-faint:#565d68;
---blue:#569cd6;      --green:#6a9955;    --green-bright:#3ddc84;
---orange:#ce9178;    --purple:#c586c0;   --yellow:#dcdcaa;
---red:#f14c4c;       --cyan:#4ec9b0;
+/* 표면 */
+--bg:#0b0d10;       --editor:#0d1015;   --panel:#111317;   --panel-2:#14171c;
+--sidebar:#0a0c0f;  --activity:#080a0d; --chrome:#101318;  --hover:#171b21;
+--border:#22262c;   --border-soft:#191d23;
+/* 글자 */
+--text:#d4d8dd;     --text-dim:#7d8590; --text-faint:#565d68;
+/* 구문 강조 */
+--blue:#569cd6;     --green:#6a9955;    --green-bright:#3ddc84;
+--orange:#ce9178;   --purple:#c586c0;   --yellow:#dcdcaa;
+--red:#f14c4c;      --cyan:#4ec9b0;
+/* 강조 조합 · 치수 */
+--accent / --accent-bg / --accent-line / --status / --selection
+--h-title --h-tab --h-crumb --h-status --w-activity --w-sidebar
+--w-gutter --w-minimap --h-panel --line-h
 ```
+
+**라이트 테마**는 `html[data-theme="light"]`에서 같은 토큰을 다시 정의합니다(Light+ 계열). 색을 새로 쓸 때는 하드코딩하지 말고 토큰을 쓰거나, 라이트 값도 함께 추가하세요.
 
 폰트: 헤딩/코드/라벨 `JetBrains Mono`, 본문 `IBM Plex Sans KR`.
 
 ### 페이지 공통 구조
 
-모든 페이지가 아래 뼈대를 그대로 반복합니다. 페이지를 추가할 때도 이 순서를 지킵니다.
+HTML에는 **빈 껍데기만** 두고 내용은 `ide.js`가 채웁니다. 8개 페이지가 아래 뼈대를 글자 그대로 공유하며, 페이지마다 다른 것은 `<title>`, `<body data-file="...">`, `.main` 안의 본문뿐입니다.
 
+```html
+<body data-file="step1.html">
+<div class="ide">                       <!-- grid: 타이틀 / 본체 / 패널 / 상태바 -->
+  <header class="titlebar"></header>     <!-- 신호등·메뉴·Ctrl+P 검색칸·창 버튼 -->
+  <div class="workbench">                <!-- grid: 48px / 246px / 1fr -->
+    <nav class="activitybar"></nav>      <!-- 아이콘 레일 -->
+    <aside class="sidebar"></aside>      <!-- 열린 편집기 / WORKSHOP / SAMPLE / 개요 -->
+    <div class="editor">
+      <div class="tabbar"></div>         <!-- 문서 8개가 탭으로 -->
+      <div class="breadcrumb"></div>     <!-- workshop › 파일 › 현재 섹션 -->
+      <div class="editor-area">
+        <div class="scroller" id="scroller">
+          <div class="code">
+            <div class="gutter"></div>   <!-- 줄번호 -->
+            <main class="main"> … 본문 … </main>
+          </div>
+        </div>
+        <div class="minimap">…</div>
+      </div>
+    </div>
+  </div>
+  <section class="panel-dock"></section> <!-- 터미널 / 문제 / 출력 -->
+  <footer class="statusbar"></footer>
+</div>
+<script src="ide.js"></script>
 ```
-.titlebar   맥 신호등 도트 3개 + 파일 경로
-.tabbar     README.md 탭 + 현재 파일 탭(.active)
-.shell      grid 236px + 1fr
- ├ .sidebar  Explorer 파일 목록, 현재 페이지에 .active (파란 강조)
- └ .main     본문 (max-width 900px)
-.statusbar  화면 하단 고정, 파란 배경, "⎇ main" · 파일명 · 워크샵명
-```
+
+> ⚠️ `.gutter`와 `.minimap`은 좁은 화면에서 `display:none`이 되는데, 그러면 본문이 **폭 0인 첫 그리드 열**로 밀려납니다. 그래서 해당 미디어쿼리에서 `.code` / `.editor-area`의 `grid-template-columns`도 한 칸으로 되돌립니다. 열을 숨길 때는 이 짝을 잊지 마세요.
+
+### `ide.js`가 하는 일
+
+문서 목록은 파일 맨 위 **`FILES` 배열이 유일한 출처**입니다. 여기만 고치면 탭·탐색기·명령 팔레트·상태바 "문서 n/8"이 한꺼번에 따라옵니다.
+
+| 기능 | 설명 |
+|---|---|
+| 골격 생성 | 타이틀바 · 액티비티바 · 탐색기 · 탭바 · 빵부스러기 · 상태바 · 하단 패널 |
+| 개요(아웃라인) | 본문 `h2`/`h3`를 훑어 `id`를 붙이고 사이드바 목록 생성 |
+| 스크롤 추적 | 현재 섹션을 빵부스러기·개요에 강조, 상태바 `Ln` 갱신, 미니맵 뷰포트 이동 |
+| 줄번호 거터 | 본문 높이 ÷ 26px 만큼 번호를 찍음 (실제 코드 줄이 아니라 분위기용) |
+| 미니맵 | 본문 블록을 축소 비율로 그린 막대. 클릭하면 그 위치로 스크롤 |
+| 명령 팔레트 | `Ctrl+P` 파일 · `@` 문서 내 제목 · `>` 명령. 부분일치(subsequence) 검색 |
+| 하단 패널 | 터미널(가짜 로그) / 문제(체크리스트 남은 개수) / 출력(워크샵 타임라인) |
+| 그 밖 | COPY 버튼, 체크리스트 저장, 테마 전환, 사이드바·패널 접기 |
+
+단축키: `Ctrl+P` 팔레트 · `Ctrl+K` 명령 · `Ctrl+B` 사이드바 · `Ctrl+J` 패널 · `Esc` 닫기 (맥은 `⌘`).
 
 ### 주요 CSS 클래스
 
@@ -95,6 +145,10 @@ VSCode 같은 코드 에디터 화면을 흉내낸 다크테마. 좌측 파일 �
 | `.meta-grid` / `.meta-card` | 대상·시간·장소·비용 요약 |
 | `.pagenav` | 페이지 하단 이전/다음 문서 이동 |
 | `.badge` | `.blue` / `.green` / `.purple` 변형 |
+| `.tree` / `.sb-sec` | 탐색기 섹션과 파일 목록 (`.sb-sec.collapsed`로 접힘) |
+| `.tab` / `.ptab` | 편집기 탭 / 하단 패널 탭 |
+| `.pal-item` | 명령 팔레트 항목 (`.sel`이 현재 선택) |
+| `.ide.sidebar-hidden` / `.panel-hidden` / `.sidebar-open` | 사이드바·패널 접힘 상태 (마지막 것은 모바일 서랍 열림) |
 
 `h1`은 `#`, `h2`는 `##`, `.subtitle`은 `//` 접두사를 CSS `::before`로 붙입니다. 마크다운 문서를 보는 느낌을 내기 위한 장치라 HTML에 직접 쓰지 마세요.
 
@@ -328,20 +382,25 @@ function getPosts(){
 
 1. **진행자용 팁 페이지는 만들지 않음** — 초안에 있었으나 불필요하다고 판단해 제외. 진행자용 내용은 각 페이지의 콜아웃(`.callout.tip`)으로 분산시켰습니다.
 2. **상세보기 큰따옴표는 세리프 폰트** — 한글 손글씨체(당시 Kirang Haerang)로 두니 `“` 글리프가 66px에서도 작게 그려졌습니다. `.article .quote`만 Georgia 계열로 고정.
-3. **모바일에서 Explorer는 가로 스크롤 탭 줄로 변형** — 세로 파일 목록을 그대로 두니 휴대폰에서 첫 화면을 사이드바가 통째로 차지하고 본문까지 한참 스크롤해야 했습니다. `@media (max-width:820px)`에서 `.sidebar`를 `display:flex; overflow-x:auto`로 바꾸고 `.sec`/`.folder`/`hr`을 숨깁니다.
+3. ~~**모바일에서 Explorer는 가로 스크롤 탭 줄로 변형**~~ — 세로 파일 목록을 그대로 두니 휴대폰에서 첫 화면을 사이드바가 통째로 차지했습니다. **6번 결정으로 서랍(drawer) 방식으로 대체되었습니다.**
 4. **sample 폰트 교체 (Kirang Haerang + Jua → Gowun Batang + IBM Plex Sans KR)** — "더 깔끔한 폰트로" 요청. 명조는 같은 px에서 더 커 보이므로 히어로 40→37px, 카드 제목 23→21px, 상세 제목 30→27px, 모바일 히어로 29→26px로 함께 줄였고, 본문 굵기는 300→400으로 올려 한글 획이 흐려지지 않게 했습니다. **컬러·스캘럽·하드섀도우·타임라인 구조는 유지.**
 5. **index.html의 "문서 목록" 카드 그리드 삭제** — 사이드바 Explorer와 하단 pagenav가 이미 같은 이동 경로를 제공해서 중복이었습니다. 안 쓰게 된 `.doc-grid` / `.doc-card` CSS도 함께 제거했습니다. index 흐름은 이제 **소개 → 오늘의 흐름 → 완성본 CTA → 세 단어만 기억하세요**.
+6. **가이드 사이트를 "에디터 흉내"에서 "에디터 워크벤치"로 확장** — 원래는 타이틀바·탭바·사이드바·상태바만 있는 문서 페이지였습니다. 액티비티바 · 빵부스러기 · 줄번호 거터 · 미니맵 · 하단 터미널 패널 · 명령 팔레트 · 라이트 테마를 더해 화면 전체가 에디터로 보이게 했습니다. 이때 세 가지가 함께 바뀌었습니다.
+   - **공통 UI를 `ide.js` 한 파일로 이동.** 같은 골격을 8개 HTML에 복사해두면 문서를 하나 추가할 때 8곳을 고쳐야 했습니다. 이제 `FILES` 배열 한 줄이면 됩니다. HTML에는 빈 컨테이너만 남습니다.
+   - **스크롤 주체가 `window` → `.scroller`로.** 워크벤치가 화면 높이에 고정돼야 상태바·패널이 항상 제자리에 있습니다. `body`는 `overflow:hidden`입니다.
+   - **모바일 Explorer는 가로 탭 줄 대신 서랍(drawer)으로.** 문서가 8개로 늘면서 가로 스크롤 줄로는 어디에 있는지 알기 어려웠습니다. 액티비티바 아이콘이나 `Ctrl+B`로 열고, 바깥을 누르면 닫힙니다. (3번 결정을 대체합니다.)
 
 ---
 
 ## 고칠 때 확인할 것
 
-- [ ] 새 페이지를 추가하면 **모든 페이지의 사이드바**에 항목을 추가하고, 해당 페이지에서만 `.active`를 붙였는가
+- [ ] 새 문서를 추가하면 `ide.js`의 **`FILES` 배열**에 넣었는가 (탭·탐색기·팔레트·상태바가 여기서 나옵니다). HTML은 `<body data-file="새파일.html">`만 맞으면 됩니다
+- [ ] 새 HTML이 공통 골격(`.ide` → `.workbench` → `.editor` → `.scroller` → `.code` → `.main`)을 그대로 쓰고, 맨 아래에 `<script src="ide.js"></script>`가 있는가
 - [ ] `.pagenav`의 이전/다음이 앞뒤 페이지와 맞물리는가 (현재 순서: index → checklist → templates → step1 → step2 → step3 → extra → errors)
-- [ ] `.term` 박스를 추가한 페이지에 COPY 스크립트 블록이 들어 있는가 (step3는 프롬프트가 없어 스크립트도 없음)
-- [ ] 프롬프트 원문을 임의로 다듬지 않았는가
+- [ ] 프롬프트 원문을 임의로 다듬지 않았는가 (COPY 버튼 동작은 `ide.js`가 알아서 붙입니다)
+- [ ] 새 색을 하드코딩하지 않고 토큰을 썼는가. 썼다면 라이트 테마에서도 읽히는가
 - [ ] sample을 고쳤다면 `getPosts()` 중복 3곳을 모두 반영했는가
-- [ ] 모바일(375px)에서 가로 스크롤이 생기지 않는가
+- [ ] 모바일(375px)에서 가로 스크롤이 생기지 않는가, 탐색기 서랍이 열리고 닫히는가
 
 ## 로컬에서 보기
 
@@ -352,3 +411,5 @@ python3 -m http.server 8899
 `http://localhost:8899/` → 가이드, `http://localhost:8899/sample/` → 데모.
 
 파일을 직접 열어도(`file://`) 동작하지만, 그때는 클립보드 API가 막혀 COPY 버튼이 textarea 폴백으로 넘어갑니다.
+
+JavaScript를 끄면 에디터 UI(탭·탐색기·팔레트) 없이 본문만 보이고, 각 페이지 맨 위 `<noscript>` 안내에 문서 이동 링크가 나옵니다.

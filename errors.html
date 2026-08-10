@@ -6,222 +6,198 @@
 <title>에러 해결법 — 비개발자 웹사이트 워크샵</title>
 <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body data-file="errors.html">
 
-<div class="titlebar">
-  <div class="dots"><i class="dot r"></i><i class="dot y"></i><i class="dot g"></i></div>
-  <div class="path">workshop / errors.html — 에러 해결법</div>
-</div>
+<div class="ide">
 
-<div class="tabbar">
-  <a class="tab" href="index.html"><span class="ic">◆</span> README.md</a>
-  <a class="tab active" href="errors.html"><span class="ic">◆</span> errors.html</a>
-</div>
+  <header class="titlebar"></header>
 
-<div class="shell">
+  <div class="workbench">
+    <nav class="activitybar"></nav>
+    <aside class="sidebar"></aside>
 
-  <nav class="sidebar">
-    <div class="sec">Explorer</div>
-    <div class="folder">▾ WORKSHOP</div>
-    <a class="file" href="index.html"><span class="ic">◆</span> index.html</a>
-    <a class="file" href="checklist.html"><span class="ic">◆</span> checklist.html</a>
-    <a class="file" href="templates.html"><span class="ic">◆</span> templates.html</a>
-    <a class="file" href="step1.html"><span class="ic">◆</span> step1.html</a>
-    <a class="file" href="step2.html"><span class="ic">◆</span> step2.html</a>
-    <a class="file" href="step3.html"><span class="ic">◆</span> step3.html</a>
-    <a class="file" href="extra.html"><span class="ic">◆</span> extra.html</a>
-    <a class="file active" href="errors.html"><span class="ic">◆</span> errors.html</a>
-    <a class="file css" href="style.css"><span class="ic">◆</span> style.css</a>
-    <hr>
-    <div class="folder">▾ SAMPLE</div>
-    <a class="file" href="sample/index.html" target="_blank"><span class="ic">◆</span> 완성본 데모 ↗</a>
-  </nav>
+    <div class="editor">
+      <div class="tabbar"></div>
+      <div class="breadcrumb"></div>
 
-  <main class="main">
+      <div class="editor-area">
+        <div class="scroller" id="scroller">
+          <div class="code">
+            <div class="gutter" aria-hidden="true"></div>
+            <main class="main">
+      <noscript>
+        <div class="nojs">
+          <strong>JavaScript가 꺼져 있습니다.</strong> 탐색기·탭·명령 팔레트 같은 에디터 UI 없이 본문만 보입니다.
+          문서 이동 — <a href="index.html">README</a> ·
+          <a href="checklist.html">체크리스트</a> ·
+          <a href="templates.html">템플릿</a> ·
+          <a href="step1.html">STEP 1</a> ·
+          <a href="step2.html">STEP 2</a> ·
+          <a href="step3.html">STEP 3</a> ·
+          <a href="extra.html">여유 과제</a> ·
+          <a href="errors.html">에러 해결법</a>
+        </div>
+      </noscript>
+          <h1>에러 해결법</h1>
+          <p class="subtitle">빨간 글씨는 나쁜 소식이 아니라 힌트입니다</p>
 
-    <h1>에러 해결법</h1>
-    <p class="subtitle">빨간 글씨는 나쁜 소식이 아니라 힌트입니다</p>
+          <p class="lead">개발자도 하루 종일 에러를 봅니다. 다른 점은 딱 하나예요. <strong>에러 메시지를 읽어본다는 것.</strong> 오늘 여러분이 배울 건 에러를 안 내는 법이 아니라, 에러가 났을 때 <strong>그 문장을 복사해서 AI에게 건네는 습관</strong>입니다.</p>
 
-    <p class="lead">개발자도 하루 종일 에러를 봅니다. 다른 점은 딱 하나예요. <strong>에러 메시지를 읽어본다는 것.</strong> 오늘 여러분이 배울 건 에러를 안 내는 법이 아니라, 에러가 났을 때 <strong>그 문장을 복사해서 AI에게 건네는 습관</strong>입니다.</p>
+          <h2>1. 콘솔 여는 법</h2>
 
-    <h2>1. 콘솔 여는 법</h2>
+          <p>콘솔은 브라우저가 우리에게 말을 거는 창입니다. 화면에는 아무 일 없어 보여도, 여기에는 무슨 일이 있었는지 적혀 있어요.</p>
 
-    <p>콘솔은 브라우저가 우리에게 말을 거는 창입니다. 화면에는 아무 일 없어 보여도, 여기에는 무슨 일이 있었는지 적혀 있어요.</p>
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>운영체제</th><th>단축키</th></tr></thead>
+              <tbody>
+                <tr><td>맥</td><td class="sym">Cmd + Option + I</td></tr>
+                <tr><td>윈도우</td><td class="sym">F12 &nbsp;또는&nbsp; Ctrl + Shift + I</td></tr>
+              </tbody>
+            </table>
+          </div>
 
-    <div class="table-wrap">
-      <table>
-        <thead><tr><th>운영체제</th><th>단축키</th></tr></thead>
-        <tbody>
-          <tr><td>맥</td><td class="sym">Cmd + Option + I</td></tr>
-          <tr><td>윈도우</td><td class="sym">F12 &nbsp;또는&nbsp; Ctrl + Shift + I</td></tr>
-        </tbody>
-      </table>
-    </div>
+          <p>창이 열리면 위쪽 탭 중에서 <strong>Console</strong>을 누르세요. Elements, Network 같은 다른 탭은 오늘 안 씁니다.</p>
 
-    <p>창이 열리면 위쪽 탭 중에서 <strong>Console</strong>을 누르세요. Elements, Network 같은 다른 탭은 오늘 안 씁니다.</p>
+          <h2>2. 원칙은 하나뿐입니다</h2>
 
-    <h2>2. 원칙은 하나뿐입니다</h2>
+          <div class="callout danger">
+            <div class="title">⛔ 빨간 글씨 = 에러</div>
+            <p>콘솔에 <strong>빨간 글씨</strong>가 있으면 그게 원인입니다. 회색이나 노란 글씨는 지금 무시해도 됩니다. 빨간 줄을 찾아서 <strong>드래그로 선택 → 복사</strong>하세요. 그게 첫 번째 행동입니다.</p>
+            <p>빨간 글씨가 여러 줄이면 <strong>제일 위의 것</strong>부터 보세요. 아래쪽은 대개 그 여파로 따라 나온 것들입니다.</p>
+          </div>
 
-    <div class="callout danger">
-      <div class="title">⛔ 빨간 글씨 = 에러</div>
-      <p>콘솔에 <strong>빨간 글씨</strong>가 있으면 그게 원인입니다. 회색이나 노란 글씨는 지금 무시해도 됩니다. 빨간 줄을 찾아서 <strong>드래그로 선택 → 복사</strong>하세요. 그게 첫 번째 행동입니다.</p>
-      <p>빨간 글씨가 여러 줄이면 <strong>제일 위의 것</strong>부터 보세요. 아래쪽은 대개 그 여파로 따라 나온 것들입니다.</p>
-    </div>
+          <h2>3. 에러 해결 프롬프트</h2>
 
-    <h2>3. 에러 해결 프롬프트</h2>
+          <p>복사한 에러를 아래 틀에 넣어서 AI에게 그대로 보내세요. 이게 오늘 워크샵에서 가장 많이 쓰게 될 프롬프트입니다.</p>
 
-    <p>복사한 에러를 아래 틀에 넣어서 AI에게 그대로 보내세요. 이게 오늘 워크샵에서 가장 많이 쓰게 될 프롬프트입니다.</p>
+          <div class="term">
+            <div class="term-bar">
+              <div class="dots"><i class="dot r"></i><i class="dot y"></i><i class="dot g"></i></div>
+              <div class="name">error-prompt.txt</div>
+              <button class="copy-btn">COPY</button>
+            </div>
+            <pre>[상황/맥락] 나는 (무엇을 하려고 했는지)를 하고 있었는데 이런 에러가 떴어:
 
-    <div class="term">
-      <div class="term-bar">
-        <div class="dots"><i class="dot r"></i><i class="dot y"></i><i class="dot g"></i></div>
-        <div class="name">error-prompt.txt</div>
-        <button class="copy-btn">COPY</button>
+      (콘솔에서 복사한 에러 메시지 붙여넣기)
+
+      내 코드는 이거야:
+
+      (관련 코드 파일 내용 붙여넣기)
+
+      [요청] 원인이 뭔지 알려주고, 어떻게 고쳐야 할지 알려줘.
+
+      [형식] 수정된 전체 코드로 다시 줘. 어디를 왜 고쳤는지도 짧게 설명해줘.</pre>
+          </div>
+
+          <div class="callout tip">
+            <div class="title">✱ 코드도 같이 붙여넣어야 합니다</div>
+            <p>에러 메시지만 보내면 AI는 일반론만 말해줍니다. <strong>에러 + 코드</strong>를 함께 줘야 "여기 이 줄이 문제네요"라는 답이 옵니다. 파일 전체를 붙여넣는 걸 겁내지 마세요.</p>
+          </div>
+
+          <h2>4. 진행자용 에러 패턴 매칭표</h2>
+
+          <p>워크샵에서 반복해서 나오는 네 가지입니다. 증상만 들어도 원인이 짐작되면 대응 속도가 크게 달라집니다.</p>
+
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>콘솔 증상</th><th>원인</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td class="sym">Failed to fetch / CORS 에러</td>
+                  <td>Apps Script 웹앱 URL 오류 또는 액세스 권한 미설정</td>
+                </tr>
+                <tr>
+                  <td class="sym">데이터 안 불러와지는데 에러도 없음</td>
+                  <td>Sheets 컬럼 순서와 코드 참조 순서 불일치</td>
+                </tr>
+                <tr>
+                  <td class="sym">Uncaught SyntaxError</td>
+                  <td>코드 복붙 중 일부 누락</td>
+                </tr>
+                <tr>
+                  <td class="sym">배포됐는데 화면 하얗게 뜸</td>
+                  <td>파일 경로(html/js/css) 오류</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h3>각 패턴 대응 요령</h3>
+
+          <ul class="steps">
+            <li class="step">
+              <span class="num">1</span>
+              <div class="body">
+                <h3>Failed to fetch / CORS</h3>
+                <p>가장 흔합니다. 순서대로 확인하세요.</p>
+                <ul>
+                  <li>코드에 붙여넣은 URL이 <code>/exec</code>로 끝나나요? <code>/dev</code>로 끝나면 안 됩니다.</li>
+                  <li>배포 설정에서 액세스 권한이 <strong>모든 사용자</strong>인가요?</li>
+                  <li>코드를 고친 뒤 <strong>새 버전으로 재배포</strong>했나요?</li>
+                  <li>웹앱 URL을 브라우저 주소창에 직접 넣어보세요. 뭔가 응답이 보이면 URL은 정상입니다.</li>
+                </ul>
+              </div>
+            </li>
+            <li class="step">
+              <span class="num">2</span>
+              <div class="body">
+                <h3>에러는 없는데 데이터가 안 나옴</h3>
+                <p>시트 첫 행이 <code>제목 · 작성자 · 작성일 · 내용</code> 순서인지 확인하세요. 순서를 바꿔놓고 코드는 그대로면, 제목 자리에 작성자가 들어가는 식으로 어긋납니다. 시트를 고치든 코드를 고치든 <strong>둘 중 하나를 맞추면</strong> 됩니다.</p>
+              </div>
+            </li>
+            <li class="step">
+              <span class="num">3</span>
+              <div class="body">
+                <h3>Uncaught SyntaxError</h3>
+                <p>코드를 복사할 때 일부가 빠진 경우입니다. 부분 수정하려 하지 말고, AI에게 <strong>"전체 코드를 다시 줘"</strong>라고 한 뒤 파일 내용을 통째로 지우고 새로 붙여넣는 게 가장 빠릅니다.</p>
+              </div>
+            </li>
+            <li class="step">
+              <span class="num">4</span>
+              <div class="body">
+                <h3>배포했는데 화면이 하얗게 뜸</h3>
+                <p>파일 이름과 경로 문제입니다.</p>
+                <ul>
+                  <li>저장소 맨 위에 <code>index.html</code>이 있어야 합니다. 폴더 안에 들어가 있으면 안 열립니다.</li>
+                  <li>대소문자를 구분합니다. <code>Style.css</code>와 <code>style.css</code>는 다른 파일이에요. 내 컴퓨터에서는 되던 게 배포하면 깨지는 대표적 원인입니다.</li>
+                  <li><code>C:\Users\...</code> 같은 내 컴퓨터 경로가 들어가 있으면 안 됩니다.</li>
+                </ul>
+              </div>
+            </li>
+          </ul>
+
+          <div class="callout">
+            <div class="title">✱ 그래도 안 될 때의 마지막 카드</div>
+            <p>10분 넘게 같은 자리에서 돌고 있다면, 고치려 하지 말고 <strong>다시 만드는 게</strong> 빠를 때가 많습니다. 새 대화를 열고 STEP 1 프롬프트부터 다시 시작하세요. 두 번째는 훨씬 빠릅니다. 되돌아가는 게 지는 게 아니에요.</p>
+          </div>
+
+          <div class="pagenav">
+            <a class="prev" href="extra.html">
+              <div class="dir">← 이전</div>
+              <div class="ttl">여유 시 도전 과제</div>
+            </a>
+            <a class="next" href="index.html">
+              <div class="dir">처음으로 →</div>
+              <div class="ttl">README</div>
+            </a>
+          </div>
+
+
+            </main>
+          </div>
+        </div>
+        <div class="minimap"><div class="mm-inner"></div><div class="mm-view"></div></div>
       </div>
-      <pre>[상황/맥락] 나는 (무엇을 하려고 했는지)를 하고 있었는데 이런 에러가 떴어:
-
-(콘솔에서 복사한 에러 메시지 붙여넣기)
-
-내 코드는 이거야:
-
-(관련 코드 파일 내용 붙여넣기)
-
-[요청] 원인이 뭔지 알려주고, 어떻게 고쳐야 할지 알려줘.
-
-[형식] 수정된 전체 코드로 다시 줘. 어디를 왜 고쳤는지도 짧게 설명해줘.</pre>
     </div>
+  </div>
 
-    <div class="callout tip">
-      <div class="title">✱ 코드도 같이 붙여넣어야 합니다</div>
-      <p>에러 메시지만 보내면 AI는 일반론만 말해줍니다. <strong>에러 + 코드</strong>를 함께 줘야 "여기 이 줄이 문제네요"라는 답이 옵니다. 파일 전체를 붙여넣는 걸 겁내지 마세요.</p>
-    </div>
+  <section class="panel-dock"></section>
+  <footer class="statusbar"></footer>
 
-    <h2>4. 진행자용 에러 패턴 매칭표</h2>
-
-    <p>워크샵에서 반복해서 나오는 네 가지입니다. 증상만 들어도 원인이 짐작되면 대응 속도가 크게 달라집니다.</p>
-
-    <div class="table-wrap">
-      <table>
-        <thead><tr><th>콘솔 증상</th><th>원인</th></tr></thead>
-        <tbody>
-          <tr>
-            <td class="sym">Failed to fetch / CORS 에러</td>
-            <td>Apps Script 웹앱 URL 오류 또는 액세스 권한 미설정</td>
-          </tr>
-          <tr>
-            <td class="sym">데이터 안 불러와지는데 에러도 없음</td>
-            <td>Sheets 컬럼 순서와 코드 참조 순서 불일치</td>
-          </tr>
-          <tr>
-            <td class="sym">Uncaught SyntaxError</td>
-            <td>코드 복붙 중 일부 누락</td>
-          </tr>
-          <tr>
-            <td class="sym">배포됐는데 화면 하얗게 뜸</td>
-            <td>파일 경로(html/js/css) 오류</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <h3>각 패턴 대응 요령</h3>
-
-    <ul class="steps">
-      <li class="step">
-        <span class="num">1</span>
-        <div class="body">
-          <h3>Failed to fetch / CORS</h3>
-          <p>가장 흔합니다. 순서대로 확인하세요.</p>
-          <ul>
-            <li>코드에 붙여넣은 URL이 <code>/exec</code>로 끝나나요? <code>/dev</code>로 끝나면 안 됩니다.</li>
-            <li>배포 설정에서 액세스 권한이 <strong>모든 사용자</strong>인가요?</li>
-            <li>코드를 고친 뒤 <strong>새 버전으로 재배포</strong>했나요?</li>
-            <li>웹앱 URL을 브라우저 주소창에 직접 넣어보세요. 뭔가 응답이 보이면 URL은 정상입니다.</li>
-          </ul>
-        </div>
-      </li>
-      <li class="step">
-        <span class="num">2</span>
-        <div class="body">
-          <h3>에러는 없는데 데이터가 안 나옴</h3>
-          <p>시트 첫 행이 <code>제목 · 작성자 · 작성일 · 내용</code> 순서인지 확인하세요. 순서를 바꿔놓고 코드는 그대로면, 제목 자리에 작성자가 들어가는 식으로 어긋납니다. 시트를 고치든 코드를 고치든 <strong>둘 중 하나를 맞추면</strong> 됩니다.</p>
-        </div>
-      </li>
-      <li class="step">
-        <span class="num">3</span>
-        <div class="body">
-          <h3>Uncaught SyntaxError</h3>
-          <p>코드를 복사할 때 일부가 빠진 경우입니다. 부분 수정하려 하지 말고, AI에게 <strong>"전체 코드를 다시 줘"</strong>라고 한 뒤 파일 내용을 통째로 지우고 새로 붙여넣는 게 가장 빠릅니다.</p>
-        </div>
-      </li>
-      <li class="step">
-        <span class="num">4</span>
-        <div class="body">
-          <h3>배포했는데 화면이 하얗게 뜸</h3>
-          <p>파일 이름과 경로 문제입니다.</p>
-          <ul>
-            <li>저장소 맨 위에 <code>index.html</code>이 있어야 합니다. 폴더 안에 들어가 있으면 안 열립니다.</li>
-            <li>대소문자를 구분합니다. <code>Style.css</code>와 <code>style.css</code>는 다른 파일이에요. 내 컴퓨터에서는 되던 게 배포하면 깨지는 대표적 원인입니다.</li>
-            <li><code>C:\Users\...</code> 같은 내 컴퓨터 경로가 들어가 있으면 안 됩니다.</li>
-          </ul>
-        </div>
-      </li>
-    </ul>
-
-    <div class="callout">
-      <div class="title">✱ 그래도 안 될 때의 마지막 카드</div>
-      <p>10분 넘게 같은 자리에서 돌고 있다면, 고치려 하지 말고 <strong>다시 만드는 게</strong> 빠를 때가 많습니다. 새 대화를 열고 STEP 1 프롬프트부터 다시 시작하세요. 두 번째는 훨씬 빠릅니다. 되돌아가는 게 지는 게 아니에요.</p>
-    </div>
-
-    <div class="pagenav">
-      <a class="prev" href="extra.html">
-        <div class="dir">← 이전</div>
-        <div class="ttl">여유 시 도전 과제</div>
-      </a>
-      <a class="next" href="index.html">
-        <div class="dir">처음으로 →</div>
-        <div class="ttl">README</div>
-      </a>
-    </div>
-
-  </main>
 </div>
 
-<div class="statusbar">
-  <span>⎇ main</span>
-  <span class="hide-sm">errors.html</span>
-  <span class="right">비개발자 웹사이트 워크샵</span>
-</div>
-
-<script>
-document.querySelectorAll('.copy-btn').forEach(function(btn){
-  btn.addEventListener('click', function(){
-    var pre = btn.closest('.term').querySelector('pre');
-    if(!pre) return;
-    var text = pre.innerText;
-    var done = function(){
-      btn.textContent = '복사됨 ✓';
-      btn.classList.add('done');
-      setTimeout(function(){ btn.textContent = 'COPY'; btn.classList.remove('done'); }, 1500);
-    };
-    if(navigator.clipboard && navigator.clipboard.writeText){
-      navigator.clipboard.writeText(text).then(done, function(){ fallback(text, done); });
-    } else {
-      fallback(text, done);
-    }
-  });
-});
-function fallback(text, done){
-  var ta = document.createElement('textarea');
-  ta.value = text;
-  ta.style.position = 'fixed';
-  ta.style.opacity = '0';
-  document.body.appendChild(ta);
-  ta.select();
-  try { document.execCommand('copy'); done(); } catch(e){}
-  document.body.removeChild(ta);
-}
-</script>
+<script src="ide.js"></script>
 
 </body>
 </html>

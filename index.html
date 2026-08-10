@@ -6,107 +6,114 @@
 <title>README — 비개발자 웹사이트 워크샵</title>
 <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body data-file="index.html">
 
-<div class="titlebar">
-  <div class="dots"><i class="dot r"></i><i class="dot y"></i><i class="dot g"></i></div>
-  <div class="path">workshop / index.html — 비개발자 웹사이트 워크샵</div>
+<div class="ide">
+
+  <header class="titlebar"></header>
+
+  <div class="workbench">
+    <nav class="activitybar"></nav>
+    <aside class="sidebar"></aside>
+
+    <div class="editor">
+      <div class="tabbar"></div>
+      <div class="breadcrumb"></div>
+
+      <div class="editor-area">
+        <div class="scroller" id="scroller">
+          <div class="code">
+            <div class="gutter" aria-hidden="true"></div>
+            <main class="main">
+      <noscript>
+        <div class="nojs">
+          <strong>JavaScript가 꺼져 있습니다.</strong> 탐색기·탭·명령 팔레트 같은 에디터 UI 없이 본문만 보입니다.
+          문서 이동 — <a href="index.html">README</a> ·
+          <a href="checklist.html">체크리스트</a> ·
+          <a href="templates.html">템플릿</a> ·
+          <a href="step1.html">STEP 1</a> ·
+          <a href="step2.html">STEP 2</a> ·
+          <a href="step3.html">STEP 3</a> ·
+          <a href="extra.html">여유 과제</a> ·
+          <a href="errors.html">에러 해결법</a>
+        </div>
+      </noscript>
+          <h1>비개발자 웹사이트 워크샵</h1>
+          <p class="subtitle">코드를 한 줄도 몰라도 괜찮습니다</p>
+
+          <p class="lead">오늘, 우리 동네 게시판을 함께 설계하고 붙입니다. 개발자가 아니어도 됩니다. 필요한 건 노트북 한 대와 "이런 걸 만들고 싶다"는 문장 하나예요. 그 문장을 AI에게 어떻게 건네는지만 익히면, 오늘 안에 인터넷 주소가 있는 진짜 웹사이트를 하나 갖게 됩니다.</p>
+
+          <p>이 워크샵은 프로그래밍을 가르치지 않습니다. 대신 <strong>원하는 걸 정확하게 말하는 법</strong>과, 만들어진 결과물을 세상에 <strong>올려두는 법</strong>을 다룹니다. 오늘 다 못 만들어도 괜찮아요. 여기 문서는 워크샵이 끝난 뒤에도 그대로 남아 있습니다.</p>
+
+          <div class="meta-grid">
+            <div class="meta-card"><div class="k">대상</div><div class="v">완전 비개발자 6명</div></div>
+            <div class="meta-card"><div class="k">시간</div><div class="v">2~3시간</div></div>
+            <div class="meta-card"><div class="k">장소</div><div class="v">스터디룸</div></div>
+            <div class="meta-card"><div class="k">비용</div><div class="v">무료</div></div>
+          </div>
+
+          <h2>오늘의 흐름</h2>
+
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>시간</th><th>내용</th></tr></thead>
+              <tbody>
+                <tr><td class="time">15분</td><td>완성본 시연 + 개념 설명 (프론트 / 백 / 배포란?)</td></tr>
+                <tr><td class="time">20분</td><td>계정 생성 (Replit, GitHub, Vercel)</td></tr>
+                <tr><td class="time">45분</td><td>AI 프롬프트로 목록 · 글쓰기 · 상세보기 화면 만들기</td></tr>
+                <tr><td class="time">30분</td><td>Google Sheets 연동 (저장 / 불러오기)</td></tr>
+                <tr><td class="time">20분</td><td>GitHub + Vercel 배포 → 실제 URL 접속</td></tr>
+                <tr><td class="time">나머지</td><td>자유 커스터마이징 · Q&amp;A · (여유 시) 답변달기, 도메인 연결</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>오늘 만들 완성본 미리보기</h2>
+
+          <p>말로 설명하는 것보다 한 번 보는 게 빠릅니다. 아래는 오늘 여러분이 만들게 될 결과물의 예시예요. 독서모임에서 읽은 책의 후기를 남기는 게시판입니다.</p>
+
+          <a class="cta" href="sample/index.html" target="_blank" rel="noopener">
+            <div class="eyebrow">DEMO · 새 탭에서 열림</div>
+            <div class="headline">📚 책후기 게시판 데모 열기 →</div>
+            <div class="desc">글 목록 · 글쓰기 · 상세보기가 모두 동작합니다. 직접 글을 하나 써보세요.</div>
+          </a>
+
+          <div class="callout tip">
+            <div class="title">✱ 시연할 때 이렇게</div>
+            <p>데모에서 <strong>새 후기 남기기 → 등록 → 목록에 바로 뜨는 것</strong>까지 한 번에 보여주세요. "내가 쓴 글이 화면에 남는다"는 경험이 오늘 하루의 목표를 가장 빠르게 설명해 줍니다.</p>
+          </div>
+
+          <h2>세 단어만 기억하세요</h2>
+
+          <ul>
+            <li><strong>프론트엔드</strong> — 눈에 보이는 화면. 버튼, 글자, 색깔. 오늘 STEP 1에서 만듭니다.</li>
+            <li><strong>백엔드</strong> — 눈에 안 보이는 저장소. 쓴 글이 사라지지 않게 담아두는 곳. 오늘은 Google Sheets가 그 역할을 합니다.</li>
+            <li><strong>배포</strong> — 내 노트북에만 있던 걸 인터넷에 올려서, 다른 사람도 주소로 들어올 수 있게 만드는 것. STEP 3입니다.</li>
+          </ul>
+
+          <div class="pagenav">
+            <span class="spacer"></span>
+            <a class="next" href="checklist.html">
+              <div class="dir">다음 →</div>
+              <div class="ttl">준비 체크리스트</div>
+            </a>
+          </div>
+
+
+            </main>
+          </div>
+        </div>
+        <div class="minimap"><div class="mm-inner"></div><div class="mm-view"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <section class="panel-dock"></section>
+  <footer class="statusbar"></footer>
+
 </div>
 
-<div class="tabbar">
-  <a class="tab active" href="index.html"><span class="ic">◆</span> README.md</a>
-</div>
-
-<div class="shell">
-
-  <nav class="sidebar">
-    <div class="sec">Explorer</div>
-    <div class="folder">▾ WORKSHOP</div>
-    <a class="file active" href="index.html"><span class="ic">◆</span> index.html</a>
-    <a class="file" href="checklist.html"><span class="ic">◆</span> checklist.html</a>
-    <a class="file" href="templates.html"><span class="ic">◆</span> templates.html</a>
-    <a class="file" href="step1.html"><span class="ic">◆</span> step1.html</a>
-    <a class="file" href="step2.html"><span class="ic">◆</span> step2.html</a>
-    <a class="file" href="step3.html"><span class="ic">◆</span> step3.html</a>
-    <a class="file" href="extra.html"><span class="ic">◆</span> extra.html</a>
-    <a class="file" href="errors.html"><span class="ic">◆</span> errors.html</a>
-    <a class="file css" href="style.css"><span class="ic">◆</span> style.css</a>
-    <hr>
-    <div class="folder">▾ SAMPLE</div>
-    <a class="file" href="sample/index.html" target="_blank"><span class="ic">◆</span> 완성본 데모 ↗</a>
-  </nav>
-
-  <main class="main">
-
-    <h1>비개발자 웹사이트 워크샵</h1>
-    <p class="subtitle">코드를 한 줄도 몰라도 괜찮습니다</p>
-
-    <p class="lead">오늘, 우리 동네 게시판을 함께 설계하고 붙입니다. 개발자가 아니어도 됩니다. 필요한 건 노트북 한 대와 "이런 걸 만들고 싶다"는 문장 하나예요. 그 문장을 AI에게 어떻게 건네는지만 익히면, 오늘 안에 인터넷 주소가 있는 진짜 웹사이트를 하나 갖게 됩니다.</p>
-
-    <p>이 워크샵은 프로그래밍을 가르치지 않습니다. 대신 <strong>원하는 걸 정확하게 말하는 법</strong>과, 만들어진 결과물을 세상에 <strong>올려두는 법</strong>을 다룹니다. 오늘 다 못 만들어도 괜찮아요. 여기 문서는 워크샵이 끝난 뒤에도 그대로 남아 있습니다.</p>
-
-    <div class="meta-grid">
-      <div class="meta-card"><div class="k">대상</div><div class="v">완전 비개발자 6명</div></div>
-      <div class="meta-card"><div class="k">시간</div><div class="v">2~3시간</div></div>
-      <div class="meta-card"><div class="k">장소</div><div class="v">스터디룸</div></div>
-      <div class="meta-card"><div class="k">비용</div><div class="v">무료</div></div>
-    </div>
-
-    <h2>오늘의 흐름</h2>
-
-    <div class="table-wrap">
-      <table>
-        <thead><tr><th>시간</th><th>내용</th></tr></thead>
-        <tbody>
-          <tr><td class="time">15분</td><td>완성본 시연 + 개념 설명 (프론트 / 백 / 배포란?)</td></tr>
-          <tr><td class="time">20분</td><td>계정 생성 (Replit, GitHub, Vercel)</td></tr>
-          <tr><td class="time">45분</td><td>AI 프롬프트로 목록 · 글쓰기 · 상세보기 화면 만들기</td></tr>
-          <tr><td class="time">30분</td><td>Google Sheets 연동 (저장 / 불러오기)</td></tr>
-          <tr><td class="time">20분</td><td>GitHub + Vercel 배포 → 실제 URL 접속</td></tr>
-          <tr><td class="time">나머지</td><td>자유 커스터마이징 · Q&amp;A · (여유 시) 답변달기, 도메인 연결</td></tr>
-        </tbody>
-      </table>
-    </div>
-
-    <h2>오늘 만들 완성본 미리보기</h2>
-
-    <p>말로 설명하는 것보다 한 번 보는 게 빠릅니다. 아래는 오늘 여러분이 만들게 될 결과물의 예시예요. 독서모임에서 읽은 책의 후기를 남기는 게시판입니다.</p>
-
-    <a class="cta" href="sample/index.html" target="_blank" rel="noopener">
-      <div class="eyebrow">DEMO · 새 탭에서 열림</div>
-      <div class="headline">📚 책후기 게시판 데모 열기 →</div>
-      <div class="desc">글 목록 · 글쓰기 · 상세보기가 모두 동작합니다. 직접 글을 하나 써보세요.</div>
-    </a>
-
-    <div class="callout tip">
-      <div class="title">✱ 시연할 때 이렇게</div>
-      <p>데모에서 <strong>새 후기 남기기 → 등록 → 목록에 바로 뜨는 것</strong>까지 한 번에 보여주세요. "내가 쓴 글이 화면에 남는다"는 경험이 오늘 하루의 목표를 가장 빠르게 설명해 줍니다.</p>
-    </div>
-
-    <h2>세 단어만 기억하세요</h2>
-
-    <ul>
-      <li><strong>프론트엔드</strong> — 눈에 보이는 화면. 버튼, 글자, 색깔. 오늘 STEP 1에서 만듭니다.</li>
-      <li><strong>백엔드</strong> — 눈에 안 보이는 저장소. 쓴 글이 사라지지 않게 담아두는 곳. 오늘은 Google Sheets가 그 역할을 합니다.</li>
-      <li><strong>배포</strong> — 내 노트북에만 있던 걸 인터넷에 올려서, 다른 사람도 주소로 들어올 수 있게 만드는 것. STEP 3입니다.</li>
-    </ul>
-
-    <div class="pagenav">
-      <span class="spacer"></span>
-      <a class="next" href="checklist.html">
-        <div class="dir">다음 →</div>
-        <div class="ttl">준비 체크리스트</div>
-      </a>
-    </div>
-
-  </main>
-</div>
-
-<div class="statusbar">
-  <span>⎇ main</span>
-  <span class="hide-sm">index.html</span>
-  <span class="right">비개발자 웹사이트 워크샵</span>
-</div>
+<script src="ide.js"></script>
 
 </body>
 </html>

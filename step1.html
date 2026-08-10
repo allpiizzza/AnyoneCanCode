@@ -6,192 +6,168 @@
 <title>STEP 1 · 화면 만들기 — 비개발자 웹사이트 워크샵</title>
 <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body data-file="step1.html">
 
-<div class="titlebar">
-  <div class="dots"><i class="dot r"></i><i class="dot y"></i><i class="dot g"></i></div>
-  <div class="path">workshop / step1.html — 화면(UI) 만들기</div>
-</div>
+<div class="ide">
 
-<div class="tabbar">
-  <a class="tab" href="index.html"><span class="ic">◆</span> README.md</a>
-  <a class="tab active" href="step1.html"><span class="ic">◆</span> step1.html</a>
-</div>
+  <header class="titlebar"></header>
 
-<div class="shell">
+  <div class="workbench">
+    <nav class="activitybar"></nav>
+    <aside class="sidebar"></aside>
 
-  <nav class="sidebar">
-    <div class="sec">Explorer</div>
-    <div class="folder">▾ WORKSHOP</div>
-    <a class="file" href="index.html"><span class="ic">◆</span> index.html</a>
-    <a class="file" href="checklist.html"><span class="ic">◆</span> checklist.html</a>
-    <a class="file" href="templates.html"><span class="ic">◆</span> templates.html</a>
-    <a class="file active" href="step1.html"><span class="ic">◆</span> step1.html</a>
-    <a class="file" href="step2.html"><span class="ic">◆</span> step2.html</a>
-    <a class="file" href="step3.html"><span class="ic">◆</span> step3.html</a>
-    <a class="file" href="extra.html"><span class="ic">◆</span> extra.html</a>
-    <a class="file" href="errors.html"><span class="ic">◆</span> errors.html</a>
-    <a class="file css" href="style.css"><span class="ic">◆</span> style.css</a>
-    <hr>
-    <div class="folder">▾ SAMPLE</div>
-    <a class="file" href="sample/index.html" target="_blank"><span class="ic">◆</span> 완성본 데모 ↗</a>
-  </nav>
+    <div class="editor">
+      <div class="tabbar"></div>
+      <div class="breadcrumb"></div>
 
-  <main class="main">
+      <div class="editor-area">
+        <div class="scroller" id="scroller">
+          <div class="code">
+            <div class="gutter" aria-hidden="true"></div>
+            <main class="main">
+      <noscript>
+        <div class="nojs">
+          <strong>JavaScript가 꺼져 있습니다.</strong> 탐색기·탭·명령 팔레트 같은 에디터 UI 없이 본문만 보입니다.
+          문서 이동 — <a href="index.html">README</a> ·
+          <a href="checklist.html">체크리스트</a> ·
+          <a href="templates.html">템플릿</a> ·
+          <a href="step1.html">STEP 1</a> ·
+          <a href="step2.html">STEP 2</a> ·
+          <a href="step3.html">STEP 3</a> ·
+          <a href="extra.html">여유 과제</a> ·
+          <a href="errors.html">에러 해결법</a>
+        </div>
+      </noscript>
+          <span class="badge blue">STEP 1</span>
+          <span class="badge">45분</span>
+          <span class="badge purple">AI 프롬프트</span>
 
-    <span class="badge blue">STEP 1</span>
-    <span class="badge">45분</span>
-    <span class="badge purple">AI 프롬프트</span>
+          <h1>화면(UI) 만들기</h1>
+          <p class="subtitle">눈에 보이는 것부터 만듭니다</p>
 
-    <h1>화면(UI) 만들기</h1>
-    <p class="subtitle">눈에 보이는 것부터 만듭니다</p>
+          <p class="lead">저장이나 배포는 아직 생각하지 마세요. 지금 할 일은 <strong>화면 세 개를 눈으로 보는 것</strong>입니다. 목록, 글쓰기, 상세보기. 데이터는 가짜여도 됩니다. 화면이 먼저 있어야 "여기에 진짜 글이 들어가면 되겠구나"가 상상돼요.</p>
 
-    <p class="lead">저장이나 배포는 아직 생각하지 마세요. 지금 할 일은 <strong>화면 세 개를 눈으로 보는 것</strong>입니다. 목록, 글쓰기, 상세보기. 데이터는 가짜여도 됩니다. 화면이 먼저 있어야 "여기에 진짜 글이 들어가면 되겠구나"가 상상돼요.</p>
+          <h2>아래 프롬프트를 그대로 복사해서 붙여넣으세요</h2>
 
-    <h2>아래 프롬프트를 그대로 복사해서 붙여넣으세요</h2>
+          <div class="term">
+            <div class="term-bar">
+              <div class="dots"><i class="dot r"></i><i class="dot y"></i><i class="dot g"></i></div>
+              <div class="name">step1-prompt.txt</div>
+              <button class="copy-btn">COPY</button>
+            </div>
+            <pre>HTML, CSS, JavaScript로 간단한 게시판 웹사이트를 만들어줘.
 
-    <div class="term">
-      <div class="term-bar">
-        <div class="dots"><i class="dot r"></i><i class="dot y"></i><i class="dot g"></i></div>
-        <div class="name">step1-prompt.txt</div>
-        <button class="copy-btn">COPY</button>
+      기능은 다음과 같아:
+
+      1. 목록 페이지 (index.html)
+         - 게시글 제목, 작성자, 작성일을 카드 형태로 나열
+         - 각 카드를 클릭하면 상세 페이지로 이동
+
+      2. 글쓰기 페이지 (write.html)
+         - 제목, 작성자, 내용을 입력하는 폼
+         - "등록" 버튼
+
+      3. 상세보기 페이지 (detail.html)
+         - 선택한 글의 제목, 작성자, 작성일, 내용을 보여줌
+
+      디자인은 깔끔하고 따뜻한 느낌으로, 파스텔톤 색상을 사용해줘.
+
+      지금은 데이터 저장 없이 화면 디자인만 먼저 만들어줘.
+      더미 데이터(예시 글 2~3개)를 넣어서 화면이 어떻게 보이는지 확인할 수 있게 해줘.</pre>
+          </div>
+
+          <h2>이 프롬프트가 잘 만들어진 이유</h2>
+
+          <ul>
+            <li><strong>파일 이름을 지정했습니다.</strong> <code>index.html</code>, <code>write.html</code>, <code>detail.html</code>. 이름을 안 정해주면 AI가 매번 다른 이름을 쓰고, 다음 단계에서 대화가 어긋납니다.</li>
+            <li><strong>"지금은 저장 없이"라고 범위를 잘랐습니다.</strong> 한 번에 다 시키면 결과가 커지고, 어디가 잘못됐는지 찾기 어려워집니다.</li>
+            <li><strong>더미 데이터를 요청했습니다.</strong> 빈 화면은 잘 만들어졌는지 판단할 수가 없어요.</li>
+            <li><strong>분위기를 말로 표현했습니다.</strong> "파스텔톤", "따뜻한 느낌" 같은 단어면 충분합니다. 색상 코드는 몰라도 됩니다.</li>
+          </ul>
+
+          <h2>결과가 나오면 확인할 것</h2>
+
+          <ul class="steps">
+            <li class="step">
+              <span class="num">1</span>
+              <div class="body">
+                <h3>파일이 세 개 만들어졌나요?</h3>
+                <p>Replit 왼쪽 파일 목록에 <code>index.html</code>, <code>write.html</code>, <code>detail.html</code>이 보여야 합니다. 하나로 합쳐서 줬다면 "세 개의 파일로 분리해서 다시 줘"라고 요청하세요.</p>
+              </div>
+            </li>
+            <li class="step">
+              <span class="num">2</span>
+              <div class="body">
+                <h3>목록 화면에 카드가 보이나요?</h3>
+                <p>예시 글 2~3개가 카드로 떠 있어야 합니다. 아무것도 안 보이면 <a href="errors.html">errors.html</a>로 가세요.</p>
+              </div>
+            </li>
+            <li class="step">
+              <span class="num">3</span>
+              <div class="body">
+                <h3>카드를 누르면 상세 화면으로 넘어가나요?</h3>
+                <p>내용이 정확하지 않아도 괜찮습니다. 페이지가 바뀌기만 하면 성공이에요.</p>
+              </div>
+            </li>
+            <li class="step">
+              <span class="num">4</span>
+              <div class="body">
+                <h3>글쓰기 화면에 입력칸과 등록 버튼이 있나요?</h3>
+                <p>지금은 눌러도 아무 일도 안 일어나는 게 정상입니다. 저장 기능은 STEP 2에서 붙입니다.</p>
+              </div>
+            </li>
+          </ul>
+
+          <h2>마음에 안 들면 이렇게 고쳐 말하세요</h2>
+
+          <div class="term">
+            <div class="term-bar">
+              <div class="dots"><i class="dot r"></i><i class="dot y"></i><i class="dot g"></i></div>
+              <div class="name">step1-refine.txt</div>
+              <button class="copy-btn">COPY</button>
+            </div>
+            <pre>지금 화면 잘 나왔어. 여기서 딱 하나만 바꾸고 싶어.
+
+      (예시 — 하나만 골라서 쓰세요)
+      - 카드가 너무 작아. 좀 더 크고 여백이 넉넉했으면 좋겠어.
+      - 색이 차가워 보여. 크림색이랑 살구색 위주로 바꿔줘.
+      - 글씨가 작아서 잘 안 보여. 제목을 더 크게 해줘.
+      - 모바일에서 보면 카드가 잘려. 화면이 좁을 때 세로로 쌓이게 해줘.
+
+      나머지는 그대로 두고, 수정된 전체 코드로 다시 줘.</pre>
+          </div>
+
+          <div class="callout tip">
+            <div class="title">✱ 완성본을 참고 자료로 쓰세요</div>
+            <p>원하는 느낌을 말로 설명하기 어렵다면 <a href="sample/index.html" target="_blank" rel="noopener">완성본 데모</a>를 열어두고 "이런 느낌으로"라고 말해도 됩니다. 화면을 캡처해서 AI에게 보여주는 것도 좋은 방법이에요.</p>
+          </div>
+
+          <div class="pagenav">
+            <a class="prev" href="templates.html">
+              <div class="dir">← 이전</div>
+              <div class="ttl">범용 프롬프트 템플릿</div>
+            </a>
+            <a class="next" href="step2.html">
+              <div class="dir">다음 →</div>
+              <div class="ttl">STEP 2 · Google Sheets 연동</div>
+            </a>
+          </div>
+
+
+            </main>
+          </div>
+        </div>
+        <div class="minimap"><div class="mm-inner"></div><div class="mm-view"></div></div>
       </div>
-      <pre>HTML, CSS, JavaScript로 간단한 게시판 웹사이트를 만들어줘.
-
-기능은 다음과 같아:
-
-1. 목록 페이지 (index.html)
-   - 게시글 제목, 작성자, 작성일을 카드 형태로 나열
-   - 각 카드를 클릭하면 상세 페이지로 이동
-
-2. 글쓰기 페이지 (write.html)
-   - 제목, 작성자, 내용을 입력하는 폼
-   - "등록" 버튼
-
-3. 상세보기 페이지 (detail.html)
-   - 선택한 글의 제목, 작성자, 작성일, 내용을 보여줌
-
-디자인은 깔끔하고 따뜻한 느낌으로, 파스텔톤 색상을 사용해줘.
-
-지금은 데이터 저장 없이 화면 디자인만 먼저 만들어줘.
-더미 데이터(예시 글 2~3개)를 넣어서 화면이 어떻게 보이는지 확인할 수 있게 해줘.</pre>
     </div>
+  </div>
 
-    <h2>이 프롬프트가 잘 만들어진 이유</h2>
+  <section class="panel-dock"></section>
+  <footer class="statusbar"></footer>
 
-    <ul>
-      <li><strong>파일 이름을 지정했습니다.</strong> <code>index.html</code>, <code>write.html</code>, <code>detail.html</code>. 이름을 안 정해주면 AI가 매번 다른 이름을 쓰고, 다음 단계에서 대화가 어긋납니다.</li>
-      <li><strong>"지금은 저장 없이"라고 범위를 잘랐습니다.</strong> 한 번에 다 시키면 결과가 커지고, 어디가 잘못됐는지 찾기 어려워집니다.</li>
-      <li><strong>더미 데이터를 요청했습니다.</strong> 빈 화면은 잘 만들어졌는지 판단할 수가 없어요.</li>
-      <li><strong>분위기를 말로 표현했습니다.</strong> "파스텔톤", "따뜻한 느낌" 같은 단어면 충분합니다. 색상 코드는 몰라도 됩니다.</li>
-    </ul>
-
-    <h2>결과가 나오면 확인할 것</h2>
-
-    <ul class="steps">
-      <li class="step">
-        <span class="num">1</span>
-        <div class="body">
-          <h3>파일이 세 개 만들어졌나요?</h3>
-          <p>Replit 왼쪽 파일 목록에 <code>index.html</code>, <code>write.html</code>, <code>detail.html</code>이 보여야 합니다. 하나로 합쳐서 줬다면 "세 개의 파일로 분리해서 다시 줘"라고 요청하세요.</p>
-        </div>
-      </li>
-      <li class="step">
-        <span class="num">2</span>
-        <div class="body">
-          <h3>목록 화면에 카드가 보이나요?</h3>
-          <p>예시 글 2~3개가 카드로 떠 있어야 합니다. 아무것도 안 보이면 <a href="errors.html">errors.html</a>로 가세요.</p>
-        </div>
-      </li>
-      <li class="step">
-        <span class="num">3</span>
-        <div class="body">
-          <h3>카드를 누르면 상세 화면으로 넘어가나요?</h3>
-          <p>내용이 정확하지 않아도 괜찮습니다. 페이지가 바뀌기만 하면 성공이에요.</p>
-        </div>
-      </li>
-      <li class="step">
-        <span class="num">4</span>
-        <div class="body">
-          <h3>글쓰기 화면에 입력칸과 등록 버튼이 있나요?</h3>
-          <p>지금은 눌러도 아무 일도 안 일어나는 게 정상입니다. 저장 기능은 STEP 2에서 붙입니다.</p>
-        </div>
-      </li>
-    </ul>
-
-    <h2>마음에 안 들면 이렇게 고쳐 말하세요</h2>
-
-    <div class="term">
-      <div class="term-bar">
-        <div class="dots"><i class="dot r"></i><i class="dot y"></i><i class="dot g"></i></div>
-        <div class="name">step1-refine.txt</div>
-        <button class="copy-btn">COPY</button>
-      </div>
-      <pre>지금 화면 잘 나왔어. 여기서 딱 하나만 바꾸고 싶어.
-
-(예시 — 하나만 골라서 쓰세요)
-- 카드가 너무 작아. 좀 더 크고 여백이 넉넉했으면 좋겠어.
-- 색이 차가워 보여. 크림색이랑 살구색 위주로 바꿔줘.
-- 글씨가 작아서 잘 안 보여. 제목을 더 크게 해줘.
-- 모바일에서 보면 카드가 잘려. 화면이 좁을 때 세로로 쌓이게 해줘.
-
-나머지는 그대로 두고, 수정된 전체 코드로 다시 줘.</pre>
-    </div>
-
-    <div class="callout tip">
-      <div class="title">✱ 완성본을 참고 자료로 쓰세요</div>
-      <p>원하는 느낌을 말로 설명하기 어렵다면 <a href="sample/index.html" target="_blank" rel="noopener">완성본 데모</a>를 열어두고 "이런 느낌으로"라고 말해도 됩니다. 화면을 캡처해서 AI에게 보여주는 것도 좋은 방법이에요.</p>
-    </div>
-
-    <div class="pagenav">
-      <a class="prev" href="templates.html">
-        <div class="dir">← 이전</div>
-        <div class="ttl">범용 프롬프트 템플릿</div>
-      </a>
-      <a class="next" href="step2.html">
-        <div class="dir">다음 →</div>
-        <div class="ttl">STEP 2 · Google Sheets 연동</div>
-      </a>
-    </div>
-
-  </main>
 </div>
 
-<div class="statusbar">
-  <span>⎇ main</span>
-  <span class="hide-sm">step1.html</span>
-  <span class="right">비개발자 웹사이트 워크샵</span>
-</div>
-
-<script>
-document.querySelectorAll('.copy-btn').forEach(function(btn){
-  btn.addEventListener('click', function(){
-    var pre = btn.closest('.term').querySelector('pre');
-    if(!pre) return;
-    var text = pre.innerText;
-    var done = function(){
-      btn.textContent = '복사됨 ✓';
-      btn.classList.add('done');
-      setTimeout(function(){ btn.textContent = 'COPY'; btn.classList.remove('done'); }, 1500);
-    };
-    if(navigator.clipboard && navigator.clipboard.writeText){
-      navigator.clipboard.writeText(text).then(done, function(){ fallback(text, done); });
-    } else {
-      fallback(text, done);
-    }
-  });
-});
-function fallback(text, done){
-  var ta = document.createElement('textarea');
-  ta.value = text;
-  ta.style.position = 'fixed';
-  ta.style.opacity = '0';
-  document.body.appendChild(ta);
-  ta.select();
-  try { document.execCommand('copy'); done(); } catch(e){}
-  document.body.removeChild(ta);
-}
-</script>
+<script src="ide.js"></script>
 
 </body>
 </html>

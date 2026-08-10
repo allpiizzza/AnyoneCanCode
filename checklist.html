@@ -6,118 +6,118 @@
 <title>준비 체크리스트 — 비개발자 웹사이트 워크샵</title>
 <link rel="stylesheet" href="style.css">
 </head>
-<body>
+<body data-file="checklist.html">
 
-<div class="titlebar">
-  <div class="dots"><i class="dot r"></i><i class="dot y"></i><i class="dot g"></i></div>
-  <div class="path">workshop / checklist.html — 준비 체크리스트</div>
+<div class="ide">
+
+  <header class="titlebar"></header>
+
+  <div class="workbench">
+    <nav class="activitybar"></nav>
+    <aside class="sidebar"></aside>
+
+    <div class="editor">
+      <div class="tabbar"></div>
+      <div class="breadcrumb"></div>
+
+      <div class="editor-area">
+        <div class="scroller" id="scroller">
+          <div class="code">
+            <div class="gutter" aria-hidden="true"></div>
+            <main class="main">
+      <noscript>
+        <div class="nojs">
+          <strong>JavaScript가 꺼져 있습니다.</strong> 탐색기·탭·명령 팔레트 같은 에디터 UI 없이 본문만 보입니다.
+          문서 이동 — <a href="index.html">README</a> ·
+          <a href="checklist.html">체크리스트</a> ·
+          <a href="templates.html">템플릿</a> ·
+          <a href="step1.html">STEP 1</a> ·
+          <a href="step2.html">STEP 2</a> ·
+          <a href="step3.html">STEP 3</a> ·
+          <a href="extra.html">여유 과제</a> ·
+          <a href="errors.html">에러 해결법</a>
+        </div>
+      </noscript>
+          <h1>준비 체크리스트</h1>
+          <p class="subtitle">항목을 클릭하면 취소선이 그어집니다</p>
+
+          <p class="lead">워크샵 당일에 시간을 잡아먹는 건 코딩이 아니라 계정 만들기와 로그인입니다. 아래 네 묶음만 미리 정리해두면 본 내용에 쓸 시간이 40분쯤 늘어납니다.</p>
+
+          <h2>1. 진행자 사전 준비</h2>
+          <div class="checkgroup">
+            <div class="check"><span class="box"></span><span class="label">완성본 예제 사이트 배포해두기 (시연용 URL 확보)</span></div>
+            <div class="check"><span class="box"></span><span class="label">Google Sheets 템플릿 준비 — 컬럼 [제목, 작성자, 작성일, 내용]</span></div>
+            <div class="check"><span class="box"></span><span class="label">Apps Script 코드 미리 작성하고 실제로 테스트해보기</span></div>
+            <div class="check"><span class="box"></span><span class="label">프롬프트 예시 슬라이드 정리 (복붙 가능한 형태로)</span></div>
+            <div class="check"><span class="box"></span><span class="label">트러블슈팅 노트 준비 (자주 나오는 에러 4~5개 대응법)</span></div>
+            <div class="check"><span class="box"></span><span class="label">스터디룸 와이파이 속도 체크 — 6명 동시 접속이 버티는지</span></div>
+            <div class="check"><span class="box"></span><span class="label">여유 과제 카드 준비 (빨리 끝낸 사람에게 줄 다음 미션)</span></div>
+          </div>
+
+          <h2>2. 참가자 사전 공지</h2>
+          <div class="checkgroup">
+            <div class="check"><span class="box"></span><span class="label">노트북 + 충전기 (태블릿·휴대폰만으로는 진행이 어렵습니다)</span></div>
+            <div class="check"><span class="box"></span><span class="label">크롬 브라우저 설치</span></div>
+            <div class="check"><span class="box"></span><span class="label">Google 계정 (Sheets 연동에 필요)</span></div>
+            <div class="check"><span class="box"></span><span class="label">GitHub 계정 (없으면 당일 만들어도 되지만 미리가 낫습니다)</span></div>
+            <div class="check"><span class="box"></span><span class="label">사용할 AI 서비스 로그인 상태 확인</span></div>
+            <div class="check"><span class="box"></span><span class="label">휴대폰 핫스팟 백업 준비 (와이파이가 막힐 때)</span></div>
+          </div>
+
+          <h2>3. 당일 계정 세팅 순서</h2>
+          <div class="checkgroup">
+            <div class="check"><span class="box"></span><span class="label">Replit 가입 — Google 계정으로 로그인하면 가장 빠릅니다</span></div>
+            <div class="check"><span class="box"></span><span class="label">GitHub 로그인 확인 — 비밀번호 기억 안 나는 사람이 꼭 한 명 나옵니다</span></div>
+            <div class="check"><span class="box"></span><span class="label">Vercel 가입 — 반드시 "Continue with GitHub"로</span></div>
+            <div class="check"><span class="box"></span><span class="label">Google Sheets 템플릿 사본 만들기 (파일 → 사본 만들기)</span></div>
+          </div>
+
+          <h2>4. 당일 준비물</h2>
+          <div class="checkgroup">
+            <div class="check"><span class="box"></span><span class="label">완성본 URL — 화면에 띄워두고 시작</span></div>
+            <div class="check"><span class="box"></span><span class="label">프롬프트 자료 — 채팅방 공유 또는 인쇄물</span></div>
+            <div class="check"><span class="box"></span><span class="label">Sheets 템플릿 링크 (사본 만들기 권한 열려 있는지 확인)</span></div>
+            <div class="check"><span class="box"></span><span class="label">발표 슬라이드</span></div>
+            <div class="check"><span class="box"></span><span class="label">안내문 (오늘 흐름 · 링크 모음 한 장)</span></div>
+          </div>
+
+          <div class="callout">
+            <div class="title">✱ 체크포인트 타이밍 — 네 번만 확인하세요</div>
+            <p>6명이 각자 다른 속도로 갑니다. 아래 네 지점에서 "다 되신 분 손 들어주세요"를 한 번씩 하면, 뒤처진 사람이 조용히 포기하는 걸 막을 수 있습니다.</p>
+            <ul>
+              <li><strong>① 계정 생성 후</strong> — Replit · GitHub · Vercel 세 개 모두 로그인 됐는지</li>
+              <li><strong>② 화면 완료 후</strong> — 목록 · 글쓰기 · 상세보기 세 화면이 눈에 보이는지</li>
+              <li><strong>③ Sheets 연동 후</strong> — 글을 하나 쓰면 스프레드시트에 행이 늘어나는지</li>
+              <li><strong>④ 배포 후</strong> — 각자의 <code>.vercel.app</code> 주소로 실제 접속되는지</li>
+            </ul>
+          </div>
+
+          <div class="pagenav">
+            <a class="prev" href="index.html">
+              <div class="dir">← 이전</div>
+              <div class="ttl">README</div>
+            </a>
+            <a class="next" href="templates.html">
+              <div class="dir">다음 →</div>
+              <div class="ttl">범용 프롬프트 템플릿</div>
+            </a>
+          </div>
+
+
+            </main>
+          </div>
+        </div>
+        <div class="minimap"><div class="mm-inner"></div><div class="mm-view"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <section class="panel-dock"></section>
+  <footer class="statusbar"></footer>
+
 </div>
 
-<div class="tabbar">
-  <a class="tab" href="index.html"><span class="ic">◆</span> README.md</a>
-  <a class="tab active" href="checklist.html"><span class="ic">◆</span> checklist.html</a>
-</div>
-
-<div class="shell">
-
-  <nav class="sidebar">
-    <div class="sec">Explorer</div>
-    <div class="folder">▾ WORKSHOP</div>
-    <a class="file" href="index.html"><span class="ic">◆</span> index.html</a>
-    <a class="file active" href="checklist.html"><span class="ic">◆</span> checklist.html</a>
-    <a class="file" href="templates.html"><span class="ic">◆</span> templates.html</a>
-    <a class="file" href="step1.html"><span class="ic">◆</span> step1.html</a>
-    <a class="file" href="step2.html"><span class="ic">◆</span> step2.html</a>
-    <a class="file" href="step3.html"><span class="ic">◆</span> step3.html</a>
-    <a class="file" href="extra.html"><span class="ic">◆</span> extra.html</a>
-    <a class="file" href="errors.html"><span class="ic">◆</span> errors.html</a>
-    <a class="file css" href="style.css"><span class="ic">◆</span> style.css</a>
-    <hr>
-    <div class="folder">▾ SAMPLE</div>
-    <a class="file" href="sample/index.html" target="_blank"><span class="ic">◆</span> 완성본 데모 ↗</a>
-  </nav>
-
-  <main class="main">
-
-    <h1>준비 체크리스트</h1>
-    <p class="subtitle">항목을 클릭하면 취소선이 그어집니다</p>
-
-    <p class="lead">워크샵 당일에 시간을 잡아먹는 건 코딩이 아니라 계정 만들기와 로그인입니다. 아래 네 묶음만 미리 정리해두면 본 내용에 쓸 시간이 40분쯤 늘어납니다.</p>
-
-    <h2>1. 진행자 사전 준비</h2>
-    <div class="checkgroup">
-      <div class="check"><span class="box"></span><span class="label">완성본 예제 사이트 배포해두기 (시연용 URL 확보)</span></div>
-      <div class="check"><span class="box"></span><span class="label">Google Sheets 템플릿 준비 — 컬럼 [제목, 작성자, 작성일, 내용]</span></div>
-      <div class="check"><span class="box"></span><span class="label">Apps Script 코드 미리 작성하고 실제로 테스트해보기</span></div>
-      <div class="check"><span class="box"></span><span class="label">프롬프트 예시 슬라이드 정리 (복붙 가능한 형태로)</span></div>
-      <div class="check"><span class="box"></span><span class="label">트러블슈팅 노트 준비 (자주 나오는 에러 4~5개 대응법)</span></div>
-      <div class="check"><span class="box"></span><span class="label">스터디룸 와이파이 속도 체크 — 6명 동시 접속이 버티는지</span></div>
-      <div class="check"><span class="box"></span><span class="label">여유 과제 카드 준비 (빨리 끝낸 사람에게 줄 다음 미션)</span></div>
-    </div>
-
-    <h2>2. 참가자 사전 공지</h2>
-    <div class="checkgroup">
-      <div class="check"><span class="box"></span><span class="label">노트북 + 충전기 (태블릿·휴대폰만으로는 진행이 어렵습니다)</span></div>
-      <div class="check"><span class="box"></span><span class="label">크롬 브라우저 설치</span></div>
-      <div class="check"><span class="box"></span><span class="label">Google 계정 (Sheets 연동에 필요)</span></div>
-      <div class="check"><span class="box"></span><span class="label">GitHub 계정 (없으면 당일 만들어도 되지만 미리가 낫습니다)</span></div>
-      <div class="check"><span class="box"></span><span class="label">사용할 AI 서비스 로그인 상태 확인</span></div>
-      <div class="check"><span class="box"></span><span class="label">휴대폰 핫스팟 백업 준비 (와이파이가 막힐 때)</span></div>
-    </div>
-
-    <h2>3. 당일 계정 세팅 순서</h2>
-    <div class="checkgroup">
-      <div class="check"><span class="box"></span><span class="label">Replit 가입 — Google 계정으로 로그인하면 가장 빠릅니다</span></div>
-      <div class="check"><span class="box"></span><span class="label">GitHub 로그인 확인 — 비밀번호 기억 안 나는 사람이 꼭 한 명 나옵니다</span></div>
-      <div class="check"><span class="box"></span><span class="label">Vercel 가입 — 반드시 "Continue with GitHub"로</span></div>
-      <div class="check"><span class="box"></span><span class="label">Google Sheets 템플릿 사본 만들기 (파일 → 사본 만들기)</span></div>
-    </div>
-
-    <h2>4. 당일 준비물</h2>
-    <div class="checkgroup">
-      <div class="check"><span class="box"></span><span class="label">완성본 URL — 화면에 띄워두고 시작</span></div>
-      <div class="check"><span class="box"></span><span class="label">프롬프트 자료 — 채팅방 공유 또는 인쇄물</span></div>
-      <div class="check"><span class="box"></span><span class="label">Sheets 템플릿 링크 (사본 만들기 권한 열려 있는지 확인)</span></div>
-      <div class="check"><span class="box"></span><span class="label">발표 슬라이드</span></div>
-      <div class="check"><span class="box"></span><span class="label">안내문 (오늘 흐름 · 링크 모음 한 장)</span></div>
-    </div>
-
-    <div class="callout">
-      <div class="title">✱ 체크포인트 타이밍 — 네 번만 확인하세요</div>
-      <p>6명이 각자 다른 속도로 갑니다. 아래 네 지점에서 "다 되신 분 손 들어주세요"를 한 번씩 하면, 뒤처진 사람이 조용히 포기하는 걸 막을 수 있습니다.</p>
-      <ul>
-        <li><strong>① 계정 생성 후</strong> — Replit · GitHub · Vercel 세 개 모두 로그인 됐는지</li>
-        <li><strong>② 화면 완료 후</strong> — 목록 · 글쓰기 · 상세보기 세 화면이 눈에 보이는지</li>
-        <li><strong>③ Sheets 연동 후</strong> — 글을 하나 쓰면 스프레드시트에 행이 늘어나는지</li>
-        <li><strong>④ 배포 후</strong> — 각자의 <code>.vercel.app</code> 주소로 실제 접속되는지</li>
-      </ul>
-    </div>
-
-    <div class="pagenav">
-      <a class="prev" href="index.html">
-        <div class="dir">← 이전</div>
-        <div class="ttl">README</div>
-      </a>
-      <a class="next" href="templates.html">
-        <div class="dir">다음 →</div>
-        <div class="ttl">범용 프롬프트 템플릿</div>
-      </a>
-    </div>
-
-  </main>
-</div>
-
-<div class="statusbar">
-  <span>⎇ main</span>
-  <span class="hide-sm">checklist.html</span>
-  <span class="right">비개발자 웹사이트 워크샵</span>
-</div>
-
-<script>
-document.querySelectorAll('.check').forEach(function(el){
-  el.addEventListener('click', function(){ el.classList.toggle('done'); });
-});
-</script>
+<script src="ide.js"></script>
 
 </body>
 </html>
