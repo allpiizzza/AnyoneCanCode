@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>책후기 게시판</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="logo" href="index.html"><span class="mark">📚</span> 책후기 게시판</a>
+    <span class="header-tag">우리 독서모임의 기록</span>
+  </div>
+</header>
+
+<section class="hero">
+  <span class="deco d1">🔖</span>
+  <span class="deco d2">💭</span>
+  <span class="deco d3">☕</span>
+  <span class="deco d4">🔖</span>
+  <div class="wrap">
+    <h1>우리가 읽고 남긴 이야기들</h1>
+    <p>이번 달 읽은 책, 어땠나요?</p>
+  </div>
+</section>
+
+<div class="wrap">
+
+  <div class="write-cta">
+    <a class="btn" href="write.html">✏️ 새 후기 남기기</a>
+    <div class="hint">한 문장이어도 좋아요. 다음 모임의 이야깃거리가 됩니다.</div>
+  </div>
+
+  <div id="list"></div>
+
+</div>
+
+<footer class="site-footer">
+  📚 책후기 게시판 · 비개발자 웹사이트 워크샵 완성본 예시
+</footer>
+
+<script>
+function getPosts(){
+  let posts = JSON.parse(localStorage.getItem('bg_posts_v3') || 'null');
+  if(!posts){
+    posts = [
+      {id:3, title:"아몬드 — 다시 읽어도 좋은 책", author:"정하늘", date:"2026-08-08", content:"두 번째로 읽었는데 처음 읽을 때랑 느낌이 또 다르더라고요.\n\n윤재가 감정을 배워가는 과정을 곱씹으면서 읽으니, 우리가 당연하게 여기는 '공감'이라는 게 사실 얼마나 배워야 하는 건지 새삼 느꼈어요.\n\n다음에 만나면 이 책으로 한참 얘기할 수 있을 것 같습니다."},
+      {id:2, title:"불편한 편의점, 생각보다 뭉클했어요", author:"김서준", date:"2026-08-03", content:"가볍게 읽을 수 있는 책일 줄 알았는데 마지막 장 덮고 나서 한참 여운이 남았어요.\n\n특히 독고 아저씨가 사람들을 바라보는 시선이 좋았습니다. 편의점이라는 공간이 이렇게 따뜻하게 그려질 수 있구나 싶었어요."},
+      {id:1, title:"소설가의 여행법, 절반 읽고 남기는 중간 후기", author:"모임지기", date:"2026-07-28", content:"아직 다 못 읽었는데 문장이 너무 좋아서 먼저 남겨봅니다.\n\n여행지 묘사보다 작가가 그 안에서 스쳐가는 생각들을 붙잡아두는 방식이 인상적이에요. 완독하면 후기 다시 남길게요!"}
+    ];
+    localStorage.setItem('bg_posts_v3', JSON.stringify(posts));
+  }
+  return posts.sort((a,b)=> b.id - a.id);
+}
+
+function escapeHtml(s){
+  const d = document.createElement('div');
+  d.innerText = s == null ? '' : String(s);
+  return d.innerHTML;
+}
+
+function excerpt(text){
+  const flat = String(text).replace(/\s+/g, ' ').trim();
+  return flat.length > 64 ? flat.slice(0, 64) + '…' : flat;
+}
+
+function render(){
+  const posts = getPosts();
+  const list = document.getElementById('list');
+
+  if(!posts.length){
+    list.innerHTML =
+      '<div class="empty">' +
+        '<span class="face">🍃</span>' +
+        '<div class="t">아직 등록된 후기가 없어요</div>' +
+        '<div class="d">위 버튼으로 첫 책후기를 남겨보세요.</div>' +
+      '</div>';
+    return;
+  }
+
+  let html = '<div class="timeline">';
+  posts.forEach(function(p, i){
+    html +=
+      '<div class="tl-item">' +
+        '<span class="marker">📖</span>' +
+        '<a class="tl-card c' + (i % 3 + 1) + '" href="detail.html?id=' + encodeURIComponent(p.id) + '">' +
+          '<div class="tl-meta"><span>' + escapeHtml(p.date) + '</span><span class="sep">·</span><span>' + escapeHtml(p.author) + '</span></div>' +
+          '<h2>' + escapeHtml(p.title) + '</h2>' +
+          '<p class="excerpt">' + escapeHtml(excerpt(p.content)) + '</p>' +
+          '<div class="more">전체 후기 읽기 →</div>' +
+        '</a>' +
+      '</div>';
+  });
+  html += '</div>';
+  html += '<div class="tl-end">🍵 여기까지가 지금까지의 기록이에요</div>';
+
+  list.innerHTML = html;
+}
+
+render();
+</script>
+
+</body>
+</html>

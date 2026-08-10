@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>STEP 2 · Google Sheets 연동 — 비개발자 웹사이트 워크샵</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="titlebar">
+  <div class="dots"><i class="dot r"></i><i class="dot y"></i><i class="dot g"></i></div>
+  <div class="path">workshop / step2.html — Google Sheets 연동</div>
+</div>
+
+<div class="tabbar">
+  <a class="tab" href="index.html"><span class="ic">◆</span> README.md</a>
+  <a class="tab active" href="step2.html"><span class="ic">◆</span> step2.html</a>
+</div>
+
+<div class="shell">
+
+  <nav class="sidebar">
+    <div class="sec">Explorer</div>
+    <div class="folder">▾ WORKSHOP</div>
+    <a class="file" href="index.html"><span class="ic">◆</span> index.html</a>
+    <a class="file" href="checklist.html"><span class="ic">◆</span> checklist.html</a>
+    <a class="file" href="templates.html"><span class="ic">◆</span> templates.html</a>
+    <a class="file" href="step1.html"><span class="ic">◆</span> step1.html</a>
+    <a class="file active" href="step2.html"><span class="ic">◆</span> step2.html</a>
+    <a class="file" href="step3.html"><span class="ic">◆</span> step3.html</a>
+    <a class="file" href="extra.html"><span class="ic">◆</span> extra.html</a>
+    <a class="file" href="errors.html"><span class="ic">◆</span> errors.html</a>
+    <a class="file css" href="style.css"><span class="ic">◆</span> style.css</a>
+    <hr>
+    <div class="folder">▾ SAMPLE</div>
+    <a class="file" href="sample/index.html" target="_blank"><span class="ic">◆</span> 완성본 데모 ↗</a>
+  </nav>
+
+  <main class="main">
+
+    <span class="badge blue">STEP 2</span>
+    <span class="badge">30분</span>
+    <span class="badge purple">AI 프롬프트</span>
+
+    <h1>Google Sheets 연동</h1>
+    <p class="subtitle">스프레드시트를 데이터베이스처럼 씁니다</p>
+
+    <p class="lead">STEP 1에서 만든 화면은 새로고침하면 글이 사라집니다. 어딘가에 적어두질 않았으니까요. 그 "어딘가"를 오늘은 <strong>Google 스프레드시트</strong>로 씁니다. 진짜 데이터베이스를 배우는 것보다 훨씬 쉽고, 저장된 내용을 눈으로 직접 확인할 수 있다는 점이 큰 장점이에요.</p>
+
+    <h2>먼저 시트를 준비하세요</h2>
+
+    <p>새 Google 스프레드시트를 만들고, 첫 번째 행에 아래 네 개를 순서대로 입력합니다. <strong>순서가 중요합니다.</strong> 이 순서가 코드와 어긋나면 글은 저장되는데 화면에 엉뚱하게 나옵니다.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>A</th><th>B</th><th>C</th><th>D</th></tr></thead>
+        <tbody><tr><td>제목</td><td>작성자</td><td>작성일</td><td>내용</td></tr></tbody>
+      </table>
+    </div>
+
+    <h2>아래 프롬프트를 그대로 복사해서 붙여넣으세요</h2>
+
+    <p>STEP 1을 진행했던 <strong>같은 대화창에</strong> 이어서 붙여넣으세요. 새 대화를 열면 AI가 앞에서 만든 코드를 모릅니다.</p>
+
+    <div class="term">
+      <div class="term-bar">
+        <div class="dots"><i class="dot r"></i><i class="dot y"></i><i class="dot g"></i></div>
+        <div class="name">step2-prompt.txt</div>
+        <button class="copy-btn">COPY</button>
+      </div>
+      <pre>방금 만든 게시판 웹사이트에 Google Sheets를 데이터베이스처럼 연결하고 싶어.
+
+Google Apps Script로 웹앱을 배포해서 API처럼 사용할 방법을 알려주고,
+아래 기능이 동작하도록 코드를 수정해줘:
+
+1. 글쓰기 페이지에서 "등록" 버튼을 누르면
+   → Google Sheets에 새로운 행으로 데이터(제목, 작성자, 작성일, 내용)가 저장되게 해줘
+
+2. 목록 페이지를 열면
+   → Google Sheets에 저장된 모든 글을 불러와서 카드 형태로 보여줘
+
+3. 상세보기 페이지에서
+   → 선택한 글의 전체 내용을 Sheets에서 불러와서 보여줘
+
+시트 컬럼 구조는 [제목, 작성자, 작성일, 내용] 순서로 만들 거야.
+
+Apps Script 코드와, 프론트엔드에서 그 API를 호출하는 코드를 각각 알려줘.</pre>
+    </div>
+
+    <h2>진행 순서</h2>
+
+    <ul class="steps">
+      <li class="step">
+        <span class="num">1</span>
+        <div class="body">
+          <h3>Apps Script 편집기 열기</h3>
+          <p>스프레드시트 상단 메뉴에서 <code>확장 프로그램 → Apps Script</code>를 누릅니다. 새 탭이 열리면 기본으로 적혀 있던 코드는 전부 지우고, AI가 준 Apps Script 코드를 붙여넣으세요.</p>
+        </div>
+      </li>
+      <li class="step">
+        <span class="num">2</span>
+        <div class="body">
+          <h3>웹앱으로 배포하기</h3>
+          <p>오른쪽 위 <code>배포 → 새 배포</code> → 유형에서 <strong>웹 앱</strong> 선택. 여기서 두 가지 설정이 핵심입니다.</p>
+          <ul>
+            <li>액세스 권한이 있는 사용자: <strong>모든 사용자</strong></li>
+            <li>다음 사용자로 실행: <strong>나</strong></li>
+          </ul>
+        </div>
+      </li>
+      <li class="step">
+        <span class="num">3</span>
+        <div class="body">
+          <h3>권한 승인 팝업 통과하기</h3>
+          <p>"이 앱은 Google에서 확인하지 않았습니다"라는 무서운 경고가 뜹니다. 내가 만든 스크립트이니 정상입니다. <strong>고급 → (프로젝트 이름)(으)로 이동 → 허용</strong> 순서로 진행하세요.</p>
+        </div>
+      </li>
+      <li class="step">
+        <span class="num">4</span>
+        <div class="body">
+          <h3>웹앱 URL 복사해서 코드에 붙이기</h3>
+          <p>배포가 끝나면 <code>https://script.google.com/macros/s/.../exec</code> 형태의 주소가 나옵니다. 이걸 복사해서 프론트엔드 코드 안의 URL 자리에 넣으세요. <strong>이 주소를 잘못 넣는 게 오늘 가장 흔한 실수입니다.</strong></p>
+        </div>
+      </li>
+      <li class="step">
+        <span class="num">5</span>
+        <div class="body">
+          <h3>글 하나 써보고 시트 확인</h3>
+          <p>글쓰기 화면에서 아무 글이나 등록한 뒤, 스프레드시트로 가서 <strong>행이 실제로 늘어났는지</strong> 확인하세요. 행이 늘었다면 절반은 성공입니다. 그다음 목록 화면을 새로고침해서 그 글이 뜨는지 봅니다.</p>
+        </div>
+      </li>
+    </ul>
+
+    <div class="callout warn">
+      <div class="title">⚠ 코드를 고친 뒤에는 매번 "새 배포"</div>
+      <p>Apps Script 코드를 수정하고 저장만 하면 웹앱에는 반영되지 않습니다. <code>배포 → 배포 관리 → 수정(연필) → 버전: 새 버전 → 배포</code>까지 해야 바뀐 코드가 적용됩니다. "코드 고쳤는데 그대로예요"의 90%가 이 문제입니다.</p>
+    </div>
+
+    <div class="callout danger">
+      <div class="title">⛔ 오늘 가장 막히기 쉬운 구간입니다</div>
+      <p>여기서 절반 정도가 한 번쯤 막힙니다. 정상이에요. 화면이 하얗게 뜨거나, 등록을 눌러도 아무 일이 없거나, 목록이 비어 있다면 <a href="errors.html">errors.html — 에러 해결법</a>을 여세요. 콘솔을 열고 빨간 글씨를 복사해서 AI에게 그대로 붙여넣는 것, 그게 전부입니다.</p>
+    </div>
+
+    <div class="callout tip">
+      <div class="title">✱ 진행자 안내</div>
+      <p>이 구간에서는 진도를 맞추려 하지 말고 <strong>먼저 된 사람이 옆 사람을 돕게</strong> 하세요. 6명 중 2~3명만 통과해도 나머지는 금방 따라옵니다. 20분이 지나도 막힌 사람이 많으면, 진행자의 Apps Script 배포 URL을 공유해서 다 같이 같은 시트를 쓰게 하는 것도 방법입니다.</p>
+    </div>
+
+    <div class="pagenav">
+      <a class="prev" href="step1.html">
+        <div class="dir">← 이전</div>
+        <div class="ttl">STEP 1 · 화면 만들기</div>
+      </a>
+      <a class="next" href="step3.html">
+        <div class="dir">다음 →</div>
+        <div class="ttl">STEP 3 · GitHub + Vercel 배포</div>
+      </a>
+    </div>
+
+  </main>
+</div>
+
+<div class="statusbar">
+  <span>⎇ main</span>
+  <span class="hide-sm">step2.html</span>
+  <span class="right">비개발자 웹사이트 워크샵</span>
+</div>
+
+<script>
+document.querySelectorAll('.copy-btn').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    var pre = btn.closest('.term').querySelector('pre');
+    if(!pre) return;
+    var text = pre.innerText;
+    var done = function(){
+      btn.textContent = '복사됨 ✓';
+      btn.classList.add('done');
+      setTimeout(function(){ btn.textContent = 'COPY'; btn.classList.remove('done'); }, 1500);
+    };
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(done, function(){ fallback(text, done); });
+    } else {
+      fallback(text, done);
+    }
+  });
+});
+function fallback(text, done){
+  var ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.select();
+  try { document.execCommand('copy'); done(); } catch(e){}
+  document.body.removeChild(ta);
+}
+</script>
+
+</body>
+</html>

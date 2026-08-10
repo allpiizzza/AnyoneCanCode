@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>후기 보기 — 책후기 게시판</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="wrap header-inner">
+    <a class="logo" href="index.html"><span class="mark">📚</span> 책후기 게시판</a>
+    <span class="header-tag">우리 독서모임의 기록</span>
+  </div>
+</header>
+
+<div class="wrap page">
+  <div id="view"></div>
+  <a class="backlink" href="index.html">← 목록으로 돌아가기</a>
+</div>
+
+<footer class="site-footer">
+  📚 책후기 게시판 · 비개발자 웹사이트 워크샵 완성본 예시
+</footer>
+
+<script>
+function getPosts(){
+  let posts = JSON.parse(localStorage.getItem('bg_posts_v3') || 'null');
+  if(!posts){
+    posts = [
+      {id:3, title:"아몬드 — 다시 읽어도 좋은 책", author:"정하늘", date:"2026-08-08", content:"두 번째로 읽었는데 처음 읽을 때랑 느낌이 또 다르더라고요.\n\n윤재가 감정을 배워가는 과정을 곱씹으면서 읽으니, 우리가 당연하게 여기는 '공감'이라는 게 사실 얼마나 배워야 하는 건지 새삼 느꼈어요.\n\n다음에 만나면 이 책으로 한참 얘기할 수 있을 것 같습니다."},
+      {id:2, title:"불편한 편의점, 생각보다 뭉클했어요", author:"김서준", date:"2026-08-03", content:"가볍게 읽을 수 있는 책일 줄 알았는데 마지막 장 덮고 나서 한참 여운이 남았어요.\n\n특히 독고 아저씨가 사람들을 바라보는 시선이 좋았습니다. 편의점이라는 공간이 이렇게 따뜻하게 그려질 수 있구나 싶었어요."},
+      {id:1, title:"소설가의 여행법, 절반 읽고 남기는 중간 후기", author:"모임지기", date:"2026-07-28", content:"아직 다 못 읽었는데 문장이 너무 좋아서 먼저 남겨봅니다.\n\n여행지 묘사보다 작가가 그 안에서 스쳐가는 생각들을 붙잡아두는 방식이 인상적이에요. 완독하면 후기 다시 남길게요!"}
+    ];
+    localStorage.setItem('bg_posts_v3', JSON.stringify(posts));
+  }
+  return posts.sort((a,b)=> b.id - a.id);
+}
+
+function escapeHtml(s){
+  const d = document.createElement('div');
+  d.innerText = s == null ? '' : String(s);
+  return d.innerHTML;
+}
+
+function render(){
+  const id = new URLSearchParams(location.search).get('id');
+  const post = getPosts().filter(function(p){ return String(p.id) === String(id); })[0];
+  const view = document.getElementById('view');
+
+  if(!post){
+    view.innerHTML =
+      '<div class="empty">' +
+        '<span class="face">🔍</span>' +
+        '<div class="t">후기를 찾을 수 없어요</div>' +
+        '<div class="d">주소가 잘못되었거나 삭제된 글입니다.</div>' +
+      '</div>';
+    return;
+  }
+
+  document.title = post.title + ' — 책후기 게시판';
+
+  view.innerHTML =
+    '<article class="article">' +
+      '<span class="quote">“</span>' +
+      '<h1>' + escapeHtml(post.title) + '</h1>' +
+      '<div class="meta"><span>✍️ ' + escapeHtml(post.author) + '</span><span class="sep">·</span><span>' + escapeHtml(post.date) + '</span></div>' +
+      '<div class="content">' + escapeHtml(post.content) + '</div>' +
+    '</article>';
+}
+
+render();
+</script>
+
+</body>
+</html>
