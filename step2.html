@@ -47,6 +47,41 @@
 
           <p class="lead">STEP 1에서 만든 화면은 새로고침하면 글이 사라집니다. 어딘가에 적어두질 않았으니까요. 그 "어딘가"를 오늘은 <strong>Google 스프레드시트</strong>로 씁니다. 진짜 데이터베이스를 배우는 것보다 훨씬 쉽고, 저장된 내용을 눈으로 직접 확인할 수 있다는 점이 큰 장점이에요.</p>
 
+          <div class="brief">
+            <div class="brief-row"><span class="k">목표</span><span class="v">글을 쓰면 <strong>스프레드시트에 행이 하나 늘어나고</strong>, 새로고침해도 그 글이 남아 있게 만듭니다.</span></div>
+            <div class="brief-row"><span class="k">시간</span><span class="v">30분 — 시트 준비 5분, 프롬프트 5분, 배포와 연결 20분</span></div>
+            <div class="brief-row"><span class="k">준비물</span><span class="v">Google 계정, STEP 1을 진행한 <strong>같은 AI 대화창</strong></span></div>
+            <div class="brief-row"><span class="k">끝나면</span><span class="v">새로고침해도 글이 남습니다. 다만 아직 <strong>내 노트북에서만</strong> 열립니다.</span></div>
+            <div class="brief-row"><span class="k">난이도</span><span class="v">오늘 중 가장 어려운 구간입니다. 절반쯤은 한 번 막힙니다 — 정상이에요.</span></div>
+          </div>
+
+          <h2>지금 무슨 일이 일어나는 건가요</h2>
+
+          <p>낯선 이름이 세 개나 나오지만 구조는 단순합니다. <strong>글을 쓰면 → 어떤 주소로 보내고 → 그 주소가 시트에 적어줍니다.</strong> 반대로 목록을 열면 같은 주소에서 글을 받아옵니다.</p>
+
+          <div class="flow">
+            <div class="fbox">
+              <div class="ft">① 내 화면</div>
+              <div class="fd">글쓰기 페이지에서 등록을 누름</div>
+            </div>
+            <div class="farrow">→</div>
+            <div class="fbox">
+              <div class="ft">② 웹앱 주소</div>
+              <div class="fd">Apps Script로 만든 <code>/exec</code> 주소. 심부름꾼 역할</div>
+            </div>
+            <div class="farrow">→</div>
+            <div class="fbox">
+              <div class="ft">③ 스프레드시트</div>
+              <div class="fd">행이 하나 늘어남. 눈으로 확인 가능</div>
+            </div>
+          </div>
+
+          <div class="callout">
+            <div class="title">✱ Apps Script가 뭔가요</div>
+            <p>Google 스프레드시트에 딸려 있는 <strong>자동화 도구</strong>입니다. 엑셀의 매크로와 비슷하다고 생각하면 됩니다. 우리는 여기에 "누가 글을 보내오면 시트에 한 줄 적어줘"라는 코드를 넣고, 그걸 <strong>인터넷 주소 형태로 배포</strong>합니다. 그 주소가 화면과 시트를 잇는 다리예요.</p>
+            <p>즉 오늘의 <strong>백엔드</strong>는 이 둘입니다 — 심부름하는 Apps Script, 보관하는 스프레드시트.</p>
+          </div>
+
           <h2>먼저 시트를 준비하세요</h2>
 
           <p>새 Google 스프레드시트를 만들고, 첫 번째 행에 아래 네 개를 순서대로 입력합니다. <strong>순서가 중요합니다.</strong> 이 순서가 코드와 어긋나면 글은 저장되는데 화면에 엉뚱하게 나옵니다.</p>
@@ -141,9 +176,44 @@ Apps Script 코드와, 프론트엔드에서 그 API를 호출하는 코드를 �
             <p>여기서 절반 정도가 한 번쯤 막힙니다. 정상이에요. 화면이 하얗게 뜨거나, 등록을 눌러도 아무 일이 없거나, 목록이 비어 있다면 <a href="errors.html">errors.html — 에러 해결법</a>을 여세요. 콘솔을 열고 빨간 글씨를 복사해서 AI에게 그대로 붙여넣는 것, 그게 전부입니다.</p>
           </div>
 
-          <div class="callout tip">
-            <div class="title">✱ 진행자 안내</div>
-            <p>이 구간에서는 진도를 맞추려 하지 말고 <strong>먼저 된 사람이 옆 사람을 돕게</strong> 하세요. 6명 중 2~3명만 통과해도 나머지는 금방 따라옵니다. 20분이 지나도 막힌 사람이 많으면, 진행자의 Apps Script 배포 URL을 공유해서 다 같이 같은 시트를 쓰게 하는 것도 방법입니다.</p>
+          <div class="callout host">
+            <div class="title">🎤 진행자 — 이 구간 운영</div>
+            <ul>
+              <li><strong>시트 준비는 다 함께.</strong> 컬럼 네 개를 화면 공유로 같이 만드세요. 여기서 한 명이라도 순서가 틀리면 나중에 원인 찾기가 아주 어렵습니다.</li>
+              <li><strong>배포 3단계(배포 → 권한 → URL 복사)는 진행자가 시연 먼저.</strong> 특히 "확인되지 않은 앱" 경고 화면은 미리 보여주고 넘어가야 당황하지 않습니다.</li>
+              <li><strong>진도를 맞추려 하지 마세요.</strong> 먼저 된 사람이 옆 사람을 돕게 하면 6명 중 2~3명만 통과해도 나머지가 금방 따라옵니다.</li>
+              <li><strong>20분이 지나도 절반 이상 막혀 있으면</strong> 진행자의 웹앱 URL을 공유해 다 같이 같은 시트를 쓰게 하세요. 각자 저장은 못 해도 <em>연동이 되는 화면</em>은 다 같이 볼 수 있습니다.</li>
+              <li><strong>여기서 시간을 다 쓰면 STEP 3이 잘립니다.</strong> 배포까지 못 가면 오늘의 하이라이트가 사라지니, 30분이 넘어가면 과감히 다음으로 넘기세요.</li>
+            </ul>
+          </div>
+
+          <h2>자주 나오는 질문</h2>
+
+          <div class="qa">
+            <details>
+              <summary>내 스프레드시트를 남들이 볼 수 있게 되나요?</summary>
+              <div class="a"><p>시트 자체는 여전히 <strong>내 것</strong>입니다. 공개되는 건 Apps Script 웹앱 주소뿐이고, 그 주소는 우리가 코드에 적어둔 동작(글 추가·목록 읽기)만 합니다. 다만 그 주소를 아는 사람은 글을 남길 수 있으니, 아무 데나 공유하지는 마세요.</p></div>
+            </details>
+            <details>
+              <summary>"모든 사용자"로 열어두는 게 위험하지 않나요?</summary>
+              <div class="a"><p>오늘 만드는 건 동네 게시판 수준이라 괜찮습니다. 여기서 말하는 "모든 사용자"는 <em>시트 전체</em>가 아니라 <strong>그 웹앱 주소로 들어온 요청을 처리하겠다</strong>는 뜻이에요. 비밀번호나 개인정보를 다루는 사이트라면 이야기가 달라지지만, 오늘 범위에서는 문제없습니다.</p></div>
+            </details>
+            <details>
+              <summary>여러 명이 같은 시트를 써도 되나요?</summary>
+              <div class="a"><p>됩니다. 실제로 막힌 사람이 많을 때 진행자 시트를 함께 쓰기도 합니다. 다만 글이 한곳에 섞이니, 워크샵이 끝나면 각자 자기 시트로 바꾸세요. 바꾸는 방법은 코드 안의 웹앱 주소를 자기 것으로 교체하면 끝입니다.</p></div>
+            </details>
+            <details>
+              <summary>코드를 고쳤는데 화면이 그대로예요</summary>
+              <div class="a"><p>열에 아홉은 <strong>재배포를 안 한 경우</strong>입니다. Apps Script는 저장만으로는 반영되지 않아요. <code>배포 → 배포 관리 → 수정(연필) → 버전: 새 버전 → 배포</code>까지 해야 합니다. 위의 경고 상자를 다시 읽어보세요.</p></div>
+            </details>
+            <details>
+              <summary>글은 저장되는데 화면에 이상하게 나와요</summary>
+              <div class="a"><p>시트 컬럼 순서와 코드가 어긋난 겁니다. 시트 첫 행이 <strong>제목 · 작성자 · 작성일 · 내용</strong> 순서인지 확인하세요. 순서를 바꿔놨다면 시트를 원래대로 돌리는 게 코드를 고치는 것보다 빠릅니다.</p></div>
+            </details>
+            <details>
+              <summary>주소를 코드 어디에 넣어야 하는지 모르겠어요</summary>
+              <div class="a"><p>직접 찾지 마세요. AI에게 이렇게 물으면 됩니다 — <strong>"내 웹앱 주소는 https://... 야. 이 주소를 넣은 전체 코드로 다시 줘."</strong> 어디에 넣을지 고민하는 대신 넣어진 코드를 받는 게 오늘 방식입니다.</p></div>
+            </details>
           </div>
 
           <div class="pagenav">

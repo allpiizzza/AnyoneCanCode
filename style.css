@@ -812,6 +812,157 @@ td.sym{ font-family:var(--mono); color:var(--red); font-size:13px; }
 .pagenav a.next{ text-align:right; }
 .pagenav .spacer{ flex:1; max-width:48%; }
 
+/* ---------- 문서 상단 요약 (이 문서에서 할 일) ---------- */
+.brief{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:10px;
+  padding:6px 18px;
+  margin:22px 0 26px;
+}
+.brief-row{
+  display:flex;
+  gap:16px;
+  padding:11px 0;
+  border-top:1px solid var(--border-soft);
+}
+.brief-row:first-child{ border-top:0; }
+.brief-row .k{
+  flex:none;
+  width:82px;
+  font-family:var(--mono);
+  font-size:11px;
+  letter-spacing:.07em;
+  text-transform:uppercase;
+  color:var(--text-faint);
+  padding-top:3px;
+}
+.brief-row .v{ flex:1; min-width:0; color:var(--text); font-size:14.5px; line-height:1.65; }
+.brief-row .v strong{ color:var(--text); }
+
+/* ---------- 흐름 다이어그램 ---------- */
+.flow{
+  display:flex;
+  align-items:stretch;
+  gap:10px;
+  margin:22px 0;
+  flex-wrap:wrap;
+}
+.fbox{
+  flex:1;
+  min-width:132px;
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:9px;
+  padding:13px 15px;
+}
+.fbox .ft{
+  font-family:var(--mono);
+  font-size:13px;
+  font-weight:700;
+  color:var(--blue);
+  margin-bottom:4px;
+}
+.fbox .fd{ font-size:12.5px; color:var(--text-dim); line-height:1.55; }
+.fbox.on{ border-color:var(--accent-line); background:var(--accent-bg); }
+.farrow{
+  flex:none;
+  align-self:center;
+  font-family:var(--mono);
+  font-size:15px;
+  color:var(--text-faint);
+}
+
+/* ---------- 자주 나오는 질문 (펼침) ---------- */
+.qa{
+  border:1px solid var(--border);
+  border-radius:10px;
+  overflow:hidden;
+  margin:18px 0 24px;
+  background:var(--panel);
+}
+.qa details{ border-top:1px solid var(--border-soft); }
+.qa details:first-child{ border-top:0; }
+.qa summary{
+  list-style:none;
+  cursor:pointer;
+  padding:12px 18px 12px 40px;
+  position:relative;
+  font-size:14.5px;
+  color:var(--text);
+  user-select:none;
+}
+.qa summary::-webkit-details-marker{ display:none; }
+.qa summary::before{
+  content:'Q';
+  position:absolute;
+  left:18px;
+  top:12px;
+  font-family:var(--mono);
+  font-size:12px;
+  font-weight:700;
+  color:var(--blue);
+}
+.qa summary::after{
+  content:'▾';
+  position:absolute;
+  right:16px;
+  top:13px;
+  font-size:10px;
+  color:var(--text-faint);
+  transition:transform .15s;
+}
+.qa details[open] summary{ color:var(--blue); }
+.qa details[open] summary::after{ transform:rotate(180deg); }
+.qa summary:hover{ background:var(--hover); }
+.qa .a{
+  padding:0 18px 15px 40px;
+  position:relative;
+  color:var(--text-dim);
+  font-size:14px;
+  line-height:1.75;
+}
+.qa .a::before{
+  content:'A';
+  position:absolute;
+  left:18px;
+  top:1px;
+  font-family:var(--mono);
+  font-size:12px;
+  font-weight:700;
+  color:var(--green-bright);
+}
+.qa .a p{ margin:0 0 9px; color:inherit; }
+.qa .a p:last-child, .qa .a ul:last-child{ margin-bottom:0; }
+.qa .a ul{ margin:0 0 9px; padding-left:20px; }
+
+/* ---------- 용어 사전 ---------- */
+.gloss{
+  margin:18px 0 24px;
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:10px;
+}
+.gloss div{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-left:2px solid var(--cyan);
+  border-radius:0 8px 8px 0;
+  padding:11px 15px;
+}
+.gloss dt{
+  font-family:var(--mono);
+  font-size:13px;
+  font-weight:700;
+  color:var(--cyan);
+  margin-bottom:3px;
+}
+.gloss dd{ margin:0; font-size:13.5px; color:var(--text-dim); line-height:1.6; }
+
+/* 진행자용 콜아웃 */
+.callout.host{ border-left-color:var(--cyan); }
+.callout.host .title{ color:var(--cyan); }
+
 /* ---------- 잠금 화면 (워크샵 당일 공개) ---------- */
 .lockbox{
   background:var(--panel);

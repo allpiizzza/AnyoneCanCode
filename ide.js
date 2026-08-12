@@ -264,7 +264,11 @@
   }
 
   function buildOutline() {
-    headings = [].slice.call(main.querySelectorAll('h2, h3'));
+    /* 단계 카드 안의 h3까지 넣으면 개요가 너무 길어져서 훑기 어렵습니다.
+       실제 섹션 제목(h2 · 최상위 h3)만 담습니다. */
+    headings = [].slice.call(main.querySelectorAll('h2, h3')).filter(function (h) {
+      return !h.closest('.steps') && !h.closest('.qa');
+    });
     var box = document.getElementById('outline');
     var html = '';
     headings.forEach(function (h, i) {

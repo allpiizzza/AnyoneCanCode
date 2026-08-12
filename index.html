@@ -78,18 +78,190 @@
             <div class="desc">글 목록 · 글쓰기 · 상세보기가 모두 동작합니다. 직접 글을 하나 써보세요.</div>
           </a>
 
-          <div class="callout tip">
-            <div class="title">✱ 시연할 때 이렇게</div>
-            <p>데모에서 <strong>새 후기 남기기 → 등록 → 목록에 바로 뜨는 것</strong>까지 한 번에 보여주세요. "내가 쓴 글이 화면에 남는다"는 경험이 오늘 하루의 목표를 가장 빠르게 설명해 줍니다.</p>
+          <div class="callout host">
+            <div class="title">🎤 진행자 — 시연 순서 (5분)</div>
+            <p>말로 설명하기 전에 데모부터 보여주세요. 순서는 이렇게 하면 막힘이 없습니다.</p>
+            <ul>
+              <li><strong>① 목록 화면을 먼저 보여줍니다.</strong> "이게 오늘 만들 겁니다."</li>
+              <li><strong>② 새 후기 남기기 → 글을 하나 씁니다.</strong> 참가자 이름을 넣으면 반응이 좋습니다.</li>
+              <li><strong>③ 등록을 누르고 목록에 바로 뜨는 걸 보여줍니다.</strong> 여기가 핵심 장면입니다.</li>
+              <li><strong>④ 휴대폰으로 같은 주소를 엽니다.</strong> "여러분 폰에서도 열립니다"가 오늘의 동기부여입니다.</li>
+              <li><strong>⑤ 카드를 눌러 상세 화면까지</strong> 보여주고 마칩니다.</li>
+            </ul>
+            <p>"내가 쓴 글이 화면에 남는다"는 경험 하나면 오늘의 목표 설명이 끝납니다. 코드 이야기는 아직 꺼내지 마세요.</p>
           </div>
 
           <h2>세 단어만 기억하세요</h2>
 
-          <ul>
-            <li><strong>프론트엔드</strong> — 눈에 보이는 화면. 버튼, 글자, 색깔. 오늘 STEP 1에서 만듭니다.</li>
-            <li><strong>백엔드</strong> — 눈에 안 보이는 저장소. 쓴 글이 사라지지 않게 담아두는 곳. 오늘은 Google Sheets가 그 역할을 합니다.</li>
-            <li><strong>배포</strong> — 내 노트북에만 있던 걸 인터넷에 올려서, 다른 사람도 주소로 들어올 수 있게 만드는 것. STEP 3입니다.</li>
-          </ul>
+          <p>오늘 나오는 모든 이야기는 결국 이 셋 중 하나입니다. 식당에 비유하면 이해가 빠릅니다.</p>
+
+          <div class="flow">
+            <div class="fbox">
+              <div class="ft">프론트엔드</div>
+              <div class="fd">손님이 앉는 <strong>홀</strong><br>눈에 보이는 화면 · 버튼 · 글자 · 색</div>
+            </div>
+            <div class="farrow">↔</div>
+            <div class="fbox">
+              <div class="ft">백엔드</div>
+              <div class="fd">보이지 않는 <strong>주방·창고</strong><br>쓴 글을 담아두는 곳</div>
+            </div>
+            <div class="farrow">↔</div>
+            <div class="fbox">
+              <div class="ft">배포</div>
+              <div class="fd">가게에 붙는 <strong>주소·간판</strong><br>남들이 찾아올 수 있게 하는 것</div>
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>단어</th><th>쉽게 말하면</th><th>오늘은 무엇으로</th><th>언제</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td class="sym">프론트엔드</td>
+                  <td>눈에 보이는 화면 전부. 목록, 글쓰기 칸, 버튼.</td>
+                  <td>HTML · CSS · JavaScript</td>
+                  <td>STEP 1</td>
+                </tr>
+                <tr>
+                  <td class="sym">백엔드</td>
+                  <td>글이 사라지지 않게 적어두는 곳. 새로고침해도 남아 있게.</td>
+                  <td>Google 스프레드시트</td>
+                  <td>STEP 2</td>
+                </tr>
+                <tr>
+                  <td class="sym">배포</td>
+                  <td>내 노트북 안에만 있던 걸 인터넷 주소로 만드는 것.</td>
+                  <td>GitHub + Vercel</td>
+                  <td>STEP 3</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="callout">
+            <div class="title">✱ 새로고침하면 글이 사라지는 이유</div>
+            <p>STEP 1이 끝나면 화면은 멀쩡한데 새로고침하면 쓴 글이 없어집니다. 고장이 아닙니다. <strong>홀만 만들고 창고를 아직 안 만들었기 때문</strong>이에요. 글을 어디에도 적어두지 않았으니 화면을 다시 그리는 순간 사라지는 겁니다. 그 창고를 STEP 2에서 붙입니다.</p>
+          </div>
+
+          <h2>오늘 쓰는 도구 네 가지</h2>
+
+          <p>이름이 낯설 뿐, 하는 일은 한 줄로 끝납니다. 지금 외우지 않아도 됩니다.</p>
+
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>도구</th><th>하는 일</th><th>왜 이걸 쓰나</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td class="sym">AI 채팅</td>
+                  <td>내가 말로 부탁하면 코드를 써줍니다.</td>
+                  <td>오늘 코드를 직접 쓰지 않기 위해서. 우리가 할 일은 <strong>부탁을 잘 하는 것</strong>뿐입니다.</td>
+                </tr>
+                <tr>
+                  <td class="sym">Replit</td>
+                  <td>브라우저 안의 작업실. 코드를 붙여넣고 바로 실행해 봅니다.</td>
+                  <td>노트북에 아무것도 설치하지 않아도 되고, 맥·윈도우 차이가 없습니다.</td>
+                </tr>
+                <tr>
+                  <td class="sym">Google Sheets</td>
+                  <td>쓴 글이 쌓이는 창고.</td>
+                  <td>이미 익숙하고, <strong>저장된 내용을 눈으로 볼 수 있습니다.</strong> 진짜 데이터베이스는 그게 안 돼요.</td>
+                </tr>
+                <tr>
+                  <td class="sym">GitHub + Vercel</td>
+                  <td>코드를 보관하고(GitHub), 인터넷 주소로 띄웁니다(Vercel).</td>
+                  <td>둘 다 무료이고, 한 번 연결하면 그다음부터는 자동입니다.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <h2>오늘 배우는 것과 배우지 않는 것</h2>
+
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>배웁니다</th><th>배우지 않습니다</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td>원하는 걸 AI에게 정확히 말하는 법</td>
+                  <td>HTML·CSS·JavaScript 문법</td>
+                </tr>
+                <tr>
+                  <td>결과를 확인하고 다음을 요청하는 리듬</td>
+                  <td>코드를 직접 읽고 쓰는 능력</td>
+                </tr>
+                <tr>
+                  <td>에러가 났을 때 대처하는 순서</td>
+                  <td>에러가 안 나게 하는 법 (개발자도 못 합니다)</td>
+                </tr>
+                <tr>
+                  <td>만든 걸 인터넷에 올리는 절차</td>
+                  <td>서버·데이터베이스 같은 인프라 지식</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="callout tip">
+            <div class="title">✱ 오늘 결과물이 옆 사람과 달라도 정상입니다</div>
+            <p>같은 프롬프트를 넣어도 AI는 매번 조금씩 다른 코드를 줍니다. 색이 다르거나 카드 모양이 달라도 <strong>고장이 아닙니다.</strong> 화면이 뜨고 버튼이 눌리면 그걸로 성공이에요. 옆 사람과 똑같이 만드는 게 목표가 아닙니다.</p>
+          </div>
+
+          <h2>자주 나오는 질문</h2>
+
+          <div class="qa">
+            <details>
+              <summary>코드를 정말 한 줄도 몰라도 되나요?</summary>
+              <div class="a"><p>됩니다. 오늘 여러분이 하는 일은 <strong>부탁하기 · 복사하기 · 붙여넣기 · 눈으로 확인하기</strong> 네 가지입니다. 코드는 읽지 않아도 됩니다. 다만 "여기를 고쳐야겠다"는 <em>말</em>은 직접 하셔야 해요. 그 말을 잘 만드는 법이 오늘의 핵심입니다.</p></div>
+            </details>
+            <details>
+              <summary>돈이 드나요?</summary>
+              <div class="a"><p>오늘 쓰는 것은 전부 무료 범위 안에서 끝납니다. Replit·GitHub·Vercel·Google Sheets 모두 무료 계정으로 충분해요. 유료가 되는 건 방문자가 아주 많아지거나 한글 도메인 같은 <strong>주소를 따로 사는 경우</strong>뿐입니다.</p></div>
+            </details>
+            <details>
+              <summary>오늘 만든 사이트는 계속 남아 있나요?</summary>
+              <div class="a"><p>남습니다. 계정을 지우지 않는 한 주소는 계속 살아 있어요. 내일도, 한 달 뒤에도 같은 주소로 들어갈 수 있습니다. 글은 여러분의 Google 스프레드시트에 쌓이니 그것도 그대로 남습니다.</p></div>
+            </details>
+            <details>
+              <summary>AI가 틀린 코드를 주면 어떻게 하나요?</summary>
+              <div class="a">
+                <p>자주 있는 일이고, 그게 정상입니다. 대응은 늘 같습니다.</p>
+                <ul>
+                  <li>화면에 안 나오면 → 콘솔을 열고 빨간 글씨를 복사</li>
+                  <li>그 빨간 글씨를 AI에게 그대로 붙여넣기</li>
+                  <li>"수정된 전체 코드로 다시 줘"라고 덧붙이기</li>
+                </ul>
+                <p>자세한 순서는 <a href="errors.html">에러 해결법</a>에 있습니다.</p>
+              </div>
+            </details>
+            <details>
+              <summary>워크샵이 끝나고 혼자서 고칠 수 있을까요?</summary>
+              <div class="a"><p>오늘 쓰는 방식 그대로 하시면 됩니다. AI 대화창을 열고 "지금 이런 사이트를 만들어뒀는데, 여기를 이렇게 바꾸고 싶어"라고 하면 돼요. <a href="templates.html">범용 프롬프트 템플릿</a> 문서를 그때 다시 열어보세요. 오늘 이후에도 계속 쓰라고 만든 문서입니다.</p></div>
+            </details>
+            <details>
+              <summary>노트북 없이 태블릿이나 휴대폰으로도 되나요?</summary>
+              <div class="a"><p>권하지 않습니다. 코드를 복사해서 붙여넣는 작업이 많은데 화면이 작으면 그 과정이 몇 배로 힘듭니다. 노트북과 충전기를 꼭 챙겨 오세요.</p></div>
+            </details>
+            <details>
+              <summary>중간에 못 따라가면 어떡하죠?</summary>
+              <div class="a"><p>진행자가 네 번 멈춰서 확인합니다(계정 생성 후 · 화면 완료 후 · 저장 연동 후 · 배포 후). 그때 손만 들어주세요. 그리고 이 문서는 워크샵이 끝나도 그대로 남아 있으니, 집에서 이어서 해도 됩니다.</p></div>
+            </details>
+          </div>
+
+          <h2>용어 사전</h2>
+
+          <p>오늘 귀에 스칠 단어들입니다. 뜻만 알면 충분하고, 외울 필요는 없습니다.</p>
+
+          <dl class="gloss">
+            <div><dt>HTML</dt><dd>화면의 뼈대. 제목·글·버튼이 <em>무엇인지</em> 적어둔 것.</dd></div>
+            <div><dt>CSS</dt><dd>꾸미기. 색·크기·간격처럼 <em>어떻게 보일지</em>를 정합니다.</dd></div>
+            <div><dt>JavaScript</dt><dd>움직임. 버튼을 누르면 무슨 일이 일어날지 정합니다.</dd></div>
+            <div><dt>콘솔</dt><dd>브라우저가 우리에게 말을 거는 창. 에러가 여기 적힙니다.</dd></div>
+            <div><dt>배포</dt><dd>내 컴퓨터에 있던 걸 인터넷 주소로 올리는 일.</dd></div>
+            <div><dt>저장소(repository)</dt><dd>GitHub에 만드는 코드 보관함. 프로젝트 하나에 하나씩.</dd></div>
+            <div><dt>Push</dt><dd>내가 고친 코드를 그 보관함으로 올려 보내는 것.</dd></div>
+            <div><dt>API</dt><dd>프로그램끼리 주고받는 창구. 오늘은 화면과 스프레드시트를 잇는 통로입니다.</dd></div>
+            <div><dt>프롬프트</dt><dd>AI에게 건네는 부탁 문장. 오늘 진짜로 배우는 건 이것입니다.</dd></div>
+          </dl>
 
           <div class="pagenav">
             <span class="spacer"></span>
