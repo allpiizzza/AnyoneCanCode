@@ -24,6 +24,17 @@
     { f: 'errors.html',    t: '에러 해결법',              d: '콘솔 읽는 법과 패턴표' }
   ];
 
+  /* ---------- 공개 설정 ----------
+     index.html · checklist.html 을 뺀 나머지 문서는 워크샵 당일에 열립니다.
+     날짜가 지났거나 참가자 코드를 넣으면 열립니다.
+
+     ⚠️ 이건 "커튼"이지 보안이 아닙니다. 정적 사이트라 잠긴 문서의 HTML은
+        브라우저 소스 보기나 GitHub 저장소에서 그대로 읽을 수 있습니다.
+        워크샵 전에 미리 열어보지 않게 하는 용도로만 쓰세요.        */
+  var OPEN_AT = new Date(2026, 7, 30, 0, 0, 0);   // 2026년 8월 30일(일) 0시, 보는 사람의 시간대 기준
+  var PASSCODE = '1021';
+  var FREE = ['index.html', 'checklist.html'];    // 언제나 열려 있는 문서
+
   var SCHEDULE = [
     ['15분', '완성본 시연 + 개념 설명', 'index.html'],
     ['20분', '계정 생성 (Replit · GitHub · Vercel)', 'checklist.html'],
@@ -55,6 +66,7 @@
 
   var scroller = document.getElementById('scroller');
   var headings = [];
+  var locked = false;   // 지금 보고 있는 문서가 잠겨 있는가 (실행부에서 계산)
 
   /* =========================================================
      1. 골격 만들기
@@ -136,7 +148,7 @@
     function row(href, label, active, isAsset) {
       var cls = /\.css$/.test(label) ? ' css' : '';
       return '<a href="' + href + '"' + (active ? ' class="active"' : '') + '>' +
-        '<span class="ic' + cls + '">◆</span>' + esc(label) +
+        '<span class="ic' + cls + '">◆</span>' + esc(label) + (isAsset ? '' : lockMark(href)) +
         (isAsset ? '<span class="ext">' + (/\.css$/.test(label) ? 'CSS' : 'JS') + '</span>' : '') +
         '</a>';
     }
@@ -148,7 +160,7 @@
     var html = '';
     FILES.forEach(function (x) {
       html += '<a class="tab' + (x.f === current ? ' active' : '') + '" href="' + x.f + '" title="' + esc(x.t) + '">' +
-        '<span class="ic">◆</span>' + x.f + '<span class="x">✕</span></a>';
+        '<span class="ic">◆</span>' + x.f + lockMark(x.f) + '<span class="x">✕</span></a>';
     });
     tb.innerHTML = html;
     var active = tb.querySelector('.tab.active');
@@ -167,9 +179,16 @@
   /* --- 상태바 --- */
   function buildStatus() {
     var sb = document.querySelector('.statusbar');
+    var gate = isUnlocked()
+      ? (hasPass() && !isOpenDay()
+          ? '<button class="si" data-cmd="relock" title="참가자 코드 기록을 지우고 다시 잠급니다">🔓 코드 입장 중</button>'
+          : '')
+      : '<span class="si" title="' + openDayText() + ' 0시 공개 · 참가자 코드로 미리 열기">🔒 D-' + daysLeft() + '</span>';
+
     sb.innerHTML =
       '<span class="si">⎇ main</span>' +
       '<button class="si" data-cmd="problems" title="문제 패널 열기">⊗ 0 &nbsp;⚠ 0</button>' +
+      gate +
       '<span class="si hide-sm" id="stProgress"></span>' +
       '<span class="si right" id="stCursor">Ln 1, Col 1</span>' +
       '<span class="si hide-sm">UTF-8</span>' +
@@ -188,13 +207,22 @@
       line('workshop', 'npx serve .', true) +
       '<div class="ln"><span class="ok">✔</span> <span class="dim">가이드 사이트 실행 중 · http://localhost:8899/</span></div>' +
       line('workshop', 'open ' + meta.f, true) +
-      '<div class="ln"><span class="path">▸</span> ' + esc(meta.t) + (meta.d ? ' <span class="dim">— ' + esc(meta.d) + '</span>' : '') + '</div>' +
+      (locked
+        ? '<div class="ln"><span class="warnc">✖</span> permission denied — ' +
+          '<span class="dim">' + openDayText() + ' 0시 공개 (D-' + daysLeft() + ')</span></div>' +
+          line('workshop', 'unlock --code ••••', true)
+        : '<div class="ln"><span class="path">▸</span> ' + esc(meta.t) +
+          (meta.d ? ' <span class="dim">— ' + esc(meta.d) + '</span>' : '') + '</div>') +
       '<div class="ln"><span class="pr">workshop</span> <span class="dim">$</span> <span class="caret-blink"></span></div>';
 
-    var problems =
-      '<div class="ln"><span class="ok">✔</span> 이 문서에서 발견된 문제 <strong>0개</strong>.</div>' +
-      '<div class="ln dim">화면에 에러가 났다면 브라우저 콘솔부터 보세요 — ' +
-      '<a href="errors.html">errors.html</a> 에 콘솔 여는 법과 증상별 원인표가 있습니다.</div>';
+    var problems = locked
+      ? '<div class="ln"><span class="warnc">🔒</span> 이 문서는 아직 잠겨 있습니다 — ' +
+        openDayText() + ' 0시 공개, 남은 기간 <strong>' + daysLeft() + '일</strong>.</div>' +
+        '<div class="ln dim">지금 볼 수 있는 문서 — <a href="index.html">index.html</a> · ' +
+        '<a href="checklist.html">checklist.html</a></div>'
+      : '<div class="ln"><span class="ok">✔</span> 이 문서에서 발견된 문제 <strong>0개</strong>.</div>' +
+        '<div class="ln dim">화면에 에러가 났다면 브라우저 콘솔부터 보세요 — ' +
+        '<a href="errors.html">errors.html</a> 에 콘솔 여는 법과 증상별 원인표가 있습니다.</div>';
 
     var out = '<div class="ln dim">[워크샵 타임라인]</div>';
     SCHEDULE.forEach(function (s) {
@@ -336,7 +364,8 @@
     { t: '테마 전환 (다크 / 라이트)', d: '', run: function () { toggleTheme(); } },
     { t: '완성본 데모 열기', d: '새 탭', run: function () { window.open('sample/index.html', '_blank', 'noopener'); } },
     { t: '맨 위로 이동', d: '', run: function () { scroller.scrollTo({ top: 0, behavior: 'smooth' }); } },
-    { t: '체크리스트 기록 초기화', d: 'checklist', run: function () { resetChecks(); } }
+    { t: '체크리스트 기록 초기화', d: 'checklist', run: function () { resetChecks(); } },
+    { t: '잠금 다시 걸기 (참가자 코드 기록 지우기)', d: '', run: function () { relock(); } }
   ];
 
   var pal, palInput, palList, palItems = [], palSel = 0;
@@ -384,7 +413,8 @@
       q = q.slice(1);
     } else {
       FILES.forEach(function (x) {
-        list.push({ ic: '◆', t: x.f, d: x.t, run: function () { location.href = x.f; } });
+        var lk = (isGated(x.f) && !isUnlocked()) ? ' 🔒' : '';
+        list.push({ ic: '◆', t: x.f, d: x.t + lk, run: function () { location.href = x.f; } });
       });
       list.push({ ic: '◆', t: 'sample/index.html', d: '완성본 데모 ↗', run: function () { window.open('sample/index.html', '_blank', 'noopener'); } });
       headings.forEach(function (h) {
@@ -582,7 +612,105 @@
   }
 
   /* =========================================================
-     5. 이벤트 연결
+     5. 접근 제한 (워크샵 당일 공개 · 참가자 코드)
+     ========================================================= */
+
+  var PASS_KEY = 'ide_pass';
+
+  function isGated(file) { return FREE.indexOf(file) < 0; }
+  function isOpenDay() { return Date.now() >= OPEN_AT.getTime(); }
+  function hasPass() { return LS.get(PASS_KEY) === PASSCODE; }
+  function isUnlocked() { return isOpenDay() || hasPass(); }
+
+  /* 공개일까지 남은 날 (오늘이 공개일이면 0) */
+  function daysLeft() {
+    var today = new Date();
+    today.setHours(0, 0, 0, 0);
+    var open = new Date(OPEN_AT.getTime());
+    open.setHours(0, 0, 0, 0);
+    return Math.max(0, Math.round((open - today) / 86400000));
+  }
+
+  function openDayText() {
+    var days = ['일', '월', '화', '수', '목', '금', '토'];
+    return OPEN_AT.getFullYear() + '년 ' + (OPEN_AT.getMonth() + 1) + '월 ' +
+      OPEN_AT.getDate() + '일(' + days[OPEN_AT.getDay()] + ')';
+  }
+
+  /* 잠긴 문서면 본문을 잠금 화면으로 통째로 바꾼다 */
+  function applyLock() {
+    locked = isGated(current) && !isUnlocked();
+    if (!locked) return;
+
+    document.title = '🔒 잠긴 문서 — 비개발자 웹사이트 워크샵';
+    main.innerHTML =
+      '<h1>잠긴 문서</h1>' +
+      '<p class="subtitle">이 문서는 워크샵 당일에 열립니다</p>' +
+      '<div class="lockbox">' +
+        '<div class="lock-top">' +
+          '<span class="lock-ic">🔒</span>' +
+          '<div><div class="lock-file">' + esc(meta.f) + '</div>' +
+          '<div class="lock-sub">' + esc(meta.t) + '</div></div>' +
+          '<span class="dday">D-' + daysLeft() + '</span>' +
+        '</div>' +
+        '<p>워크샵 당일인 <strong>' + openDayText() + '</strong> 0시에 자동으로 열립니다. ' +
+        '미리 봐야 한다면 아래에 <strong>참가자 코드</strong>를 넣어 주세요.</p>' +
+        '<form class="lock-form" autocomplete="off">' +
+          '<input class="lock-input" type="password" inputmode="numeric" maxlength="12" ' +
+          'placeholder="참가자 코드" aria-label="참가자 코드">' +
+          '<button class="lock-btn" type="submit">입장</button>' +
+        '</form>' +
+        '<p class="lock-msg" role="status"></p>' +
+        '<p class="lock-free">지금 볼 수 있는 문서 — ' +
+          '<a href="index.html">README</a> · <a href="checklist.html">준비 체크리스트</a></p>' +
+      '</div>';
+
+    var form = main.querySelector('.lock-form');
+    var input = main.querySelector('.lock-input');
+    var msg = main.querySelector('.lock-msg');
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (input.value.trim() === PASSCODE) {
+        LS.set(PASS_KEY, PASSCODE);
+        msg.className = 'lock-msg ok';
+        msg.textContent = '확인됐습니다. 문서를 여는 중…';
+        setTimeout(function () { location.reload(); }, 400);
+      } else {
+        msg.className = 'lock-msg bad';
+        msg.textContent = '코드가 맞지 않습니다. 진행자에게 물어보세요.';
+        input.select();
+        form.classList.remove('shake');
+        void form.offsetWidth;
+        form.classList.add('shake');
+      }
+    });
+    setTimeout(function () { input.focus(); }, 80);
+  }
+
+  /* 열려 있는 문서(index · checklist)에는 "나머지는 당일 공개" 안내를 붙인다 */
+  function lockNotice() {
+    if (locked || isUnlocked()) return;
+    var box = el('div', 'callout warn',
+      '<div class="title">🔒 나머지 문서는 워크샵 당일에 열립니다</div>' +
+      '<p>템플릿 · STEP 1~3 · 여유 과제 · 에러 해결법은 <strong>' + openDayText() +
+      '</strong> 0시에 자동으로 열립니다. 남은 기간 <strong>' + daysLeft() + '일</strong>. ' +
+      '먼저 봐야 한다면 잠긴 문서에서 <strong>참가자 코드</strong>를 넣으면 바로 열립니다.</p>');
+    var nav = main.querySelector('.pagenav');
+    if (nav) main.insertBefore(box, nav); else main.appendChild(box);
+  }
+
+  function relock() {
+    LS.del(PASS_KEY);
+    location.reload();
+  }
+
+  /* 잠금 상태에 따라 탭·트리·팔레트에 붙일 자물쇠 표시 */
+  function lockMark(file) {
+    return (isGated(file) && !isUnlocked()) ? '<span class="lk" title="워크샵 당일 공개">🔒</span>' : '';
+  }
+
+  /* =========================================================
+     6. 이벤트 연결
      ========================================================= */
 
   function wireGlobal() {
@@ -595,6 +723,7 @@
         else if (cmd === 'panel') { e.preventDefault(); togglePanel(); }
         else if (cmd === 'theme') { e.preventDefault(); toggleTheme(); }
         else if (cmd === 'problems') { e.preventDefault(); showPanel('problems'); }
+        else if (cmd === 'relock') { e.preventDefault(); relock(); }
         return;
       }
       var pt = e.target.closest('.ptab');
@@ -641,6 +770,8 @@
 
   /* ---------- 실행 ---------- */
   restorePrefs();
+  applyLock();          /* 잠긴 문서면 여기서 본문이 잠금 화면으로 바뀐다 */
+  lockNotice();         /* 열린 문서에는 공개 예정 안내를 붙인다 */
   buildTitlebar();
   buildActivitybar();
   buildSidebar();

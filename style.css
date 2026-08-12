@@ -812,6 +812,87 @@ td.sym{ font-family:var(--mono); color:var(--red); font-size:13px; }
 .pagenav a.next{ text-align:right; }
 .pagenav .spacer{ flex:1; max-width:48%; }
 
+/* ---------- 잠금 화면 (워크샵 당일 공개) ---------- */
+.lockbox{
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-left:3px solid var(--yellow);
+  border-radius:0 10px 10px 0;
+  padding:20px 24px;
+  margin:26px 0;
+  max-width:560px;
+}
+.lock-top{
+  display:flex;
+  align-items:center;
+  gap:14px;
+  padding-bottom:14px;
+  margin-bottom:14px;
+  border-bottom:1px solid var(--border);
+}
+.lock-ic{ font-size:26px; line-height:1; flex:none; }
+.lock-file{
+  font-family:var(--mono);
+  font-size:15px;
+  font-weight:700;
+  color:var(--text);
+}
+.lock-sub{ font-size:13px; color:var(--text-dim); }
+.dday{
+  margin-left:auto;
+  flex:none;
+  font-family:var(--mono);
+  font-size:12px;
+  font-weight:700;
+  color:var(--yellow);
+  border:1px solid var(--border);
+  border-radius:999px;
+  padding:3px 11px;
+  background:var(--panel-2);
+}
+.lock-form{ display:flex; gap:8px; margin:16px 0 0; flex-wrap:wrap; }
+.lock-input{
+  flex:1;
+  min-width:150px;
+  background:var(--panel-2);
+  border:1px solid var(--border);
+  border-radius:7px;
+  color:var(--text);
+  font-family:var(--mono);
+  font-size:14px;
+  letter-spacing:.22em;
+  padding:9px 13px;
+  outline:none;
+}
+.lock-input:focus{ border-color:var(--accent); }
+.lock-input::placeholder{ letter-spacing:normal; color:var(--text-faint); }
+.lock-btn{
+  flex:none;
+  background:var(--accent-bg);
+  border:1px solid var(--accent-line);
+  border-radius:7px;
+  color:var(--blue);
+  font-family:var(--mono);
+  font-size:13px;
+  font-weight:700;
+  padding:9px 20px;
+  cursor:pointer;
+  transition:.15s;
+}
+.lock-btn:hover{ border-color:var(--blue); }
+.lock-msg{ min-height:22px; margin:10px 0 0 !important; font-size:13.5px; }
+.lock-msg.ok{ color:var(--green-bright); }
+.lock-msg.bad{ color:var(--red); }
+.lock-free{ margin:14px 0 0 !important; font-size:13px; color:var(--text-dim); }
+.lock-form.shake{ animation:shake .3s; }
+@keyframes shake{
+  25%{ transform:translateX(-5px); }
+  50%{ transform:translateX(5px); }
+  75%{ transform:translateX(-3px); }
+}
+/* 탭·트리에 붙는 작은 자물쇠 */
+.lk{ font-size:9.5px; opacity:.75; margin-left:2px; flex:none; }
+
 /* ---------- 하단 패널 (터미널 / 문제 / 출력) ---------- */
 .panel-dock{
   background:var(--panel);
