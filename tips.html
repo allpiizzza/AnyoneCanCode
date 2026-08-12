@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AI와 일하는 두 가지 습관 — 비개발자 웹사이트 워크샵</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-file="tips.html">
+
+<div class="ide">
+
+  <header class="titlebar"></header>
+
+  <div class="workbench">
+    <nav class="activitybar"></nav>
+    <aside class="sidebar"></aside>
+
+    <div class="editor">
+      <div class="tabbar"></div>
+      <div class="breadcrumb"></div>
+
+      <div class="editor-area">
+        <div class="scroller" id="scroller">
+          <div class="code">
+            <div class="gutter" aria-hidden="true"></div>
+            <main class="main">
+      <noscript>
+        <div class="nojs">
+          <strong>JavaScript가 꺼져 있습니다.</strong> 탐색기·탭·명령 팔레트 같은 에디터 UI 없이 본문만 보입니다.
+          문서 이동 — <a href="index.html">README</a> ·
+          <a href="checklist.html">체크리스트</a> ·
+          <a href="templates.html">템플릿</a> ·
+          <a href="step1.html">STEP 1</a> ·
+          <a href="step2.html">STEP 2</a> ·
+          <a href="step3.html">STEP 3</a> ·
+          <a href="extra.html">여유 과제</a> ·
+          <a href="errors.html">에러 해결법</a> ·
+          <a href="tips.html">두 가지 습관</a>
+        </div>
+      </noscript>
+          <span class="badge purple">심화</span>
+          <span class="badge">워크샵 이후에 읽어도 좋습니다</span>
+
+          <h1>AI와 일하는 두 가지 습관</h1>
+          <p class="subtitle">템플릿 다음으로 결과를 크게 바꾸는 것</p>
+
+          <p class="lead"><a href="templates.html">네 칸 템플릿</a>이 "무엇을 말하느냐"라면, 이 문서는 <strong>"언제, 얼마만큼 말하느냐"</strong>입니다. 오늘 당장 필요하진 않아요. 워크샵이 끝나고 혼자 만들 때 다시 열어보세요.</p>
+
+          <div class="brief">
+            <div class="brief-row"><span class="k">습관 1</span><span class="v"><strong>고칠 때는 쪼개서.</strong> 한 번에 하나만 바꾸고 화면으로 확인합니다.</span></div>
+            <div class="brief-row"><span class="k">습관 2</span><span class="v"><strong>처음 만들 때는 인터뷰로.</strong> 계획을 먼저 세우고 한 덩어리로 만듭니다.</span></div>
+            <div class="brief-row"><span class="k">읽는 때</span><span class="v">워크샵 당일에는 건너뛰어도 됩니다. 오늘은 프롬프트가 이미 준비돼 있어요.</span></div>
+          </div>
+
+          <h2><span class="stepno">1.</span> 고칠 때는 쪼개서 요청하세요</h2>
+
+          <p>"게시판 만들고, 저장도 되게 하고, 배포까지 알려줘"를 한 프롬프트에 담으면 대부분 이렇게 됩니다.</p>
+
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>한꺼번에 시키면</th><th>왜 그런가</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td>조건 몇 개가 빠집니다</td>
+                  <td>열 가지를 시키면 여덟 개만 반영된 결과가 옵니다. 뭐가 빠졌는지는 한참 뒤에 발견해요.</td>
+                </tr>
+                <tr>
+                  <td>앞뒤가 어긋납니다</td>
+                  <td>파일 세 개를 한 번에 새로 쓰면, 앞에서 쓴 이름과 뒤에서 부르는 이름이 안 맞는 일이 흔합니다.</td>
+                </tr>
+                <tr>
+                  <td>원인을 못 찾습니다</td>
+                  <td>다섯 군데를 동시에 바꿨는데 화면이 하얗게 뜨면, 다섯 군데를 다 뒤져야 합니다.</td>
+                </tr>
+                <tr>
+                  <td>돌아갈 곳이 없습니다</td>
+                  <td>조금씩 가면 "직전 코드로 돌아가면 되지"가 되지만, 크게 바꾸면 되돌릴 지점이 사라집니다.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <details class="more">
+            <summary>＋ "AI가 집중력을 잃는다"는 말, 맞는 표현인가요?</summary>
+            <div class="in">
+              <p>느낌으로는 딱 그렇습니다. 다만 실제로 벌어지는 일은 사람처럼 주의가 흐트러지는 게 아니라, <strong>지켜야 할 조건이 많아질수록 그중 일부를 놓칠 확률이 올라가고, 답이 길어질수록 앞뒤가 어긋날 자리가 늘어나는 것</strong>에 가깝습니다. 대화가 길어지면 앞에서 정한 약속을 흘리기도 하고요.</p>
+              <p>원인이 무엇이든 대응은 같습니다 — <strong>작게 쪼개고, 매번 확인하세요.</strong></p>
+            </div>
+          </details>
+
+          <h3>작업 리듬 네 박자</h3>
+
+          <ul class="steps">
+            <li class="step">
+              <span class="num">1</span>
+              <div class="body">
+                <h3>한 번에 한 가지만 요청합니다</h3>
+                <p>"카드 색 바꾸고 정렬도 바꿔줘"가 아니라 "카드 색만 바꿔줘". 나머지는 메모해두고 순서대로 처리하세요.</p>
+              </div>
+            </li>
+            <li class="step">
+              <span class="num">2</span>
+              <div class="body">
+                <h3>결과를 화면에서 확인합니다</h3>
+                <p>코드를 읽을 필요는 없습니다. 부탁한 게 됐는지, 잘 되던 게 망가지지 않았는지 <strong>두 가지만</strong> 봅니다.</p>
+              </div>
+            </li>
+            <li class="step">
+              <span class="num">3</span>
+              <div class="body">
+                <h3>잘 됐으면 "여기까지 좋아"라고 알려줍니다</h3>
+                <p>이 한마디가 다음 요청의 <code>[상황/맥락]</code>이 됩니다. AI가 지금 상태를 기준으로 이어서 작업해요.</p>
+              </div>
+            </li>
+            <li class="step">
+              <span class="num">4</span>
+              <div class="body">
+                <h3>망가졌으면 더 얹지 말고 되돌립니다</h3>
+                <p>고장난 위에 수정을 쌓으면 걷잡을 수 없어집니다. 직전에 잘 되던 코드로 돌아간 다음, 더 잘게 잘라 다시 시도하세요.</p>
+              </div>
+            </li>
+          </ul>
+
+          <div class="term">
+            <div class="term-bar">
+              <div class="dots"><i class="dot r"></i><i class="dot y"></i><i class="dot g"></i></div>
+              <div class="name">next-step.txt</div>
+              <button class="copy-btn">COPY</button>
+            </div>
+            <pre>지금 화면 잘 나왔어. 여기까지는 그대로 두고, 딱 하나만 더 할게.
+
+[요청] (바꾸고 싶은 것 한 가지만)
+
+나머지 기능이나 디자인은 건드리지 말고,
+수정된 전체 코드로 다시 줘.</pre>
+          </div>
+
+          <h2><span class="stepno">2.</span> 처음 만들 때는 인터뷰로 계획부터</h2>
+
+          <p>쪼개기는 <strong>고칠 때</strong> 규칙입니다. 아무것도 없는 상태에서 처음 뼈대를 만들 때는 반대로 한 덩어리로 요청하는 편이 나아요. 그런데 "뼈대"가 어디까지일까요?</p>
+
+          <div class="callout">
+            <div class="title">✱ 기준 한 줄</div>
+            <p><strong>나중에 따로 만들면 서로 안 맞는 것들</strong> — 이것만 한 번에 묶습니다. 나머지는 전부 쪼갭니다.</p>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>한 번에 묶을 것</th><th>따로 만들면 생기는 일</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td>파일 이름 <code>index.html</code> · <code>write.html</code> · <code>detail.html</code></td>
+                  <td>AI가 매번 다른 이름을 붙여서 다음 대화가 어긋납니다.</td>
+                </tr>
+                <tr>
+                  <td>페이지 사이 이동 (카드 클릭 → 상세)</td>
+                  <td>나중에 붙인 상세 페이지가 엉뚱한 글을 찾습니다.</td>
+                </tr>
+                <tr>
+                  <td>데이터 항목과 순서 (제목 · 작성자 · 작성일 · 내용)</td>
+                  <td>화면과 저장이 서로 다른 순서를 봐서 내용이 뒤섞입니다.</td>
+                </tr>
+                <tr>
+                  <td>전체 톤 (따뜻한 파스텔)</td>
+                  <td>페이지마다 달라져서 세 화면이 다른 사이트처럼 보입니다.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>반대로 <strong>저장 기능, 답변달기, 도메인 연결, 카드 색, 에러 수정</strong>은 이미 있는 것 위에 하나씩 얹는 일이라 전부 쪼갭니다.</p>
+
+          <h3>계획은 말로 고치고, 코드는 한 번에 받으세요</h3>
+
+          <p>자주 오해하는 지점입니다. <strong>쪼개는 대상은 "코드를 바꾸는 요청"이지 대화 전체가 아닙니다.</strong> 계획을 다듬는 단계는 오히려 많이 주고받을수록 좋아요. 말로 고치는 건 공짜지만, 코드를 고치면 매번 파일이 통째로 다시 옵니다.</p>
+
+          <div class="flow">
+            <div class="fbox">
+              <div class="ft">① 인터뷰 · 계획</div>
+              <div class="fd">다섯 번, 열 번 주고받아도 됨<br>아직 코드 없음</div>
+            </div>
+            <div class="farrow">→</div>
+            <div class="fbox on">
+              <div class="ft">② 만들기</div>
+              <div class="fd">코드 생성은 <strong>여기 한 번</strong><br>범위를 잘라서 요청</div>
+            </div>
+            <div class="farrow">→</div>
+            <div class="fbox">
+              <div class="ft">③ 하나씩</div>
+              <div class="fd">저장 → 확인 → 답변달기 → 확인<br>습관 1로 돌아감</div>
+            </div>
+          </div>
+
+          <h3>① AI가 나에게 먼저 묻게 하기</h3>
+
+          <div class="term">
+            <div class="term-bar">
+              <div class="dots"><i class="dot r"></i><i class="dot y"></i><i class="dot g"></i></div>
+              <div class="name">interview.txt</div>
+              <button class="copy-btn">COPY</button>
+            </div>
+            <pre>[역할] 너는 초보자에게 친절하게 설명하는 웹 개발자야.
+
+[상황/맥락] 나는 독서모임에서 쓸 책후기 게시판을 만들려고 해.
+코딩은 전혀 모르고, HTML·CSS·JavaScript로만 만들 거야.
+
+[요청] 바로 코드를 주지 말고, 먼저 나한테 필요한 걸 물어봐 줘.
+한 번에 서너 개씩만, 초보자도 답할 수 있는 쉬운 말로.
+내가 답하면 그걸 정리해서 "무엇을 만들지" 계획을 보여줘.
+
+[형식] 계획은 한 페이지 분량으로, 화면 목록과
+각 화면에 무엇이 들어가는지 항목으로 정리해줘.</pre>
+          </div>
+
+          <p>만들려는 게 책후기 게시판이 아니라면 <strong>[상황/맥락]</strong> 한 줄만 바꿔 쓰면 됩니다.</p>
+
+          <h3>② 계획이 마음에 들면, 범위를 잘라서 요청</h3>
+
+          <div class="term">
+            <div class="term-bar">
+              <div class="dots"><i class="dot r"></i><i class="dot y"></i><i class="dot g"></i></div>
+              <div class="name">build-from-plan.txt</div>
+              <button class="copy-btn">COPY</button>
+            </div>
+            <pre>좋아, 이 계획대로 가자.
+
+[요청] 계획 중에서 이번에는 화면만 먼저 만들어줘.
+- 파일은 index.html, write.html, detail.html 세 개로 나눠줘
+- 저장 기능은 아직 넣지 말고, 예시 글 2~3개를 넣어서
+  화면이 어떻게 보이는지만 확인할 수 있게 해줘
+
+[형식] 세 파일의 전체 코드로 줘.</pre>
+          </div>
+
+          <div class="callout warn">
+            <div class="title">⚠ "한 번에"에도 크기가 있습니다</div>
+            <p>계획이 아무리 잘 나와도 한 번에 받을 수 있는 건 <strong>눈에 보이는 화면 한 세트까지</strong>입니다. 여기에 저장 기능까지 얹으면 결과가 길어지면서 어긋나는 곳이 생겨요. 오늘 워크샵이 <a href="step1.html">STEP 1(화면)</a>과 <a href="step2.html">STEP 2(저장)</a>로 나뉜 게 딱 그 선입니다.</p>
+          </div>
+
+          <h2>정리</h2>
+
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>상황</th><th>이렇게</th></tr></thead>
+              <tbody>
+                <tr>
+                  <td>아무것도 없는 상태에서 처음 만들 때</td>
+                  <td>인터뷰로 계획 → <strong>한 덩어리로</strong> 요청 (단, 화면 한 세트까지)</td>
+                </tr>
+                <tr>
+                  <td>이미 만들어진 걸 고칠 때</td>
+                  <td><strong>한 번에 하나씩</strong> → 화면 확인 → 다음</td>
+                </tr>
+                <tr>
+                  <td>망가졌을 때</td>
+                  <td>수정을 더 얹지 말고 <strong>직전 코드로 되돌리기</strong></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="pagenav">
+            <a class="prev" href="errors.html">
+              <div class="dir">← 이전</div>
+              <div class="ttl">에러 해결법</div>
+            </a>
+            <a class="next" href="index.html">
+              <div class="dir">처음으로 →</div>
+              <div class="ttl">README</div>
+            </a>
+          </div>
+
+            </main>
+          </div>
+        </div>
+        <div class="minimap"><div class="mm-inner"></div><div class="mm-view"></div></div>
+      </div>
+    </div>
+  </div>
+
+  <section class="panel-dock"></section>
+  <footer class="statusbar"></footer>
+
+</div>
+
+<script src="ide.js"></script>
+
+</body>
+</html>

@@ -21,7 +21,8 @@
     { f: 'step2.html',     t: 'STEP 2 · Google Sheets 연동', d: '저장과 불러오기' },
     { f: 'step3.html',     t: 'STEP 3 · GitHub + Vercel 배포', d: '인터넷 주소 만들기' },
     { f: 'extra.html',     t: '여유 시 도전 과제',        d: '답변달기 · 도메인' },
-    { f: 'errors.html',    t: '에러 해결법',              d: '콘솔 읽는 법과 패턴표' }
+    { f: 'errors.html',    t: '에러 해결법',              d: '콘솔 읽는 법과 패턴표' },
+    { f: 'tips.html',      t: 'AI와 일하는 두 가지 습관', d: '심화 · 쪼개기와 인터뷰' }
   ];
 
   /* ---------- 공개 설정 ----------
