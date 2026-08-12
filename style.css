@@ -963,6 +963,59 @@ td.sym{ font-family:var(--mono); color:var(--red); font-size:13px; }
 .callout.host{ border-left-color:var(--cyan); }
 .callout.host .title{ color:var(--cyan); }
 
+/* ---------- 접히는 상자 (진행자용 / 곁가지 설명) ---------- */
+.hostbox, .more{
+  border:1px solid var(--border);
+  border-left:3px solid var(--cyan);
+  border-radius:0 8px 8px 0;
+  background:var(--panel);
+  margin:22px 0;
+  overflow:hidden;
+}
+.more{ border-left-color:var(--text-faint); }
+.hostbox > summary, .more > summary{
+  list-style:none;
+  cursor:pointer;
+  padding:12px 18px;
+  font-family:var(--mono);
+  font-size:12.5px;
+  font-weight:700;
+  color:var(--cyan);
+  user-select:none;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.more > summary{ color:var(--text-dim); }
+.hostbox > summary::-webkit-details-marker,
+.more > summary::-webkit-details-marker{ display:none; }
+.hostbox > summary::after, .more > summary::after{
+  content:'펼치기 ▾';
+  margin-left:auto;
+  font-size:10.5px;
+  font-weight:400;
+  color:var(--text-faint);
+  white-space:nowrap;
+}
+.hostbox[open] > summary::after, .more[open] > summary::after{ content:'접기 ▴'; }
+.hostbox > summary:hover, .more > summary:hover{ background:var(--hover); }
+.hostbox .in, .more .in{
+  padding:2px 18px 16px;
+  border-top:1px solid var(--border-soft);
+}
+.hostbox .in > *:first-child, .more .in > *:first-child{ margin-top:14px; }
+.hostbox .in p, .more .in p{ color:var(--text-dim); font-size:14px; margin:0 0 10px; }
+.hostbox .in ul, .more .in ul{ color:var(--text-dim); font-size:14px; margin:0 0 10px; }
+.hostbox .in > *:last-child, .more .in > *:last-child{ margin-bottom:0; }
+
+/* 단계 제목 (1단계 · ...) */
+.main h2 .stepno{
+  display:inline-block;
+  min-width:26px;
+  margin-right:2px;
+  color:var(--green-bright);
+}
+
 /* ---------- 잠금 화면 (워크샵 당일 공개) ---------- */
 .lockbox{
   background:var(--panel);

@@ -118,9 +118,9 @@
             <p>에러 메시지만 보내면 AI는 일반론만 말해줍니다. <strong>에러 + 코드</strong>를 함께 줘야 "여기 이 줄이 문제네요"라는 답이 옵니다. 파일 전체를 붙여넣는 걸 겁내지 마세요.</p>
           </div>
 
-          <h2>4. 진행자용 에러 패턴 매칭표</h2>
+          <h2>4. 증상별로 원인 찾기</h2>
 
-          <p>워크샵에서 반복해서 나오는 네 가지입니다. 증상만 들어도 원인이 짐작되면 대응 속도가 크게 달라집니다.</p>
+          <p>반복해서 나오는 건 네 가지뿐입니다. 증상이 눈에 익으면 대처가 훨씬 빨라져요.</p>
 
           <div class="table-wrap">
             <table>
@@ -195,18 +195,40 @@
             <p>10분 넘게 같은 자리에서 돌고 있다면, 고치려 하지 말고 <strong>다시 만드는 게</strong> 빠를 때가 많습니다. 새 대화를 열고 STEP 1 프롬프트부터 다시 시작하세요. 두 번째는 훨씬 빠릅니다. 되돌아가는 게 지는 게 아니에요.</p>
           </div>
 
-          <h2>5. 진행자를 위한 대응 원칙</h2>
+          <h2>자주 나오는 질문</h2>
 
+          <div class="qa">
+            <details>
+              <summary>콘솔에 빨간 글씨가 없는데 화면도 안 나와요</summary>
+              <div class="a"><p>파일 자체가 안 불러와진 경우가 많습니다. 파일 이름과 위치(<code>index.html</code>이 맨 위에 있는지), 그리고 미리보기 새로고침을 확인하세요. 콘솔의 <strong>Network</strong> 탭에 빨간 줄이 있으면 그것도 단서입니다.</p></div>
+            </details>
+            <details>
+              <summary>에러 메시지가 영어라 무슨 말인지 모르겠어요</summary>
+              <div class="a"><p>읽지 않아도 됩니다. <strong>복사해서 AI에게 주는 게 전부</strong>예요. 굳이 알고 싶다면 "이 에러가 무슨 뜻인지 초등학생도 이해하게 설명해줘"라고 덧붙이면 됩니다.</p></div>
+            </details>
+            <details>
+              <summary>AI가 고쳐준 코드를 넣었는데 다른 에러가 났어요</summary>
+              <div class="a"><p>흔한 일이고, 대개 <strong>진전</strong>입니다. 새 에러를 다시 복사해서 같은 방식으로 보내세요. 두세 번 오가면 대체로 해결됩니다. 다섯 번을 넘겨도 같은 자리라면 새 대화를 열고 처음부터 다시 만드는 게 빠릅니다.</p></div>
+            </details>
+            <details>
+              <summary>코드를 붙여넣을 때 어디까지 복사해야 하나요?</summary>
+              <div class="a"><p>파일 <strong>전체</strong>입니다. 첫 줄부터 마지막 줄까지 다 주세요. 일부만 주면 AI가 나머지를 추측해서 엉뚱한 답을 냅니다. 길다고 걱정하지 않아도 됩니다.</p></div>
+            </details>
+          </div>
+
+          <details class="hostbox">
+            <summary>🎤 진행자용 — 에러 대응 원칙 (3분 규칙 등)</summary>
+            <div class="in">
           <p>워크샵에서 에러가 났을 때 진행자가 무엇을 하느냐에 따라 남는 게 달라집니다.</p>
 
-          <div class="callout host">
-            <div class="title">🎤 대신 고쳐주지 마세요</div>
-            <p>진행자가 키보드를 뺏어 3초 만에 고쳐주면 그 순간은 넘어가지만, <strong>참가자는 아무것도 배우지 못합니다.</strong> 오늘 진짜 가르치는 건 게시판이 아니라 "막혔을 때 빠져나오는 순서"예요.</p>
-            <ul>
-              <li>먼저 물어보세요 — <strong>"콘솔 열어보셨어요?"</strong></li>
-              <li>다음은 <strong>"빨간 글씨를 AI한테 그대로 붙여넣어 보실래요?"</strong></li>
-              <li>그래도 막히면 그때 옆에서 같이 화면을 봅니다. 손은 참가자가 움직이게 두세요.</li>
-            </ul>
+          <div class="callout danger">
+            <div class="title">⛔ 대신 고쳐주지 마세요</div>
+              <p>진행자가 키보드를 뺏어 3초 만에 고쳐주면 그 순간은 넘어가지만, <strong>참가자는 아무것도 배우지 못합니다.</strong> 오늘 진짜 가르치는 건 게시판이 아니라 "막혔을 때 빠져나오는 순서"예요.</p>
+              <ul>
+                <li>먼저 물어보세요 — <strong>"콘솔 열어보셨어요?"</strong></li>
+                <li>다음은 <strong>"빨간 글씨를 AI한테 그대로 붙여넣어 보실래요?"</strong></li>
+                <li>그래도 막히면 그때 옆에서 같이 화면을 봅니다. 손은 참가자가 움직이게 두세요.</li>
+              </ul>
           </div>
 
           <ul class="steps">
@@ -239,27 +261,8 @@
               </div>
             </li>
           </ul>
-
-          <h2>자주 나오는 질문</h2>
-
-          <div class="qa">
-            <details>
-              <summary>콘솔에 빨간 글씨가 없는데 화면도 안 나와요</summary>
-              <div class="a"><p>파일 자체가 안 불러와진 경우가 많습니다. 파일 이름과 위치(<code>index.html</code>이 맨 위에 있는지), 그리고 미리보기 새로고침을 확인하세요. 콘솔의 <strong>Network</strong> 탭에 빨간 줄이 있으면 그것도 단서입니다.</p></div>
-            </details>
-            <details>
-              <summary>에러 메시지가 영어라 무슨 말인지 모르겠어요</summary>
-              <div class="a"><p>읽지 않아도 됩니다. <strong>복사해서 AI에게 주는 게 전부</strong>예요. 굳이 알고 싶다면 "이 에러가 무슨 뜻인지 초등학생도 이해하게 설명해줘"라고 덧붙이면 됩니다.</p></div>
-            </details>
-            <details>
-              <summary>AI가 고쳐준 코드를 넣었는데 다른 에러가 났어요</summary>
-              <div class="a"><p>흔한 일이고, 대개 <strong>진전</strong>입니다. 새 에러를 다시 복사해서 같은 방식으로 보내세요. 두세 번 오가면 대체로 해결됩니다. 다섯 번을 넘겨도 같은 자리라면 새 대화를 열고 처음부터 다시 만드는 게 빠릅니다.</p></div>
-            </details>
-            <details>
-              <summary>코드를 붙여넣을 때 어디까지 복사해야 하나요?</summary>
-              <div class="a"><p>파일 <strong>전체</strong>입니다. 첫 줄부터 마지막 줄까지 다 주세요. 일부만 주면 AI가 나머지를 추측해서 엉뚱한 답을 냅니다. 길다고 걱정하지 않아도 됩니다.</p></div>
-            </details>
-          </div>
+            </div>
+          </details>
 
           <div class="pagenav">
             <a class="prev" href="extra.html">
