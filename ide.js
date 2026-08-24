@@ -399,9 +399,13 @@
   }
 
   function paintProgress(checks) {
-    var done = document.querySelectorAll('.check.done').length;
+    /* 상태바 숫자는 참가자에게 보이는 항목만 셉니다.
+       진행자용(.hostbox 안)은 접혀 있어서, 총계에 넣으면
+       "6개만 보이는데 왜 14개지?"가 됩니다. 저장은 전부 그대로 됩니다. */
+    var mine = checks.filter(function (c) { return !c.closest('.hostbox'); });
+    var done = mine.filter(function (c) { return c.classList.contains('done'); }).length;
     var prog = document.getElementById('stProgress');
-    if (prog) prog.textContent = '체크리스트 ' + done + '/' + checks.length;
+    if (prog) prog.textContent = '체크리스트 ' + done + '/' + mine.length;
   }
 
   function resetChecks() {
