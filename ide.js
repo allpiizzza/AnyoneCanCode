@@ -345,7 +345,8 @@
   function wireCopy() {
     document.querySelectorAll('.copy-btn').forEach(function (btn) {
       btn.addEventListener('click', function () {
-        var pre = btn.closest('.term').querySelector('pre');
+        var box = btn.closest('.term');
+        var pre = box && box.querySelector('pre');
         if (!pre) return;
         var text = pre.innerText;
         var done = function () {
@@ -494,6 +495,20 @@
     if (nav) main.insertBefore(box, nav); else main.appendChild(box);
   }
 
+  /* 코드로 미리 열어둔 상태라는 걸 본문 맨 위에 알려준다.
+     이게 없으면 진행자가 "왜 안 잠겨 있지?" 하고 헷갈립니다 —
+     참가자 화면에서는 여전히 잠겨 있는데 내 브라우저에만 코드가 남아 있는 것. */
+  function passNotice() {
+    if (!hasPass() || isOpenDay()) return;
+    var box = el('div', 'callout warn',
+      '<div class="title">🔓 참가자 코드로 열어 둔 상태입니다</div>' +
+      '<p>이 문서는 원래 <strong>' + openDayText() + ' 0시</strong>에 열립니다(D-' + daysLeft() + '). ' +
+      '지금 보이는 건 <strong>이 브라우저에 코드가 저장돼 있기 때문</strong>이고, ' +
+      '참가자 화면에서는 아직 잠겨 있습니다. ' +
+      '참가자와 같은 화면을 보려면 <button class="inlinebtn" data-cmd="relock">잠금 다시 걸기</button></p>');
+    main.insertBefore(box, main.firstChild);
+  }
+
   function relock() {
     LS.del(PASS_KEY);
     location.reload();
@@ -562,6 +577,7 @@
   restorePrefs();
   applyLock();          /* 잠긴 문서면 여기서 본문이 잠금 화면으로 바뀐다 */
   lockNotice();         /* 열린 문서에는 공개 예정 안내를 붙인다 */
+  passNotice();         /* 코드로 미리 열어둔 상태면 그 사실을 알려준다 */
   buildTitlebar();
   buildSidebar();
   buildStatus();
