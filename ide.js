@@ -3,11 +3,14 @@
    모든 문서 페이지가 이 파일 하나를 공유합니다.
 
    하는 일
-   1) 탭바 / 파일 트리 / 개요(아웃라인) / 상태바 생성
-   2) 줄번호 거터 · 미니맵 · 빵부스러기(breadcrumb) 스크롤 추적
-   3) 명령 팔레트 (Ctrl+P / Ctrl+K) 와 단축키
-   4) 하단 패널 (터미널 / 문제 / 출력)
-   5) 프롬프트 COPY 버튼, 체크리스트 저장, 테마 전환
+   1) 타이틀바 / 파일 트리 / 개요(아웃라인) / 상태바 생성
+   2) 명령 팔레트 (Ctrl+P / Ctrl+K) 와 단축키
+   3) 프롬프트 COPY 버튼, 체크리스트 저장, 테마 전환
+   4) 워크샵 당일 공개(잠금) 처리
+
+   화면 껍데기는 일부러 얇게 유지합니다. 탭바·빵부스러기·줄번호·미니맵·
+   하단 터미널은 읽는 데 도움이 안 돼서 뺐습니다. 문서 이동은 사이드바
+   하나로만 합니다.
    ========================================================= */
 (function () {
   'use strict';
@@ -36,23 +39,10 @@
   var PASSCODE = '1021';
   var FREE = ['index.html', 'checklist.html'];    // 언제나 열려 있는 문서
 
-  var SCHEDULE = [
-    ['15분', '완성본 시연 + 개념 설명', 'index.html'],
-    ['20분', '계정 생성 (Replit · GitHub · Vercel)', 'checklist.html'],
-    ['45분', 'AI 프롬프트로 화면 만들기', 'step1.html'],
-    ['30분', 'Google Sheets 연동', 'step2.html'],
-    ['20분', 'GitHub + Vercel 배포', 'step3.html'],
-    ['나머지', '자유 커스터마이징 · Q&A', 'extra.html']
-  ];
-
   var ICON = {
-    explorer: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 6.5A1.5 1.5 0 0 1 4.5 5h4l2 2.5h7A1.5 1.5 0 0 1 19 9v8.5A1.5 1.5 0 0 1 17.5 19h-13A1.5 1.5 0 0 1 3 17.5z"/></svg>',
-    search:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="10.5" cy="10.5" r="5.5"/><path d="M14.6 14.6 20 20"/></svg>',
-    run:      '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M6 4.5 18 12 6 19.5z"/></svg>',
-    terminal: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 6.5 9 12l-5 5.5"/><path d="M12 18h8"/></svg>',
-    theme:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="7.5"/><path d="M12 4.5v15" /><path d="M12 6.5a5.5 5.5 0 0 1 0 11z" fill="currentColor" stroke="none"/></svg>',
-    layout:   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3.5" y="5" width="17" height="14" rx="1.5"/><path d="M9.5 5v14"/></svg>',
-    panel:    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3.5" y="5" width="17" height="14" rx="1.5"/><path d="M3.5 14.5h17"/></svg>'
+    search: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="10.5" cy="10.5" r="5.5"/><path d="M14.6 14.6 20 20"/></svg>',
+    theme:  '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="7.5"/><path d="M12 4.5v15" /><path d="M12 6.5a5.5 5.5 0 0 1 0 11z" fill="currentColor" stroke="none"/></svg>',
+    layout: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3.5" y="5" width="17" height="14" rx="1.5"/><path d="M9.5 5v14"/></svg>'
   };
 
   var ide = document.querySelector('.ide');
@@ -80,101 +70,47 @@
     return n;
   }
 
-  /* --- 타이틀바 --- */
+  /* --- 타이틀바 (문서 위치를 알려주는 한 줄) --- */
   function buildTitlebar() {
     var bar = document.querySelector('.titlebar');
     bar.innerHTML =
       '<div class="dots"><i class="dot r"></i><i class="dot y"></i><i class="dot g"></i></div>' +
-      '<nav class="menu"><span>파일</span><span>편집</span><span>선택</span><span>보기</span><span>이동</span><span>도움말</span></nav>' +
-      '<button class="qopen" data-cmd="palette">workshop — ' + esc(meta.t) + ' <kbd>Ctrl</kbd><kbd>P</kbd></button>' +
+      '<button class="iconbtn sb-toggle" data-cmd="sidebar" title="문서 목록 접기/펴기 (Ctrl+B)">' + ICON.layout + '</button>' +
+      '<div class="path"><span class="dir">workshop</span><i>/</i><b>' + esc(meta.f) + '</b>' +
+        '<span class="ttl hide-sm">— ' + esc(meta.t) + '</span></div>' +
       '<div class="win-actions">' +
-        '<button class="iconbtn" data-cmd="sidebar" title="사이드바 토글 (Ctrl+B)">' + ICON.layout + '</button>' +
-        '<button class="iconbtn" data-cmd="panel" title="패널 토글 (Ctrl+J)">' + ICON.panel + '</button>' +
+        '<button class="iconbtn" data-cmd="palette" title="문서 찾기 (Ctrl+P)">' + ICON.search + '</button>' +
         '<button class="iconbtn" data-cmd="theme" title="테마 전환">' + ICON.theme + '</button>' +
       '</div>';
-  }
-
-  /* --- 액티비티바 --- */
-  function buildActivitybar() {
-    var bar = document.querySelector('.activitybar');
-    var explorerOn = !ide.classList.contains('sidebar-hidden');
-    bar.innerHTML =
-      '<button class="act' + (explorerOn ? ' active' : '') + '" data-cmd="sidebar" title="탐색기 (Ctrl+B)">' + ICON.explorer + '</button>' +
-      '<button class="act" data-cmd="palette" title="파일 검색 (Ctrl+P)">' + ICON.search + '</button>' +
-      '<button class="act" data-cmd="panel" title="터미널 (Ctrl+J)">' + ICON.terminal + '</button>' +
-      '<a class="act" href="sample/index.html" target="_blank" rel="noopener" title="완성본 데모 실행">' + ICON.run + '<span class="dotmark"></span></a>' +
-      '<span class="spacer"></span>' +
-      '<button class="act" data-cmd="theme" title="테마 전환">' + ICON.theme + '</button>';
   }
 
   /* --- 사이드바 --- */
   function buildSidebar() {
     var sb = document.querySelector('.sidebar');
-    var open =
-      '<div class="tree">' +
-        row(meta.f, meta.f, true, false) +
-        '<a href="sample/index.html" target="_blank" rel="noopener"><span class="ic">◆</span>완성본 데모<span class="ext">↗</span></a>' +
-      '</div>';
 
     var tree = '<div class="tree">';
-    FILES.forEach(function (x) {
-      tree += row(x.f, x.f, x.f === current, false);
+    FILES.forEach(function (x, i) {
+      tree += '<a href="' + x.f + '"' + (x.f === current ? ' class="active"' : '') +
+        ' title="' + esc(x.f + (x.d ? ' — ' + x.d : '')) + '">' +
+        '<span class="no">' + (i + 1) + '</span>' + esc(x.t) + lockMark(x.f) + '</a>';
     });
-    tree += row('style.css', 'style.css', false, true);
-    tree += row('ide.js', 'ide.js', false, true);
     tree += '</div>';
 
     var demo =
       '<div class="tree">' +
-        '<a href="sample/index.html" target="_blank" rel="noopener"><span class="ic">◆</span>index.html<span class="ext">↗</span></a>' +
-        '<a href="sample/write.html" target="_blank" rel="noopener"><span class="ic">◆</span>write.html<span class="ext">↗</span></a>' +
-        '<a href="sample/detail.html" target="_blank" rel="noopener"><span class="ic">◆</span>detail.html<span class="ext">↗</span></a>' +
+        '<a href="sample/index.html" target="_blank" rel="noopener">' +
+        '<span class="no">▸</span>완성본 데모<span class="ext">↗</span></a>' +
       '</div>';
 
     sb.innerHTML =
-      '<div class="sb-head">탐색기<button class="sb-close" data-cmd="sidebar" title="닫기">✕</button></div>' +
-      sec('열린 편집기', open, false, '2') +
-      sec('WORKSHOP', tree, false, String(FILES.length + 2)) +
-      sec('SAMPLE', demo, true, '3') +
+      '<div class="sb-head">문서<button class="sb-close" data-cmd="sidebar" title="닫기">✕</button></div>' +
+      '<section class="sb-sec">' + tree + '</section>' +
+      '<section class="sb-sec">' + demo + '</section>' +
       '<section class="sb-sec" id="outlineSec">' +
-        '<button class="sb-sec-head"><span class="caret">▼</span>개요<span class="count" id="outlineCount"></span></button>' +
+        '<button class="sb-sec-head"><span class="caret">▼</span>이 문서 안에서' +
+        '<span class="count" id="outlineCount"></span></button>' +
         '<div class="tree outline" id="outline"></div>' +
       '</section>';
-
-    function sec(name, body, collapsed, count) {
-      return '<section class="sb-sec' + (collapsed ? ' collapsed' : '') + '">' +
-        '<button class="sb-sec-head"><span class="caret">▼</span>' + name +
-        '<span class="count">' + count + '</span></button>' + body + '</section>';
-    }
-    function row(href, label, active, isAsset) {
-      var cls = /\.css$/.test(label) ? ' css' : '';
-      return '<a href="' + href + '"' + (active ? ' class="active"' : '') + '>' +
-        '<span class="ic' + cls + '">◆</span>' + esc(label) + (isAsset ? '' : lockMark(href)) +
-        (isAsset ? '<span class="ext">' + (/\.css$/.test(label) ? 'CSS' : 'JS') + '</span>' : '') +
-        '</a>';
-    }
-  }
-
-  /* --- 탭바 --- */
-  function buildTabs() {
-    var tb = document.querySelector('.tabbar');
-    var html = '';
-    FILES.forEach(function (x) {
-      html += '<a class="tab' + (x.f === current ? ' active' : '') + '" href="' + x.f + '" title="' + esc(x.t) + '">' +
-        '<span class="ic">◆</span>' + x.f + lockMark(x.f) + '<span class="x">✕</span></a>';
-    });
-    tb.innerHTML = html;
-    var active = tb.querySelector('.tab.active');
-    if (active && active.scrollIntoView) active.scrollIntoView({ block: 'nearest', inline: 'center' });
-  }
-
-  /* --- 빵부스러기 --- */
-  function buildCrumbs() {
-    var bc = document.querySelector('.breadcrumb');
-    bc.innerHTML =
-      '<span>workshop</span><i>›</i>' +
-      '<span class="path">' + esc(meta.f) + '</span><i>›</i>' +
-      '<span class="cur" id="crumbSection">' + esc(meta.t) + '</span>';
   }
 
   /* --- 상태바 --- */
@@ -188,69 +124,11 @@
 
     sb.innerHTML =
       '<span class="si">⎇ main</span>' +
-      '<button class="si" data-cmd="problems" title="문제 패널 열기">⊗ 0 &nbsp;⚠ 0</button>' +
       gate +
-      '<span class="si hide-sm" id="stProgress"></span>' +
-      '<span class="si right" id="stCursor">Ln 1, Col 1</span>' +
-      '<span class="si hide-sm">UTF-8</span>' +
-      '<span class="si hide-sm">LF</span>' +
-      '<span class="si hide-sm">Markdown</span>' +
-      '<button class="si" data-cmd="theme" title="테마 전환">◐</button>' +
-      '<button class="si" data-cmd="palette" title="명령 팔레트">⌘ Ctrl+P</button>';
+      '<span class="si" id="stProgress"></span>' +
+      '<button class="si right" data-cmd="palette" title="문서 찾기 · 명령">Ctrl+P</button>';
     var prog = document.getElementById('stProgress');
     if (pageIndex >= 0) prog.textContent = '문서 ' + (pageIndex + 1) + '/' + FILES.length;
-  }
-
-  /* --- 하단 패널 --- */
-  function buildPanel() {
-    var dock = document.querySelector('.panel-dock');
-    var termLines =
-      line('workshop', 'npx serve .', true) +
-      '<div class="ln"><span class="ok">✔</span> <span class="dim">가이드 사이트 실행 중 · http://localhost:8899/</span></div>' +
-      line('workshop', 'open ' + meta.f, true) +
-      (locked
-        ? '<div class="ln"><span class="warnc">✖</span> permission denied — ' +
-          '<span class="dim">' + openDayText() + ' 0시 공개 (D-' + daysLeft() + ')</span></div>' +
-          line('workshop', 'unlock --code ••••', true)
-        : '<div class="ln"><span class="path">▸</span> ' + esc(meta.t) +
-          (meta.d ? ' <span class="dim">— ' + esc(meta.d) + '</span>' : '') + '</div>') +
-      '<div class="ln"><span class="pr">workshop</span> <span class="dim">$</span> <span class="caret-blink"></span></div>';
-
-    var problems = locked
-      ? '<div class="ln"><span class="warnc">🔒</span> 이 문서는 아직 잠겨 있습니다 — ' +
-        openDayText() + ' 0시 공개, 남은 기간 <strong>' + daysLeft() + '일</strong>.</div>' +
-        '<div class="ln dim">지금 볼 수 있는 문서 — <a href="index.html">index.html</a> · ' +
-        '<a href="checklist.html">checklist.html</a></div>'
-      : '<div class="ln"><span class="ok">✔</span> 이 문서에서 발견된 문제 <strong>0개</strong>.</div>' +
-        '<div class="ln dim">화면에 에러가 났다면 브라우저 콘솔부터 보세요 — ' +
-        '<a href="errors.html">errors.html</a> 에 콘솔 여는 법과 증상별 원인표가 있습니다.</div>';
-
-    var out = '<div class="ln dim">[워크샵 타임라인]</div>';
-    SCHEDULE.forEach(function (s) {
-      var hit = s[2] === current;
-      out += '<div class="ln' + (hit ? '' : ' dim') + '">' +
-        (hit ? '<span class="ok">▸</span> ' : '<span class="dim">·</span> ') +
-        '<span class="warnc">' + s[0] + '</span>  ' + esc(s[1]) +
-        (hit ? '  <span class="ok">← 지금 이 문서</span>' : '') + '</div>';
-    });
-
-    dock.innerHTML =
-      '<div class="panel-tabs">' +
-        '<button class="ptab active" data-p="terminal">터미널</button>' +
-        '<button class="ptab" data-p="problems">문제 <span class="cnt">0</span></button>' +
-        '<button class="ptab" data-p="output">출력</button>' +
-        '<span class="sp"></span>' +
-        '<button class="iconbtn" data-cmd="panel" title="패널 닫기 (Ctrl+J)">✕</button>' +
-      '</div>' +
-      '<div class="panel-body">' +
-        '<div class="pview active" data-p="terminal">' + termLines + '</div>' +
-        '<div class="pview" data-p="problems">' + problems + '</div>' +
-        '<div class="pview" data-p="output">' + out + '</div>' +
-      '</div>';
-
-    function line(prompt, cmd) {
-      return '<div class="ln"><span class="pr">' + prompt + '</span> <span class="dim">$</span> <span class="cm">' + esc(cmd) + '</span></div>';
-    }
   }
 
   /* =========================================================
@@ -295,68 +173,15 @@
     scroller.scrollTo({ top: node.offsetTop - 16, behavior: 'smooth' });
   }
 
-  function buildGutter() {
-    var g = document.querySelector('.gutter');
-    if (!g) return;
-    var lineH = 26;
-    var n = Math.ceil(main.scrollHeight / lineH) + 2;
-    var buf = [];
-    for (var i = 1; i <= n; i++) buf.push(i);
-    g.textContent = buf.join('\n');
-  }
-
-  var mmScale = 0.1;
-  function buildMinimap() {
-    var mm = document.querySelector('.minimap');
-    var inner = document.querySelector('.mm-inner');
-    if (!mm || !inner || !mm.offsetHeight) return;
-    var contentH = main.scrollHeight;
-    var viewH = scroller.clientHeight;
-    mmScale = Math.min((mm.clientHeight - 14) / contentH, 0.16);
-    var html = '';
-    [].slice.call(main.children).forEach(function (node) {
-      var tag = node.tagName.toLowerCase();
-      var cls = 'p', w = 100;
-      if (tag === 'h1') { cls = 'h1'; w = 62; }
-      else if (tag === 'h2') { cls = 'h2'; w = 74; }
-      else if (tag === 'h3') { cls = 'h3'; w = 56; }
-      else if (node.querySelector('pre') || tag === 'pre') { cls = 'code'; w = 92; }
-      var top = node.offsetTop * mmScale;
-      var h = Math.max(2, node.offsetHeight * mmScale - 1);
-      html += '<div class="mm-row ' + cls + '" style="position:absolute;top:' + top.toFixed(1) +
-        'px;height:' + h.toFixed(1) + 'px;width:' + w + '%"></div>';
-    });
-    inner.innerHTML = html;
-    var view = document.querySelector('.mm-view');
-    view.style.height = Math.max(14, viewH * mmScale) + 'px';
-    syncMinimap();
-
-    mm.onclick = function (e) {
-      var r = mm.getBoundingClientRect();
-      var y = e.clientY - r.top - 6;
-      scroller.scrollTo({ top: Math.max(0, y / mmScale - viewH / 2), behavior: 'smooth' });
-    };
-  }
-
-  function syncMinimap() {
-    var view = document.querySelector('.mm-view');
-    if (view) view.style.top = (6 + scroller.scrollTop * mmScale) + 'px';
-  }
-
-  /* 스크롤에 따라 개요 강조 · 빵부스러기 · Ln 갱신 */
+  /* 스크롤에 따라 개요에서 지금 읽는 섹션을 강조한다 */
   function onScroll() {
     var top = scroller.scrollTop;
-    var crumb = document.getElementById('crumbSection');
     var links = document.querySelectorAll('#outline a');
     var cur = -1;
     for (var i = 0; i < headings.length; i++) {
       if (headings[i].offsetTop - 60 <= top) cur = i; else break;
     }
     links.forEach(function (a, i) { a.classList.toggle('current', i === cur); });
-    if (crumb) crumb.textContent = cur >= 0 ? headings[cur].textContent : meta.t;
-    var cursor = document.getElementById('stCursor');
-    if (cursor) cursor.textContent = 'Ln ' + (Math.floor(top / 26) + 1) + ', Col 1';
-    syncMinimap();
   }
 
   /* =========================================================
@@ -364,8 +189,7 @@
      ========================================================= */
 
   var COMMANDS = [
-    { t: '사이드바 토글', d: 'Ctrl+B', run: function () { toggleSidebar(); } },
-    { t: '패널 토글 (터미널)', d: 'Ctrl+J', run: function () { togglePanel(); } },
+    { t: '문서 목록 접기 / 펴기', d: 'Ctrl+B', run: function () { toggleSidebar(); } },
     { t: '테마 전환 (다크 / 라이트)', d: '', run: function () { toggleTheme(); } },
     { t: '완성본 데모 열기', d: '새 탭', run: function () { window.open('sample/index.html', '_blank', 'noopener'); } },
     { t: '맨 위로 이동', d: '', run: function () { scroller.scrollTo({ top: 0, behavior: 'smooth' }); } },
@@ -502,23 +326,7 @@
     } else {
       ide.classList.toggle('sidebar-hidden');
       LS.set('ide_sidebar', ide.classList.contains('sidebar-hidden') ? 'off' : 'on');
-      requestAnimationFrame(buildMinimap);
     }
-    var explorer = document.querySelector('.activitybar .act[data-cmd="sidebar"]');
-    if (explorer) explorer.classList.toggle('active', !ide.classList.contains('sidebar-hidden'));
-  }
-
-  function togglePanel() {
-    ide.classList.toggle('panel-hidden');
-    LS.set('ide_panel', ide.classList.contains('panel-hidden') ? 'off' : 'on');
-    requestAnimationFrame(function () { buildMinimap(); onScroll(); });
-  }
-
-  function showPanel(which) {
-    ide.classList.remove('panel-hidden');
-    LS.set('ide_panel', 'on');
-    document.querySelectorAll('.ptab').forEach(function (b) { b.classList.toggle('active', b.dataset.p === which); });
-    document.querySelectorAll('.pview').forEach(function (v) { v.classList.toggle('active', v.dataset.p === which); });
   }
 
   function toggleTheme() {
@@ -526,13 +334,11 @@
     if (light) document.documentElement.removeAttribute('data-theme');
     else document.documentElement.setAttribute('data-theme', 'light');
     LS.set('ide_theme', light ? 'dark' : 'light');
-    requestAnimationFrame(buildMinimap);
   }
 
   function restorePrefs() {
     if (LS.get('ide_theme') === 'light') document.documentElement.setAttribute('data-theme', 'light');
     if (LS.get('ide_sidebar') === 'off') ide.classList.add('sidebar-hidden');
-    if (LS.get('ide_panel') === 'off') ide.classList.add('panel-hidden');
   }
 
   /* --- 프롬프트 복사 --- */
@@ -595,18 +401,6 @@
     var done = document.querySelectorAll('.check.done').length;
     var prog = document.getElementById('stProgress');
     if (prog) prog.textContent = '체크리스트 ' + done + '/' + checks.length;
-    var pv = document.querySelector('.pview[data-p="problems"]');
-    if (pv) {
-      var left = checks.length - done;
-      pv.innerHTML = left
-        ? '<div class="ln"><span class="warnc">⚠</span> 아직 체크하지 않은 항목 <strong>' + left + '개</strong>가 남아 있습니다.</div>' +
-          '<div class="ln dim">항목을 클릭하면 취소선이 그어지고, 이 브라우저에 기록이 남습니다.</div>'
-        : '<div class="ln"><span class="ok">✔</span> 준비 완료 — 모든 항목을 체크했습니다.</div>';
-    }
-    var cnt = document.querySelector('.ptab[data-p="problems"] .cnt');
-    if (cnt) cnt.textContent = String(checks.length - done);
-    var stp = document.querySelector('.statusbar [data-cmd="problems"]');
-    if (stp) stp.innerHTML = '⊗ 0 &nbsp;⚠ ' + (checks.length - done);
   }
 
   function resetChecks() {
@@ -709,7 +503,7 @@
     location.reload();
   }
 
-  /* 잠금 상태에 따라 탭·트리·팔레트에 붙일 자물쇠 표시 */
+  /* 잠금 상태에 따라 문서 목록·팔레트에 붙일 자물쇠 표시 */
   function lockMark(file) {
     return (isGated(file) && !isUnlocked()) ? '<span class="lk" title="워크샵 당일 공개">🔒</span>' : '';
   }
@@ -725,20 +519,16 @@
         var cmd = t.dataset.cmd;
         if (cmd === 'palette') { e.preventDefault(); openPalette(''); }
         else if (cmd === 'sidebar') { e.preventDefault(); toggleSidebar(); }
-        else if (cmd === 'panel') { e.preventDefault(); togglePanel(); }
         else if (cmd === 'theme') { e.preventDefault(); toggleTheme(); }
-        else if (cmd === 'problems') { e.preventDefault(); showPanel('problems'); }
         else if (cmd === 'relock') { e.preventDefault(); relock(); }
         return;
       }
-      var pt = e.target.closest('.ptab');
-      if (pt) { showPanel(pt.dataset.p); return; }
       var sh = e.target.closest('.sb-sec-head');
       if (sh) { sh.parentNode.classList.toggle('collapsed'); return; }
 
-      /* 모바일: 서랍 밖을 누르면 탐색기가 닫힌다 */
+      /* 모바일: 서랍 밖을 누르면 문서 목록이 닫힌다 */
       if (ide.classList.contains('sidebar-open') &&
-          !e.target.closest('.sidebar') && !e.target.closest('.activitybar')) {
+          !e.target.closest('.sidebar') && !e.target.closest('.titlebar')) {
         ide.classList.remove('sidebar-open');
       }
     });
@@ -748,7 +538,6 @@
       if (mod && (e.key === 'p' || e.key === 'P')) { e.preventDefault(); openPalette(''); }
       else if (mod && (e.key === 'k' || e.key === 'K')) { e.preventDefault(); openPalette('>'); }
       else if (mod && (e.key === 'b' || e.key === 'B')) { e.preventDefault(); toggleSidebar(); }
-      else if (mod && (e.key === 'j' || e.key === 'J')) { e.preventDefault(); togglePanel(); }
       else if (e.key === 'Escape') {
         closePalette();
         ide.classList.remove('sidebar-open');
@@ -763,7 +552,7 @@
     var t;
     window.addEventListener('resize', function () {
       clearTimeout(t);
-      t = setTimeout(function () { buildGutter(); buildMinimap(); onScroll(); }, 150);
+      t = setTimeout(onScroll, 150);
     });
   }
   var scrollRaf = 0;
@@ -778,18 +567,12 @@
   applyLock();          /* 잠긴 문서면 여기서 본문이 잠금 화면으로 바뀐다 */
   lockNotice();         /* 열린 문서에는 공개 예정 안내를 붙인다 */
   buildTitlebar();
-  buildActivitybar();
   buildSidebar();
-  buildTabs();
-  buildCrumbs();
   buildStatus();
-  buildPanel();
   buildOutline();
   wireCopy();
   wireChecks();
   wireGlobal();
-  buildGutter();
-  buildMinimap();
   onScroll();
 
   if (location.hash) {
@@ -797,9 +580,5 @@
     if (target) setTimeout(function () { scrollToEl(target); }, 60);
   }
 
-  window.addEventListener('load', function () {
-    buildGutter();
-    buildMinimap();
-    onScroll();
-  });
+  window.addEventListener('load', onScroll);
 })();
