@@ -30,13 +30,13 @@
 
   /* ---------- 공개 설정 ----------
      index.html 을 뺀 나머지 문서는 워크샵 당일에 열립니다.
-     날짜가 지났거나 참가자 코드를 넣으면 열립니다.
+     날짜가 지났거나 비밀번호를 넣으면 열립니다.
 
      ⚠️ 이건 "커튼"이지 보안이 아닙니다. 정적 사이트라 잠긴 문서의 HTML은
         브라우저 소스 보기나 GitHub 저장소에서 그대로 읽을 수 있습니다.
         워크샵 전에 미리 열어보지 않게 하는 용도로만 쓰세요.        */
   var OPEN_AT = new Date(2026, 7, 30, 0, 0, 0);   // 2026년 8월 30일(일) 0시, 보는 사람의 시간대 기준
-  var PASSCODE = '1021';
+  var PASSCODE = '1021';                          // 잠긴 문서를 미리 여는 비밀번호
   var FREE = ['index.html'];                      // 언제나 열려 있는 문서 (참가자는 여기까지)
 
   var ICON = {
@@ -118,9 +118,9 @@
     var sb = document.querySelector('.statusbar');
     var gate = isUnlocked()
       ? (hasPass() && !isOpenDay()
-          ? '<button class="si" data-cmd="relock" title="참가자 코드 기록을 지우고 다시 잠급니다">🔓 코드 입장 중</button>'
+          ? '<button class="si" data-cmd="relock" title="비밀번호 기록을 지우고 다시 잠급니다">🔓 비밀번호로 열림</button>'
           : '')
-      : '<span class="si" title="' + openDayText() + ' 0시 공개 · 참가자 코드로 미리 열기">🔒 D-' + daysLeft() + '</span>';
+      : '<span class="si" title="' + openDayText() + ' 0시 공개 · 비밀번호로 미리 열기">🔒 D-' + daysLeft() + '</span>';
 
     sb.innerHTML =
       '<span class="si">⎇ main</span>' +
@@ -194,7 +194,7 @@
     { t: '완성본 데모 열기', d: '새 탭', run: function () { window.open('sample/index.html', '_blank', 'noopener'); } },
     { t: '맨 위로 이동', d: '', run: function () { scroller.scrollTo({ top: 0, behavior: 'smooth' }); } },
     { t: '체크 전부 풀기', d: 'checklist', run: function () { resetChecks(); } },
-    { t: '잠금 다시 걸기 (참가자 코드 기록 지우기)', d: '', run: function () { relock(); } }
+    { t: '잠금 다시 걸기 (비밀번호 기록 지우기)', d: '', run: function () { relock(); } }
   ];
 
   var pal, palInput, palList, palItems = [], palSel = 0;
@@ -408,7 +408,7 @@
   }
 
   /* =========================================================
-     5. 접근 제한 (워크샵 당일 공개 · 참가자 코드)
+     5. 접근 제한 (워크샵 당일 공개 · 비밀번호)
      ========================================================= */
 
   var PASS_KEY = 'ide_pass';
@@ -450,10 +450,10 @@
           '<span class="dday">D-' + daysLeft() + '</span>' +
         '</div>' +
         '<p>워크샵 당일인 <strong>' + openDayText() + '</strong> 0시에 자동으로 열립니다. ' +
-        '미리 봐야 한다면 아래에 <strong>참가자 코드</strong>를 넣어 주세요.</p>' +
+        '미리 봐야 한다면 아래에 <strong>비밀번호</strong>를 넣어 주세요.</p>' +
         '<form class="lock-form" autocomplete="off">' +
           '<input class="lock-input" type="password" inputmode="numeric" maxlength="12" ' +
-          'placeholder="참가자 코드" aria-label="참가자 코드">' +
+          'placeholder="비밀번호" aria-label="비밀번호">' +
           '<button class="lock-btn" type="submit">입장</button>' +
         '</form>' +
         '<p class="lock-msg" role="status"></p>' +
@@ -473,7 +473,7 @@
         setTimeout(function () { location.reload(); }, 400);
       } else {
         msg.className = 'lock-msg bad';
-        msg.textContent = '코드가 맞지 않습니다. 진행자에게 물어보세요.';
+        msg.textContent = '비밀번호가 맞지 않습니다. 진행자에게 물어보세요.';
         input.select();
         form.classList.remove('shake');
         void form.offsetWidth;
@@ -490,7 +490,7 @@
       '<div class="title">🔒 나머지 문서는 워크샵 당일에 열립니다</div>' +
       '<p>템플릿 · STEP 1~3 · 여유 과제 · 에러 해결법은 <strong>' + openDayText() +
       '</strong> 0시에 자동으로 열립니다. 남은 기간 <strong>' + daysLeft() + '일</strong>. ' +
-      '먼저 봐야 한다면 잠긴 문서에서 <strong>참가자 코드</strong>를 넣으면 바로 열립니다.</p>');
+      '먼저 봐야 한다면 잠긴 문서에서 <strong>비밀번호</strong>를 넣으면 바로 열립니다.</p>');
     var nav = main.querySelector('.pagenav');
     if (nav) main.insertBefore(box, nav); else main.appendChild(box);
   }
@@ -501,9 +501,9 @@
   function passNotice() {
     if (!hasPass() || isOpenDay()) return;
     var box = el('div', 'callout warn',
-      '<div class="title">🔓 참가자 코드로 열어 둔 상태입니다</div>' +
+      '<div class="title">🔓 비밀번호로 열어 둔 상태입니다</div>' +
       '<p>이 문서는 원래 <strong>' + openDayText() + ' 0시</strong>에 열립니다(D-' + daysLeft() + '). ' +
-      '지금 보이는 건 <strong>이 브라우저에 코드가 저장돼 있기 때문</strong>이고, ' +
+      '지금 보이는 건 <strong>이 브라우저에만 비밀번호가 저장돼 있기 때문</strong>이고, ' +
       '참가자 화면에서는 아직 잠겨 있습니다. ' +
       '참가자와 같은 화면을 보려면 <button class="inlinebtn" data-cmd="relock">잠금 다시 걸기</button></p>');
     main.insertBefore(box, main.firstChild);
