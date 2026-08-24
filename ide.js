@@ -5,7 +5,7 @@
    하는 일
    1) 타이틀바 / 파일 트리 / 개요(아웃라인) / 상태바 생성
    2) 명령 팔레트 (Ctrl+P / Ctrl+K) 와 단축키
-   3) 프롬프트 COPY 버튼, 체크리스트 저장, 테마 전환
+   3) 프롬프트 COPY 버튼, 체크리스트(저장 안 함), 테마 전환
    4) 워크샵 당일 공개(잠금) 처리
 
    화면 껍데기는 일부러 얇게 유지합니다. 탭바·빵부스러기·줄번호·미니맵·
@@ -17,9 +17,8 @@
 
   /* ---------- 문서 목록 (사이드바·탭·팔레트 공통 소스) ---------- */
   var FILES = [
-    { f: 'index.html',     t: 'README',                  d: '워크샵 개요와 오늘의 흐름' },
-    { f: 'checklist.html', t: '준비 체크리스트',          d: '전날까지 준비할 것' },
-    { f: 'dday.html',      t: '당일 진행',                d: '순서 · 준비물 · 체크포인트' },
+    { f: 'index.html',     t: 'README · 준비 체크리스트', d: '개요와 전날까지 준비할 것' },
+    { f: 'dday.html',      t: '오늘 할 일',               d: '배우는 것 · 순서 · 용어' },
     { f: 'templates.html', t: '범용 프롬프트 템플릿',     d: '역할·맥락·요청·형식 4칸' },
     { f: 'step1.html',     t: 'STEP 1 · 화면(UI) 만들기', d: '목록·글쓰기·상세보기' },
     { f: 'step2.html',     t: 'STEP 2 · Google Sheets 연동', d: '저장과 불러오기' },
@@ -30,7 +29,7 @@
   ];
 
   /* ---------- 공개 설정 ----------
-     index.html · checklist.html 을 뺀 나머지 문서는 워크샵 당일에 열립니다.
+     index.html 을 뺀 나머지 문서는 워크샵 당일에 열립니다.
      날짜가 지났거나 참가자 코드를 넣으면 열립니다.
 
      ⚠️ 이건 "커튼"이지 보안이 아닙니다. 정적 사이트라 잠긴 문서의 HTML은
@@ -38,7 +37,7 @@
         워크샵 전에 미리 열어보지 않게 하는 용도로만 쓰세요.        */
   var OPEN_AT = new Date(2026, 7, 30, 0, 0, 0);   // 2026년 8월 30일(일) 0시, 보는 사람의 시간대 기준
   var PASSCODE = '1021';
-  var FREE = ['index.html', 'checklist.html'];    // 언제나 열려 있는 문서
+  var FREE = ['index.html'];                      // 언제나 열려 있는 문서 (참가자는 여기까지)
 
   var ICON = {
     search: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="10.5" cy="10.5" r="5.5"/><path d="M14.6 14.6 20 20"/></svg>',
@@ -194,7 +193,7 @@
     { t: '테마 전환 (다크 / 라이트)', d: '', run: function () { toggleTheme(); } },
     { t: '완성본 데모 열기', d: '새 탭', run: function () { window.open('sample/index.html', '_blank', 'noopener'); } },
     { t: '맨 위로 이동', d: '', run: function () { scroller.scrollTo({ top: 0, behavior: 'smooth' }); } },
-    { t: '체크리스트 기록 초기화', d: 'checklist', run: function () { resetChecks(); } },
+    { t: '체크 전부 풀기', d: 'checklist', run: function () { resetChecks(); } },
     { t: '잠금 다시 걸기 (참가자 코드 기록 지우기)', d: '', run: function () { relock(); } }
   ];
 
@@ -374,34 +373,27 @@
     document.body.removeChild(ta);
   }
 
-  /* --- 체크리스트 (진행 상태를 브라우저에 저장) --- */
-  var CHECK_KEY = 'ide_checks_' + current;
+  /* --- 체크리스트 ---
+     체크는 되지만 저장하지 않습니다. 새로고침하면 전부 풀립니다.
+     여러 사람이 돌려 보는 문서라, 앞사람이 체크해둔 상태가 남아 있으면
+     다음 사람이 "이건 뭐가 된 거지?" 하고 헷갈립니다. */
 
   function wireChecks() {
     var checks = [].slice.call(document.querySelectorAll('.check'));
     if (!checks.length) return;
-    var saved = (LS.get(CHECK_KEY) || '').split(',');
-    checks.forEach(function (c, i) {
-      if (saved.indexOf(String(i)) >= 0) c.classList.add('done');
+    checks.forEach(function (c) {
       c.addEventListener('click', function () {
         c.classList.toggle('done');
-        saveChecks(checks);
         paintProgress(checks);
       });
     });
     paintProgress(checks);
   }
 
-  function saveChecks(checks) {
-    var on = [];
-    checks.forEach(function (c, i) { if (c.classList.contains('done')) on.push(i); });
-    LS.set(CHECK_KEY, on.join(','));
-  }
-
   function paintProgress(checks) {
     /* 상태바 숫자는 참가자에게 보이는 항목만 셉니다.
        진행자용(.hostbox 안)은 접혀 있어서, 총계에 넣으면
-       "6개만 보이는데 왜 14개지?"가 됩니다. 저장은 전부 그대로 됩니다. */
+       "6개만 보이는데 왜 14개지?"가 됩니다. */
     var mine = checks.filter(function (c) { return !c.closest('.hostbox'); });
     var done = mine.filter(function (c) { return c.classList.contains('done'); }).length;
     var prog = document.getElementById('stProgress');
@@ -409,7 +401,6 @@
   }
 
   function resetChecks() {
-    LS.del(CHECK_KEY);
     var checks = [].slice.call(document.querySelectorAll('.check'));
     checks.forEach(function (c) { c.classList.remove('done'); });
     if (checks.length) paintProgress(checks);
@@ -466,7 +457,7 @@
         '</form>' +
         '<p class="lock-msg" role="status"></p>' +
         '<p class="lock-free">지금 볼 수 있는 문서 — ' +
-          '<a href="index.html">README</a> · <a href="checklist.html">준비 체크리스트</a></p>' +
+          '<a href="index.html">README · 준비 체크리스트</a></p>' +
       '</div>';
 
     var form = main.querySelector('.lock-form');
