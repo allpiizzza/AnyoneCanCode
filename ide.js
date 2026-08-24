@@ -18,7 +18,8 @@
   /* ---------- 문서 목록 (사이드바·탭·팔레트 공통 소스) ---------- */
   var FILES = [
     { f: 'index.html',     t: 'README',                  d: '워크샵 개요와 오늘의 흐름' },
-    { f: 'checklist.html', t: '준비 체크리스트',          d: '진행자·참가자 사전 준비' },
+    { f: 'checklist.html', t: '준비 체크리스트',          d: '전날까지 준비할 것' },
+    { f: 'dday.html',      t: '당일 진행',                d: '순서 · 준비물 · 체크포인트' },
     { f: 'templates.html', t: '범용 프롬프트 템플릿',     d: '역할·맥락·요청·형식 4칸' },
     { f: 'step1.html',     t: 'STEP 1 · 화면(UI) 만들기', d: '목록·글쓰기·상세보기' },
     { f: 'step2.html',     t: 'STEP 2 · Google Sheets 연동', d: '저장과 불러오기' },
