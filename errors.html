@@ -181,7 +181,9 @@
                 <ul>
                   <li>저장소 맨 위에 <code>index.html</code>이 있어야 합니다. 폴더 안에 들어가 있으면 안 열립니다.</li>
                   <li>대소문자를 구분합니다. <code>Style.css</code>와 <code>style.css</code>는 다른 파일이에요. 내 컴퓨터에서는 되던 게 배포하면 깨지는 대표적 원인입니다.</li>
+                  <li><strong>링크가 <code>/</code>로 시작하면 안 됩니다.</strong> <code>/style.css</code>가 아니라 <code>style.css</code>여야 해요. 우리 주소는 <code>내아이디.github.io/저장소이름/</code>처럼 뒤에 저장소 이름이 붙는데, <code>/</code>로 시작하면 그 부분을 건너뛰고 엉뚱한 곳을 찾습니다. AI에게 <strong>"링크를 전부 상대경로로 바꿔줘"</strong>라고 하세요.</li>
                   <li><code>C:\Users\...</code> 같은 내 컴퓨터 경로가 들어가 있으면 안 됩니다.</li>
+                  <li><strong>방금 Commit했다면 1~2분 기다리세요.</strong> 아직 올라가는 중일 수 있습니다. 저장소 <code>Actions</code> 탭에 초록 체크가 떠야 완료입니다.</li>
                 </ul>
               </div>
             </li>

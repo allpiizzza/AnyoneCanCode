@@ -45,7 +45,7 @@
 
           <div class="brief">
             <div class="brief-row"><span class="k">전제</span><span class="v"><a href="step3.html">STEP 3</a>까지 끝나 있어야 합니다. 배포 전이라면 그것부터 마치세요.</span></div>
-            <div class="brief-row"><span class="k">고르는 법</span><span class="v">둘 중 <strong>하나만</strong> 하세요. 답변달기는 기능을 얹는 연습, 도메인은 주소를 바꾸는 연습입니다.</span></div>
+            <div class="brief-row"><span class="k">고르는 법</span><span class="v"><strong>하나만</strong> 고르세요. ①은 기능을 얹는 연습, ②는 주소를 바꾸는 연습, ③은 읽어만 둬도 됩니다.</span></div>
             <div class="brief-row"><span class="k">방식</span><span class="v">여기부터는 각자 진행합니다. 막히면 <a href="errors.html">에러 해결법</a>의 순서를 그대로 쓰세요.</span></div>
           </div>
 
@@ -87,7 +87,7 @@ Google Sheets 컬럼에 "답변"을 하나 추가할 거야.
 
           <h2>② 한글 도메인 연결</h2>
 
-          <p><code>내프로젝트.vercel.app</code> 대신 <code>우리동네책모임.한국</code> 같은 주소를 쓸 수 있습니다. <a href="https://xn--bj0bj06e.xn--3e0b707e" target="_blank" rel="noopener">내도메인.한국</a>에서 한글 도메인을 무료로 발급받아 Vercel에 연결하는 방식이에요.</p>
+          <p><code>내아이디.github.io/저장소이름/</code> 대신 <code>우리동네책모임.한국</code> 같은 주소를 쓸 수 있습니다. <a href="https://xn--bj0bj06e.xn--3e0b707e" target="_blank" rel="noopener">내도메인.한국</a>에서 한글 도메인을 무료로 발급받아 GitHub Pages에 연결하는 방식이에요.</p>
 
           <div class="term">
             <div class="term-bar">
@@ -95,10 +95,11 @@ Google Sheets 컬럼에 "답변"을 하나 추가할 거야.
               <div class="name">extra-domain-prompt.txt</div>
               <button class="copy-btn">COPY</button>
             </div>
-            <pre>Vercel에 배포한 사이트에 내도메인.한국에서 발급받은 한글 도메인을 연결하고 싶어.
+            <pre>GitHub Pages로 배포한 사이트에 내도메인.한국에서 발급받은
+한글 도메인을 연결하고 싶어.
 
-Vercel 프로젝트 설정에서 커스텀 도메인을 추가하는 방법과,
-내도메인.한국에서 DNS 설정을 어떻게 해야 하는지
+저장소 Settings → Pages의 Custom domain에 넣는 방법과,
+내도메인.한국에서 DNS를 어떻게 설정해야 하는지
 단계별로 아주 쉽게 설명해줘.</pre>
           </div>
 
@@ -106,6 +107,30 @@ Vercel 프로젝트 설정에서 커스텀 도메인을 추가하는 방법과,
             <div class="title">⚠ 3개월마다 무료 연장이 필요합니다</div>
             <p>내도메인.한국의 무료 도메인은 <strong>3개월 단위</strong>로 유효합니다. 만료되기 전에 사이트에 로그인해서 연장 버튼을 눌러야 하고, 깜빡하면 주소가 끊깁니다. 발급받은 날 바로 <strong>휴대폰 캘린더에 3개월 뒤 알림</strong>을 걸어두세요.</p>
             <p>DNS 설정을 바꾼 뒤 실제로 주소가 연결되기까지는 보통 몇 분, 길면 몇 시간이 걸립니다. 바로 안 된다고 설정을 계속 바꾸지 마세요. 오히려 더 늦어집니다.</p>
+          </div>
+
+          <h2>③ 서버가 필요해지면 — Vercel로 옮기기</h2>
+
+          <p>오늘 배포한 GitHub Pages는 <strong>만들어둔 파일을 그대로 보여주는</strong> 방식입니다. 대부분은 이걸로 충분해요. 나중에 <a href="https://supabase.com" target="_blank" rel="noopener">Supabase</a> 같은 걸 붙여도 브라우저에서 바로 부르는 구조라 지금 주소 그대로 됩니다.</p>
+
+          <p>그런데 <strong>안 되는 것도 있습니다.</strong></p>
+
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>붙이고 싶은 것</th><th>지금 주소로 되나</th><th>이유</th></tr></thead>
+              <tbody>
+                <tr><td>Google 스프레드시트 (오늘 한 것)</td><td>✅ 됩니다</td><td>브라우저에서 바로 부를 수 있음</td></tr>
+                <tr><td>Supabase · Firebase</td><td>✅ 됩니다</td><td>같은 이유</td></tr>
+                <tr><td>Notion API</td><td>❌ 안 됩니다</td><td><strong>비밀 키를 숨겨야</strong> 해서 중간에 서버가 필요</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <p>세 번째 같은 게 필요해지는 날, <strong>같은 GitHub 저장소를 <a href="https://vercel.com" target="_blank" rel="noopener">Vercel</a>에 가져가면</strong> 됩니다. <code>Add New → Project → Import → Deploy</code>, 3분이면 끝나요. 오늘 만든 것은 그대로 두고 주소만 하나 더 생기는 셈입니다.</p>
+
+          <div class="callout tip">
+            <div class="title">✱ 오늘 Vercel을 안 쓴 이유</div>
+            <p>계정을 하나 더 만들고 권한 승인을 한 번 더 하는 값이, 오늘 얻는 것보다 컸습니다. <strong>진짜 자산은 GitHub 저장소</strong>이지 배포 서비스가 아니에요. 저장소만 있으면 어디로든 3분이면 옮겨갑니다.</p>
           </div>
 
           <h2>그 밖에 해볼 만한 것들</h2>
@@ -132,7 +157,7 @@ Vercel 프로젝트 설정에서 커스텀 도메인을 추가하는 방법과,
           <div class="pagenav">
             <a class="prev" href="step3.html">
               <div class="dir">← 이전</div>
-              <div class="ttl">STEP 3 · GitHub + Vercel 배포</div>
+              <div class="ttl">STEP 3 · GitHub Pages 배포</div>
             </a>
             <a class="next" href="errors.html">
               <div class="dir">다음 →</div>
