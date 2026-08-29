@@ -41,11 +41,11 @@
           <h1>여유 시 도전 과제</h1>
           <p class="subtitle">배포까지 끝낸 분들을 위한 다음 단계</p>
 
-          <p class="lead">STEP 3까지 마쳤다면 이미 오늘의 목표는 다 이룬 겁니다. 여기서부터는 보너스예요. 둘 중 하나만 골라서 해도 충분하고, 집에 가서 천천히 해봐도 됩니다.</p>
+          <p class="lead">STEP 3까지 마쳤다면 이미 오늘의 목표는 다 이룬 겁니다. 여기서부터는 보너스예요. 하나도 안 해도 괜찮고, 집에 가서 천천히 해봐도 됩니다.</p>
 
           <div class="brief">
             <div class="brief-row"><span class="k">전제</span><span class="v"><a href="step3.html">STEP 3</a>까지 끝나 있어야 합니다. 배포 전이라면 그것부터 마치세요.</span></div>
-            <div class="brief-row"><span class="k">고르는 법</span><span class="v"><strong>하나만</strong> 고르세요. ①은 기능을 얹는 연습, ②는 주소를 바꾸는 연습, ③은 읽어만 둬도 됩니다.</span></div>
+            <div class="brief-row"><span class="k">고르는 법</span><span class="v">①은 기능을 얹는 연습이고, ②는 지금 안 해도 됩니다 — 나중에 필요해질 때를 위해 읽어만 두세요.</span></div>
             <div class="brief-row"><span class="k">방식</span><span class="v">여기부터는 각자 진행합니다. 막히면 <a href="errors.html">에러 해결법</a>의 순서를 그대로 쓰세요.</span></div>
           </div>
 
@@ -85,48 +85,7 @@ Google Sheets 컬럼에 "답변"을 하나 추가할 거야.
             <p>답변 저장은 Apps Script 코드도 같이 바뀝니다. 코드를 붙여넣은 뒤 <code>배포 → 배포 관리 → 수정 → 새 버전 → 배포</code>까지 해야 반영됩니다.</p>
           </div>
 
-          <h2>② 한글 도메인 연결</h2>
-
-          <p><code>내아이디.github.io/저장소이름/</code> 대신 <code>우리동네책모임.한국</code> 같은 주소를 쓸 수 있습니다. 한글 도메인을 <strong>무료로</strong> 발급받아 GitHub Pages에 연결하는 방식이에요.</p>
-
-          <div class="meta-grid">
-            <div class="meta-card">
-              <div class="k">발급받는 곳</div>
-              <div class="v"><a href="https://xn--220b31d95hq8o.xn--3e0b707e" target="_blank" rel="noopener">내도메인.한국</a></div>
-            </div>
-            <div class="meta-card">
-              <div class="k">주소창에 칠 것</div>
-              <div class="v"><code>내도메인.한국</code></div>
-            </div>
-            <div class="meta-card">
-              <div class="k">비용</div>
-              <div class="v">무료 (3개월마다 연장)</div>
-            </div>
-          </div>
-
-          <p>주소창에 <strong>한글 그대로</strong> <code>내도메인.한국</code>을 치면 들어가집니다. 검색창에 치면 엉뚱한 데로 갈 수 있으니 <strong>주소창에</strong> 넣으세요.</p>
-
-          <div class="term">
-            <div class="term-bar">
-              <div class="dots"><i class="dot r"></i><i class="dot y"></i><i class="dot g"></i></div>
-              <div class="name">extra-domain-prompt.txt</div>
-              <button class="copy-btn">COPY</button>
-            </div>
-            <pre>GitHub Pages로 배포한 사이트에 내도메인.한국에서 발급받은
-한글 도메인을 연결하고 싶어.
-
-저장소 Settings → Pages의 Custom domain에 넣는 방법과,
-내도메인.한국에서 DNS를 어떻게 설정해야 하는지
-단계별로 아주 쉽게 설명해줘.</pre>
-          </div>
-
-          <div class="callout warn">
-            <div class="title">⚠ 3개월마다 무료 연장이 필요합니다</div>
-            <p>내도메인.한국의 무료 도메인은 <strong>3개월 단위</strong>로 유효합니다. 만료되기 전에 사이트에 로그인해서 연장 버튼을 눌러야 하고, 깜빡하면 주소가 끊깁니다. 발급받은 날 바로 <strong>휴대폰 캘린더에 3개월 뒤 알림</strong>을 걸어두세요.</p>
-            <p>DNS 설정을 바꾼 뒤 실제로 주소가 연결되기까지는 보통 몇 분, 길면 몇 시간이 걸립니다. 바로 안 된다고 설정을 계속 바꾸지 마세요. 오히려 더 늦어집니다.</p>
-          </div>
-
-          <h2>③ 서버가 필요해지면 — Vercel로 옮기기</h2>
+          <h2>② 서버가 필요해지면 — Vercel로 옮기기</h2>
 
           <p>오늘 배포한 GitHub Pages는 <strong>만들어둔 파일을 그대로 보여주는</strong> 방식입니다. 대부분은 이걸로 충분해요. 나중에 <a href="https://supabase.com" target="_blank" rel="noopener">Supabase</a> 같은 걸 붙여도 브라우저에서 바로 부르는 구조라 지금 주소 그대로 됩니다.</p>
 
