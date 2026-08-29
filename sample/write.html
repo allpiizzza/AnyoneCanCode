@@ -48,54 +48,48 @@
   📚 책후기 게시판 · 비개발자 웹사이트 워크샵 완성본 예시
 </footer>
 
+<script src="api.js"></script>
 <script>
-function getPosts(){
-  let posts = JSON.parse(localStorage.getItem('bg_posts_v3') || 'null');
-  if(!posts){
-    posts = [
-      {id:3, title:"아몬드 — 다시 읽어도 좋은 책", author:"정하늘", date:"2026-08-08", content:"두 번째로 읽었는데 처음 읽을 때랑 느낌이 또 다르더라고요.\n\n윤재가 감정을 배워가는 과정을 곱씹으면서 읽으니, 우리가 당연하게 여기는 '공감'이라는 게 사실 얼마나 배워야 하는 건지 새삼 느꼈어요.\n\n다음에 만나면 이 책으로 한참 얘기할 수 있을 것 같습니다."},
-      {id:2, title:"불편한 편의점, 생각보다 뭉클했어요", author:"김서준", date:"2026-08-03", content:"가볍게 읽을 수 있는 책일 줄 알았는데 마지막 장 덮고 나서 한참 여운이 남았어요.\n\n특히 독고 아저씨가 사람들을 바라보는 시선이 좋았습니다. 편의점이라는 공간이 이렇게 따뜻하게 그려질 수 있구나 싶었어요."},
-      {id:1, title:"소설가의 여행법, 절반 읽고 남기는 중간 후기", author:"모임지기", date:"2026-07-28", content:"아직 다 못 읽었는데 문장이 너무 좋아서 먼저 남겨봅니다.\n\n여행지 묘사보다 작가가 그 안에서 스쳐가는 생각들을 붙잡아두는 방식이 인상적이에요. 완독하면 후기 다시 남길게요!"}
-    ];
-    localStorage.setItem('bg_posts_v3', JSON.stringify(posts));
+var form = document.getElementById('form');
+var btn = form.querySelector('button[type=submit]');
+
+function setMsg(text, bad){
+  var box = document.getElementById('formMsg');
+  if(!box){
+    box = document.createElement('p');
+    box.id = 'formMsg';
+    form.appendChild(box);
   }
-  return posts.sort((a,b)=> b.id - a.id);
+  box.className = 'form-msg' + (bad ? ' bad' : '');
+  box.textContent = text;
 }
 
-function todayString(){
-  const d = new Date();
-  const mm = String(d.getMonth() + 1).padStart(2, '0');
-  const dd = String(d.getDate()).padStart(2, '0');
-  return d.getFullYear() + '-' + mm + '-' + dd;
-}
-
-function saveNewPost(title, author, content){
-  const posts = getPosts();
-  const nextId = posts.reduce(function(max, p){ return Math.max(max, Number(p.id) || 0); }, 0) + 1;
-  posts.push({
-    id: nextId,
-    title: title,
-    author: author,
-    date: todayString(),
-    content: content
-  });
-  localStorage.setItem('bg_posts_v3', JSON.stringify(posts));
-  return nextId;
-}
-
-document.getElementById('form').addEventListener('submit', function(e){
+form.addEventListener('submit', function(e){
   e.preventDefault();
-  const title = document.getElementById('title').value.trim();
-  const author = document.getElementById('author').value.trim();
-  const content = document.getElementById('content').value.trim();
+  var title = document.getElementById('title').value.trim();
+  var author = document.getElementById('author').value.trim();
+  var content = document.getElementById('content').value.trim();
 
   if(!title || !author || !content){
-    alert('제목, 이름, 내용을 모두 채워주세요.');
+    setMsg('제목, 이름, 내용을 모두 채워주세요.', true);
     return;
   }
 
-  saveNewPost(title, author, content);
-  location.href = 'index.html';
+  btn.disabled = true;
+  var label = btn.textContent;
+  btn.textContent = '올리는 중…';
+  setMsg('스프레드시트에 저장하고 있어요…');
+
+  savePost({ title: title, author: author, content: content })
+    .then(function(){
+      setMsg('저장했어요. 목록으로 이동합니다.');
+      location.href = 'index.html';
+    })
+    .catch(function(err){
+      btn.disabled = false;
+      btn.textContent = label;
+      setMsg('저장하지 못했어요 — ' + (err.message || err), true);
+    });
 });
 </script>
 

@@ -33,6 +33,7 @@
     ├── index.html      ← 완성본 데모 메인 (타임라인 목록)
     ├── write.html      ← 후기 쓰기
     ├── detail.html     ← 상세보기
+    ├── api.js          ← 데모 전용 데이터 모듈 (세 화면 공용)
     └── style.css       ← 데모 전용 스타일시트
 ```
 
@@ -46,8 +47,8 @@
 - **프레임워크 금지.** React·번들러·npm 없음. 브라우저에서 파일을 바로 열어도 동작해야 함
 - **전 페이지 한국어**, 반응형 (모바일에서 사이드바가 서랍으로, 그리드가 스택)
 - 구글 폰트는 각 `style.css` 최상단 `@import`로 로드
-- 가이드 사이트의 JS는 **`ide.js` 한 파일**에 모읍니다 (HTML 안에 `<script>` 블록을 쓰지 않음). `sample/`은 예전대로 각 HTML 하단 인라인 스크립트
-- localStorage 사용처: `sample/`은 글 데이터, 가이드는 **UI 상태와 비밀번호**(테마 · 사이드바 접힘 · 잠금 해제 여부). **체크리스트는 저장하지 않습니다** — 여러 사람이 돌려 보는 문서라 앞사람의 체크가 남으면 헷갈립니다. 저장이 막혀 있어도 페이지는 정상 동작해야 함
+- 가이드 사이트의 JS는 **`ide.js` 한 파일**에 모읍니다 (HTML 안에 `<script>` 블록을 쓰지 않음). `sample/`은 데이터 처리를 **`api.js`** 에 모으고, 화면 그리는 코드만 각 HTML 하단에 인라인으로 둡니다
+- localStorage 사용처: 가이드는 **UI 상태와 비밀번호**(테마 · 사이드바 접힘 · 잠금 해제 여부). **체크리스트는 저장하지 않습니다** — 여러 사람이 돌려 보는 문서라 앞사람의 체크가 남으면 헷갈립니다. 저장이 막혀 있어도 페이지는 정상 동작해야 함
 - 프롬프트 복사는 `navigator.clipboard.writeText()` + textarea 폴백
 
 ---
@@ -439,25 +440,26 @@ Vercel 프로젝트 설정에서 커스텀 도메인을 추가하는 방법과,
 키: **`bg_posts_v3`**
 
 ```js
-function getPosts(){
-  let posts = JSON.parse(localStorage.getItem('bg_posts_v3') || 'null');
-  if(!posts){
-    posts = [ /* 시드 3개: id 3,2,1 */ ];
-    localStorage.setItem('bg_posts_v3', JSON.stringify(posts));
-  }
-  return posts.sort((a,b)=> b.id - a.id);   // 최신 글이 위
-}
+// sample/api.js — 세 화면이 함께 씁니다
 
-// saveNewPost(title, author, content)
-//   → 기존 id 최대값 + 1, 오늘 날짜(YYYY-MM-DD) 자동 부여 후 push
-// escapeHtml(s)
-//   → div.innerText에 넣고 innerHTML로 꺼내는 방식으로 XSS 방지
+var API_URL = 'https://script.google.com/macros/s/.../exec';  // 여기만 바꾸면 셋 다 따라옵니다
+var SEED    = [ /* 예시 3건: id 3,2,1 */ ];
+
+loadPosts()   // → {posts, offline}      GET. 실패하면 SEED로 채우고 offline:true
+findPost(id)  // → {post, offline}
+savePost({title, author, content})       // POST. 작성일은 Apps Script가 넣습니다
+escapeHtml(s) // div.innerText → innerHTML 로 XSS 방지
+showOfflineBanner(reason)                // 연결 실패 안내 띠
 ```
 
 시드 데이터 3건: `아몬드 — 다시 읽어도 좋은 책`(정하늘, 2026-08-08) / `불편한 편의점, 생각보다 뭉클했어요`(김서준, 2026-08-03) / `소설가의 여행법, 절반 읽고 남기는 중간 후기`(모임지기, 2026-07-28)
 
-> ⚠️ **`getPosts()`와 시드 데이터는 `sample/`의 세 HTML에 각각 복사되어 있습니다.** 별도 .js 파일을 두지 않기로 했기 때문입니다. 시드나 저장 로직을 고칠 때는 **세 파일을 모두** 수정해야 합니다.
+> ⚠️ **저장은 실패하면 실패로 보여줍니다.** 불러오기만 예시 데이터로 대신 채웁니다. 저장까지 조용히 로컬에 넣으면 "저장됐다"고 착각하게 되니 그렇게 만들지 마세요.
 >
+> ⚠️ **`savePost`는 `Content-Type: text/plain`으로 보냅니다.** `application/json`으로 바꾸면 브라우저가 preflight(OPTIONS)를 보내고 Apps Script가 답하지 못해 CORS로 막힙니다. step2 문서의 설명과 같은 이유입니다.
+>
+> ⚠️ **`normalize()`는 응답 생김새 차이를 흡수합니다.** `{ok,posts}` · 객체 배열 · 원시 행 배열을 모두 받고, 키 이름도 `title`/`제목` 양쪽을 봅니다. Apps Script를 다시 만들어도 화면을 안 고쳐도 되게 하려는 장치입니다.
+
 > ⚠️ 화면에 값을 넣을 때는 반드시 `escapeHtml()`을 거칩니다. 사용자가 `<b>태그</b>`를 입력해도 텍스트로 보여야 합니다.
 
 ---
@@ -565,6 +567,13 @@ step1(화면 세 덩어리)과 step3(`Connect repository` · `Commit` 위치)에
     - **요청을 두 번으로 쪼갰습니다.** 배포해서 웹앱 주소가 생긴 뒤에야 화면 코드를 제대로 받을 수 있어서, ②Apps Script → ③배포 → ④화면 순서가 실제 순서입니다.
     - **프롬프트에 "꼭 지켜줘" 세 줄을 넣었습니다.** 실제로 터지는 지점을 미리 막는 문장입니다 — ⓐ 시트를 이름 대신 첫 번째 시트로 잡기(한국어 계정은 `시트1`, 영어는 `Sheet1`이라 이름으로 찾으면 깨짐) ⓑ `Content-Type: text/plain`으로 보내고 `e.postData.contents`를 파싱하기 ⓒ `ContentService`로 JSON 응답. **이 세 줄을 빼지 마세요.**
     - **`text/plain`인 이유**는 접기로 설명했습니다. `application/json`이면 브라우저가 preflight(OPTIONS)를 먼저 보내는데 Apps Script 웹앱이 답하지 못해 CORS로 막힙니다. 흔히 도는 `mode:'no-cors'` 해법은 응답을 못 읽어 성공/실패를 알 수 없으므로 문서에서 명시적으로 말립니다.
+
+23. **데모를 localStorage에서 실제 스프레드시트 연동으로** — 참가자에게 보여주는 완성본이 정작 시트에 붙어 있지 않으면 "이게 오늘 만들 것"이라는 말이 헐거워집니다. 이제 `sample/`은 Apps Script 웹앱을 통해 진짜 시트를 읽고 씁니다.
+
+    - **`api.js`를 새로 만들었습니다.** 웹앱 주소를 세 곳에 복사해두면 바꿀 때마다 셋 다 고쳐야 합니다. 데이터 처리를 한 파일로 모으고 화면 그리는 코드만 각 HTML에 남겼습니다. (기존 "sample은 각 HTML 인라인" 규칙을 이 파일만 예외로 둡니다.)
+    - **불러오기는 실패해도 화면이 뜹니다.** 시연 도중 배포나 인터넷이 말썽이면 예시 데이터로 채우고 위에 안내 띠를 붙입니다. 데모가 빈 화면이 되는 것보다 낫습니다. **다만 저장은 실패를 실패로 보여줍니다** — 조용히 로컬에 넣으면 저장된 줄 착각하게 됩니다.
+    - **`normalize()`로 응답 생김새를 흡수합니다.** Apps Script를 다시 만들면 응답 모양이 조금씩 달라지는데, 그때마다 화면 코드를 고치지 않으려는 장치입니다.
+    - ⚠️ **웹앱 주소가 공개 저장소에 그대로 들어갑니다.** 워크샵 데모용으로 의도한 것이지만, 주소를 아는 사람은 누구나 그 시트에 글을 쓸 수 있습니다. 워크샵이 끝나면 해당 배포를 보관 처리하거나 접근 권한을 좁히세요.
 
 ---
 

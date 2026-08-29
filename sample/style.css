@@ -451,6 +451,46 @@ a{ color:var(--maroon); text-decoration:none; }
   margin-top:30px;
 }
 
+/* ---------- 불러오는 중 / 연결 안내 / 폼 메시지 ---------- */
+.loading{
+  padding:44px 20px;
+  text-align:center;
+  font-family:var(--label);
+  font-size:14.5px;
+  color:var(--ink-soft);
+}
+
+/* 스프레드시트에 연결하지 못해 예시 데이터를 보여줄 때 */
+.offline-note{
+  background:var(--peach);
+  border-bottom:2px solid var(--ink);
+  color:var(--ink);
+  font-family:var(--label);
+  font-size:13.5px;
+  line-height:1.7;
+  padding:12px 20px;
+  text-align:center;
+}
+.offline-note strong{ font-weight:600; }
+.offline-note .why{
+  display:block;
+  margin-top:3px;
+  font-size:12px;
+  color:var(--ink-soft);
+  word-break:break-word;
+}
+
+.form-msg{
+  margin:16px 0 0;
+  font-family:var(--label);
+  font-size:13.5px;
+  color:var(--ink-soft);
+  text-align:center;
+}
+.form-msg.bad{ color:var(--maroon); font-weight:600; }
+
+.btn:disabled{ opacity:.6; cursor:default; transform:none; }
+
 /* ---------- 반응형 ---------- */
 @media (max-width:600px){
   .header-inner{ flex-direction:column; gap:6px; text-align:center; }
