@@ -10,7 +10,7 @@
    ========================================================= */
 
 /* 내 Apps Script 웹앱 주소 — 여기만 바꾸면 세 화면이 다 따라옵니다 */
-var API_URL = 'https://script.google.com/macros/s/AKfycbzREJ8oOourEVnIFlmbWNb5fAzedR7Wu3ZqKSlQoCgEyLVB2Q9UAYeajOhhvHDMH6tFSQ/exec';
+var API_URL = 'https://script.google.com/macros/s/AKfycbwrBuG9EZ__DHTjWvoh4RaSEHlRi_1kpU-WtPlHKVET_6ttJM0kk9tgp6XX3x_2wFx4JA/exec';
 
 /* 웹앱이 막혔을 때 보여줄 예시 데이터 */
 var SEED = [
@@ -30,9 +30,22 @@ function escapeHtml(s) {
 function fmtDate(v) {
   if (!v) return '';
   var s = String(v);
-  /* 시트가 날짜를 ISO(2026-08-08T00:00:00.000Z)로 돌려주는 경우가 있습니다 */
-  var m = s.match(/^(\d{4})-(\d{2})-(\d{2})/);
-  return m ? m[1] + '-' + m[2] + '-' + m[3] : s;
+
+  /* 이미 YYYY-MM-DD 면 그대로 */
+  if (/^\d{4}-\d{2}-\d{2}$/.test(s)) return s;
+
+  /* 시트가 ISO(2026-08-29T15:00:00.000Z)로 돌려주는 경우.
+     글자만 잘라 쓰면 한국 시간 기준으로 하루 전 날짜가 나옵니다
+     (한국의 8월 30일 0시 = UTC 8월 29일 15시). 그래서 현지 시각으로 바꿔서 씁니다. */
+  var d = new Date(s);
+  if (!isNaN(d.getTime())) {
+    var mm = String(d.getMonth() + 1);
+    var dd = String(d.getDate());
+    return d.getFullYear() + '-' +
+      (mm.length < 2 ? '0' + mm : mm) + '-' +
+      (dd.length < 2 ? '0' + dd : dd);
+  }
+  return s;
 }
 
 /* 응답 생김새가 조금씩 달라도 같은 모양으로 맞춥니다.
