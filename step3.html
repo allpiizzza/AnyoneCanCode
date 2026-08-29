@@ -42,28 +42,28 @@
           <h1>GitHub + Vercel 배포</h1>
           <p class="subtitle">이 단계는 AI 프롬프트가 아니라 화면을 따라가는 작업입니다</p>
 
-          <p class="lead">지금까지 만든 사이트는 내 Replit 안에만 있습니다. 이걸 인터넷 주소가 있는 진짜 웹사이트로 만드는 게 마지막 단계예요. <strong>GitHub는 코드를 보관하는 창고</strong>, <strong>Vercel은 그 창고를 보고 사이트를 띄워주는 서비스</strong>입니다. 딱 그만큼만 알면 됩니다.</p>
+          <p class="lead">지금까지 만든 사이트는 내 StackBlitz 안에만 있습니다. 이걸 인터넷 주소가 있는 진짜 웹사이트로 만드는 게 마지막 단계예요. <strong>GitHub는 코드를 보관하는 창고</strong>, <strong>Vercel은 그 창고를 보고 사이트를 띄워주는 서비스</strong>입니다. 딱 그만큼만 알면 됩니다.</p>
 
           <div class="brief">
             <div class="brief-row"><span class="k">목표</span><span class="v">누구나 들어올 수 있는 <strong>내 사이트 주소</strong>를 갖습니다. 휴대폰으로 열면 오늘 끝.</span></div>
             <div class="brief-row"><span class="k">시간</span><span class="v">20분 — 진행자가 화면을 공유하고 다 함께 한 단계씩</span></div>
-            <div class="brief-row"><span class="k">준비물</span><span class="v">GitHub 계정(로그인 상태), Vercel 계정은 여기서 GitHub으로 만듭니다</span></div>
-            <div class="brief-row"><span class="k">끝나면</span><span class="v"><code>프로젝트명.vercel.app</code> 주소가 생기고, 앞으로 코드를 고쳐 Push할 때마다 자동으로 갱신됩니다.</span></div>
+            <div class="brief-row"><span class="k">준비물</span><span class="v">StackBlitz가 GitHub 계정으로 로그인된 상태. Vercel 계정은 여기서 GitHub으로 만듭니다</span></div>
+            <div class="brief-row"><span class="k">끝나면</span><span class="v"><code>프로젝트명.vercel.app</code> 주소가 생기고, 앞으로 <strong>Commit</strong>을 누를 때마다 사이트가 저절로 갱신됩니다.</span></div>
           </div>
 
           <h2>지금 무슨 일이 일어나는 건가요</h2>
 
-          <p>지금까지 만든 파일은 <strong>내 Replit 안에만</strong> 있습니다. 남에게 보여주려면 두 곳을 거쳐야 해요.</p>
+          <p>지금까지 만든 파일은 <strong>내 StackBlitz 안에만</strong> 있습니다. 남에게 보여주려면 두 곳을 거쳐야 해요.</p>
 
           <div class="flow">
             <div class="fbox">
-              <div class="ft">① Replit</div>
+              <div class="ft">① StackBlitz</div>
               <div class="fd">내 작업실. 나만 볼 수 있음</div>
             </div>
             <div class="farrow">→</div>
             <div class="fbox">
               <div class="ft">② GitHub</div>
-              <div class="fd">코드 보관 창고. 여기에 <strong>Push</strong>로 올림</div>
+              <div class="fd">코드 보관 창고. 여기에 <strong>Commit</strong>으로 올림</div>
             </div>
             <div class="farrow">→</div>
             <div class="fbox">
@@ -74,12 +74,12 @@
 
           <div class="callout">
             <div class="title">✱ 왜 두 단계나 거치나요</div>
-            <p>GitHub은 <strong>보관</strong>, Vercel은 <strong>공개</strong>를 맡습니다. 역할이 나뉘어 있어서 좋은 점이 하나 있어요 — 한 번 연결해두면 그다음부터는 <strong>코드를 고쳐 Push하기만 하면 사이트가 저절로 갱신됩니다.</strong> 매번 파일을 올릴 필요가 없습니다. 오늘 20분을 쓰는 이유가 이겁니다.</p>
+            <p>GitHub은 <strong>보관</strong>, Vercel은 <strong>공개</strong>를 맡습니다. 역할이 나뉘어 있어서 좋은 점이 하나 있어요 — 한 번 연결해두면 그다음부터는 <strong>StackBlitz에서 Commit만 누르면 사이트가 저절로 갱신됩니다.</strong> 매번 파일을 올릴 필요가 없습니다. 오늘 20분을 쓰는 이유가 이겁니다.</p>
           </div>
 
           <div class="callout danger">
             <div class="title">⛔ 시작 전에 하나만 — 권한 승인 팝업</div>
-            <p>Replit에서 GitHub를 연결할 때, 그리고 Vercel에서 GitHub로 로그인할 때 <strong>권한 승인 창이 새 창(팝업)으로 뜹니다.</strong> 이게 브라우저 팝업 차단에 막히거나, 뒤쪽 창에 숨어서 안 보이는 경우가 많습니다.</p>
+            <p>StackBlitz에서 저장소를 만들 때, 그리고 Vercel에서 GitHub로 로그인할 때 <strong>권한 승인 창이 새 창(팝업)으로 뜹니다.</strong> 이게 브라우저 팝업 차단에 막히거나, 뒤쪽 창에 숨어서 안 보이는 경우가 많습니다.</p>
             <ul>
               <li>"연결이 안 돼요"라고 하면 먼저 <strong>다른 창이 열려 있는지</strong> 확인해보세요.</li>
               <li>주소창 오른쪽 끝에 팝업 차단 아이콘이 있으면 허용으로 바꿉니다.</li>
@@ -89,27 +89,96 @@
 
           <h2>따라 하기</h2>
 
+          <p><strong>저장소는 GitHub이 아니라 StackBlitz에서 만듭니다.</strong> 이미 GitHub 계정으로 로그인해 두었으니, 버튼 몇 번이면 끝나요. 누를 곳은 <strong>딱 두 군데</strong>입니다.</p>
+
+          <figure class="uishot">
+            <svg viewBox="0 0 720 372" role="img" aria-labelledby="uimap2-t uimap2-d">
+              <title id="uimap2-t">StackBlitz에서 저장소를 만들고 커밋하는 위치</title>
+              <desc id="uimap2-d">왼쪽 사이드바 맨 위의 Connect repository로 저장소를 만들고, 화면 위쪽 메뉴바에 생기는 Commit 버튼으로 GitHub에 올립니다.</desc>
+
+              <!-- ② 핀 (창 위쪽) -->
+              <g class="u-pin">
+                <circle class="u-pin-c" cx="253" cy="18" r="12"/>
+                <text class="u-pin-t" x="253" y="22">2</text>
+                <path class="u-lead" d="M253 30 V48"/>
+              </g>
+
+              <rect class="u-win" x="8" y="48" width="704" height="248" rx="10"/>
+
+              <!-- 메뉴바 -->
+              <path class="u-line" d="M8 84 H712"/>
+              <circle class="u-dot-r" cx="26" cy="66" r="4.5"/>
+              <circle class="u-dot-y" cx="40" cy="66" r="4.5"/>
+              <circle class="u-dot-g" cx="54" cy="66" r="4.5"/>
+              <rect class="u-ph" x="76" y="61" width="30" height="10" rx="3"/>
+              <rect class="u-ph" x="112" y="61" width="34" height="10" rx="3"/>
+              <text class="u-t on" x="232" y="70">Commit</text>
+              <rect class="u-hl" x="224" y="59" width="58" height="22"/>
+              <text class="u-t dim mid" x="440" y="70">book-review</text>
+
+              <!-- 아이콘 레일 -->
+              <rect class="u-rail" x="9" y="85" width="30" height="210"/>
+              <path class="u-line" d="M39 85 V295"/>
+              <rect class="u-ph blue" x="17" y="98" width="14" height="14" rx="3"/>
+              <rect class="u-ph" x="17" y="124" width="14" height="14" rx="3"/>
+
+              <!-- 파일 목록 -->
+              <rect class="u-side" x="39" y="85" width="170" height="210"/>
+              <path class="u-line" d="M209 85 V295"/>
+              <text class="u-t on" x="56" y="110">Connect repository</text>
+              <rect class="u-hl" x="48" y="99" width="152" height="22"/>
+              <path class="u-line" d="M39 128 H209"/>
+              <text class="u-t dim" x="56" y="148">FILES</text>
+              <text class="u-t" x="64" y="170">index.html</text>
+              <text class="u-t" x="64" y="190">write.html</text>
+              <text class="u-t" x="64" y="210">detail.html</text>
+
+              <!-- 에디터 -->
+              <rect class="u-edit" x="209" y="85" width="502" height="210"/>
+              <rect class="u-ph purple" x="228" y="106" width="46" height="8" rx="3"/>
+              <rect class="u-ph orange" x="280" y="106" width="80" height="8" rx="3"/>
+              <rect class="u-ph" x="238" y="128" width="120" height="8" rx="3"/>
+              <rect class="u-ph blue" x="238" y="150" width="70" height="8" rx="3"/>
+              <rect class="u-ph orange" x="314" y="150" width="110" height="8" rx="3"/>
+              <rect class="u-ph" x="248" y="172" width="150" height="8" rx="3"/>
+              <rect class="u-ph blue" x="248" y="194" width="86" height="8" rx="3"/>
+              <rect class="u-ph" x="238" y="216" width="60" height="8" rx="3"/>
+
+              <!-- ① 핀 (창 아래) -->
+              <g class="u-pin">
+                <path class="u-lead" d="M196 121 V330"/>
+                <circle class="u-pin-c" cx="196" cy="342" r="12"/>
+                <text class="u-pin-t" x="196" y="346">1</text>
+              </g>
+            </svg>
+            <figcaption>
+              <b>1 Connect repository</b> — 왼쪽 사이드바 <b>맨 위</b>. 여기서 GitHub 저장소를 만듭니다 · 
+              <b>2 Commit</b> — 저장소를 연결하면 <b>위쪽 메뉴바에 생깁니다</b>. 이걸 눌러야 GitHub으로 올라갑니다
+            </figcaption>
+          </figure>
+
           <ul class="steps">
             <li class="step">
               <span class="num">1</span>
               <div class="body">
-                <h3>GitHub 저장소 만들기</h3>
-                <p><a href="https://github.com" target="_blank" rel="noopener">github.com</a> 접속 → 오른쪽 위 <code>+</code> → <strong>New repository</strong></p>
+                <h3>StackBlitz에서 저장소 만들기</h3>
+                <p>내 프로젝트를 연 상태에서 <strong>왼쪽 사이드바</strong>(파일 목록이 있는 곳)의 <strong>Connect repository</strong>를 누릅니다.</p>
                 <ul>
-                  <li>Repository name: 영문 소문자로 (예: <code>book-review-board</code>)</li>
-                  <li>공개 설정: <strong>Public</strong> — Private으로 하면 무료 배포에서 막힐 수 있습니다</li>
-                  <li>나머지는 건드리지 말고 <strong>Create repository</strong></li>
+                  <li>저장소 이름을 <strong>영문 소문자</strong>로 적습니다 (예: <code>book-review</code>)</li>
+                  <li>공개 설정은 <strong>Public</strong> — 비공개(private)는 StackBlitz 유료 기능입니다</li>
+                  <li>처음이라면 GitHub 권한 승인 팝업이 뜹니다. <strong>Authorize</strong>를 눌러주세요</li>
                 </ul>
+                <p>이미 GitHub에 만들어둔 저장소에 연결하고 싶다면, 같은 화면의 <strong>기존 저장소 가져오기</strong> 링크를 쓰면 됩니다.</p>
               </div>
             </li>
             <li class="step">
               <span class="num">2</span>
               <div class="body">
-                <h3>Replit 코드를 GitHub로 내보내기</h3>
-                <p>Replit 왼쪽의 <strong>버전 관리(Git) 아이콘</strong> 클릭 → GitHub 계정 연결 → 방금 만든 저장소 선택 → <strong>Push</strong></p>
+                <h3>Commit을 눌러 GitHub에 올리기</h3>
+                <p>저장소가 연결되면 <strong>화면 위쪽 메뉴바에 <code>Commit</code> 버튼</strong>이 생깁니다. 그걸 누르면 지금까지 만든 파일이 GitHub으로 올라갑니다.</p>
                 <ul>
-                  <li>연결할 때 GitHub 권한 승인 팝업이 뜹니다. 반드시 <strong>Authorize</strong>를 눌러주세요.</li>
-                  <li>Push가 끝나면 GitHub 저장소 페이지를 새로고침해서 <code>index.html</code> 같은 파일이 올라왔는지 눈으로 확인합니다.</li>
+                  <li>메시지를 적으라고 하면 <code>first commit</code>처럼 아무거나 적으면 됩니다</li>
+                  <li>올린 뒤 <a href="https://github.com" target="_blank" rel="noopener">github.com</a>의 내 저장소를 열어 <code>index.html</code>이 보이는지 <strong>눈으로 확인</strong>하세요</li>
                 </ul>
               </div>
             </li>
@@ -147,11 +216,16 @@
             </li>
           </ul>
 
+          <div class="callout warn">
+            <div class="title">⚠ 저장소 맨 위에 <code>index.html</code>이 있어야 합니다</div>
+            <p>Vercel은 저장소 <strong>맨 바깥</strong>에 있는 <code>index.html</code>을 첫 화면으로 씁니다. 파일이 폴더 안에 들어가 있으면 배포는 되는데 화면이 하얗게 떠요. GitHub 저장소를 열었을 때 <code>index.html</code>이 <strong>바로 보이면</strong> 정상입니다.</p>
+          </div>
+
           <h2>앞으로 코드를 고치면?</h2>
 
-          <p>한 번 연결해두면 그다음은 자동입니다. Replit에서 코드를 고치고 다시 <strong>Push</strong>만 하면, Vercel이 알아서 새 버전을 배포합니다. 따로 할 일이 없어요.</p>
+          <p>한 번 연결해두면 그다음은 자동입니다. StackBlitz에서 코드를 고치고 <strong>Commit</strong>만 누르면, Vercel이 알아서 새 버전을 배포합니다. 따로 할 일이 없어요.</p>
 
-          <p>고친 게 사이트에 안 보인다면 순서대로 확인하세요. <strong>① Replit에서 Push를 했는지 → ② GitHub 저장소에 방금 시각이 찍혔는지 → ③ Vercel 대시보드에 새 배포가 도는지.</strong> 대개 ①에서 멈춰 있습니다. 배포에는 1~2분 걸리니 조금 기다렸다 새로고침해 보세요.</p>
+          <p>고친 게 사이트에 안 보인다면 순서대로 확인하세요. <strong>① StackBlitz에서 Commit을 눌렀는지 → ② GitHub 저장소에 방금 시각이 찍혔는지 → ③ Vercel 대시보드에 새 배포가 도는지.</strong> 대개 ①에서 멈춰 있습니다. 미리보기 화면이 바뀌었다고 배포된 게 아니에요 — <strong>Commit을 눌러야 GitHub으로 넘어갑니다.</strong> 배포에는 1~2분 걸리니 조금 기다렸다 새로고침해 보세요.</p>
 
           <h2>자주 나오는 질문</h2>
 

@@ -103,26 +103,136 @@
             <p>고민이 길어지면 만들 시간이 줄어듭니다. 안 떠오르면 <strong>기본(책후기 게시판)</strong>으로 가세요. 오늘 목표는 완벽한 아이디어가 아니라 <strong>내 주소가 있는 사이트 하나</strong>입니다. 주제는 나중에 얼마든지 바꿀 수 있어요.</p>
           </div>
 
-          <h2><span class="stepno">2.</span> Replit 열고 파일 세 개 만들기</h2>
+          <h2><span class="stepno">2.</span> StackBlitz 열고 파일 세 개 만들기</h2>
 
-          <p>Replit은 브라우저 안의 작업실입니다. 설치할 것도, 저장 버튼을 누를 일도 없어요. 화면은 세 덩어리입니다.</p>
+          <p>StackBlitz는 <strong>브라우저 안의 작업실</strong>입니다. 설치할 것도, 저장 버튼을 누를 일도 없어요. 주소창에 <a href="https://stackblitz.com" target="_blank" rel="noopener">stackblitz.com</a>을 치고 <strong>Sign in</strong> → <strong>Continue with GitHub</strong>으로 들어갑니다.</p>
 
-          <div class="flow">
-            <div class="fbox">
-              <div class="ft">왼쪽</div>
-              <div class="fd">파일 목록<br>여기서 파일을 만듭니다</div>
-            </div>
-            <div class="fbox">
-              <div class="ft">가운데</div>
-              <div class="fd">코드를 붙여넣는 곳<br>읽지 않아도 됩니다</div>
-            </div>
-            <div class="fbox">
-              <div class="ft">오른쪽</div>
-              <div class="fd"><code>Run</code>을 누르면<br>만든 화면이 여기 뜹니다</div>
-            </div>
+          <div class="callout warn">
+            <div class="title">⚠ 반드시 GitHub 계정으로 로그인하세요</div>
+            <p>이메일로 따로 가입하면 <strong>STEP 3에서 저장소를 만들 때 다시 연결해야 합니다.</strong> 지금 GitHub으로 들어가 두면 그 과정이 통째로 없어져요.</p>
           </div>
 
-          <p>왼쪽 파일 목록에서 <strong>새 파일(＋)</strong>을 눌러 아래 세 개를 만들어 두세요.</p>
+          <h3>새 프로젝트 만들기</h3>
+
+          <ul class="steps">
+            <li class="step">
+              <span class="num">1</span>
+              <div class="body">
+                <h3>대시보드에서 <code>New Project</code></h3>
+                <p>로그인하면 내 프로젝트 목록(대시보드)이 나옵니다. 파란 <strong>New Project</strong> 버튼을 누르세요.</p>
+              </div>
+            </li>
+            <li class="step">
+              <span class="num">2</span>
+              <div class="body">
+                <h3>스타터 목록에서 <code>HTML/CSS/JS</code> 고르기</h3>
+                <p>여러 카드가 뜹니다. React·Angular·Vue 같은 건 오늘 필요 없어요. <strong>HTML/CSS/JS</strong>(정적 웹) 하나만 고릅니다.</p>
+                <p>안 보이면 위쪽 카테고리에서 <strong>Frontend</strong>를 눌러보세요.</p>
+              </div>
+            </li>
+            <li class="step">
+              <span class="num">3</span>
+              <div class="body">
+                <h3>제목을 알아볼 이름으로 바꾸기</h3>
+                <p>위쪽 가운데 프로젝트 제목을 눌러 <code>book-review</code>처럼 <strong>영문 소문자</strong>로 바꿔둡니다. 나중에 저장소 이름이 될 자리예요.</p>
+              </div>
+            </li>
+          </ul>
+
+          <div class="callout danger">
+            <div class="title">⛔ 지름길 주소를 검색해서 쓰지 마세요</div>
+            <p>인터넷에 도는 <code>stackblitz.com/fork/...</code> 같은 주소는 <strong>남이 만들어둔 엉뚱한 프로젝트가 복제됩니다.</strong> 실제로 <code>/fork/html</code>은 이름만 html이고 내용은 Angular 프로젝트예요. 꼭 대시보드의 <strong>New Project</strong>에서 시작하세요.</p>
+          </div>
+
+          <h3>화면은 세 덩어리입니다</h3>
+
+          <p>처음 열면 복잡해 보이지만, 오늘 쓸 곳은 <strong>세 군데뿐</strong>입니다. 나머지는 눈길도 주지 마세요.</p>
+
+          <figure class="uishot">
+            <svg viewBox="0 0 720 380" role="img" aria-labelledby="uimap1-t uimap1-d">
+              <title id="uimap1-t">StackBlitz 화면 구성</title>
+              <desc id="uimap1-d">왼쪽은 파일 목록, 가운데는 코드를 붙여넣는 에디터, 오른쪽은 만든 화면이 자동으로 뜨는 미리보기입니다.</desc>
+
+              <rect class="u-win" x="8" y="8" width="704" height="330" rx="10"/>
+
+              <!-- 메뉴바 -->
+              <path class="u-line" d="M8 44 H712"/>
+              <circle class="u-dot-r" cx="26" cy="26" r="4.5"/>
+              <circle class="u-dot-y" cx="40" cy="26" r="4.5"/>
+              <circle class="u-dot-g" cx="54" cy="26" r="4.5"/>
+              <rect class="u-ph" x="76" y="21" width="30" height="10" rx="3"/>
+              <rect class="u-ph" x="112" y="21" width="34" height="10" rx="3"/>
+              <text class="u-t dim mid" x="360" y="30">book-review</text>
+
+              <!-- 아이콘 레일 -->
+              <rect class="u-rail" x="9" y="45" width="30" height="292"/>
+              <path class="u-line" d="M39 45 V337"/>
+              <rect class="u-ph blue" x="17" y="58" width="14" height="14" rx="3"/>
+              <rect class="u-ph" x="17" y="84" width="14" height="14" rx="3"/>
+              <rect class="u-ph" x="17" y="110" width="14" height="14" rx="3"/>
+
+              <!-- 파일 목록 -->
+              <rect class="u-side" x="39" y="45" width="150" height="292"/>
+              <path class="u-line" d="M189 45 V337"/>
+              <text class="u-t dim" x="52" y="68">Connect repository</text>
+              <path class="u-line" d="M39 80 H189"/>
+              <text class="u-t dim" x="52" y="100">FILES</text>
+              <text class="u-t on" x="60" y="122">index.html</text>
+              <text class="u-t" x="60" y="142">write.html</text>
+              <text class="u-t" x="60" y="162">detail.html</text>
+              <text class="u-t dim" x="60" y="182">style.css</text>
+
+              <!-- 에디터 -->
+              <rect class="u-edit" x="189" y="45" width="252" height="292"/>
+              <path class="u-line" d="M441 45 V337"/>
+              <rect class="u-ph purple" x="205" y="62" width="46" height="8" rx="3"/>
+              <rect class="u-ph orange" x="257" y="62" width="70" height="8" rx="3"/>
+              <rect class="u-ph" x="215" y="82" width="90" height="8" rx="3"/>
+              <rect class="u-ph blue" x="215" y="102" width="60" height="8" rx="3"/>
+              <rect class="u-ph orange" x="281" y="102" width="86" height="8" rx="3"/>
+              <rect class="u-ph" x="225" y="122" width="110" height="8" rx="3"/>
+              <rect class="u-ph blue" x="225" y="142" width="72" height="8" rx="3"/>
+              <rect class="u-ph" x="215" y="162" width="54" height="8" rx="3"/>
+              <rect class="u-ph purple" x="205" y="182" width="40" height="8" rx="3"/>
+
+              <!-- 미리보기 -->
+              <rect class="u-prev" x="441" y="45" width="270" height="292"/>
+              <path class="u-line" d="M441 72 H711"/>
+              <circle class="u-ph" cx="456" cy="58" r="5"/>
+              <rect class="u-ph" x="470" y="53" width="120" height="10" rx="5"/>
+              <rect class="u-ph ink" x="470" y="96" width="150" height="14" rx="4"/>
+              <rect class="u-ph ink" x="470" y="124" width="212" height="46" rx="6"/>
+              <rect class="u-ph ink" x="470" y="182" width="212" height="46" rx="6"/>
+              <rect class="u-ph ink" x="470" y="240" width="212" height="46" rx="6"/>
+
+              <!-- 번호 핀 -->
+              <g class="u-pin">
+                <path class="u-lead" d="M114 200 V352"/>
+                <path class="u-lead" d="M315 200 V352"/>
+                <path class="u-lead" d="M576 300 V352"/>
+                <circle class="u-pin-c" cx="114" cy="364" r="12"/>
+                <text class="u-pin-t" x="114" y="368">1</text>
+                <circle class="u-pin-c" cx="315" cy="364" r="12"/>
+                <text class="u-pin-t" x="315" y="368">2</text>
+                <circle class="u-pin-c" cx="576" cy="364" r="12"/>
+                <text class="u-pin-t" x="576" y="368">3</text>
+              </g>
+            </svg>
+            <figcaption>
+              <b>1 파일 목록</b> — 여기서 파일을 만듭니다 · 
+              <b>2 에디터</b> — 코드를 붙여넣는 곳, 읽지 않아도 됩니다 · 
+              <b>3 미리보기</b> — 만든 화면이 <b>자동으로</b> 뜹니다
+            </figcaption>
+          </figure>
+
+          <div class="callout tip">
+            <div class="title">✱ Run 버튼이 없습니다 — 고장이 아니에요</div>
+            <p>StackBlitz는 <strong>타이핑을 멈추면 오른쪽 미리보기가 알아서 갱신됩니다.</strong> 저장도 자동이라 누를 게 없어요. 화면이 안 바뀌는 것 같으면 미리보기 위쪽의 <strong>새로고침(↻)</strong>만 한 번 눌러보세요.</p>
+          </div>
+
+          <h3>파일 세 개 만들기</h3>
+
+          <p>왼쪽 파일 목록 위의 <strong>새 파일 아이콘</strong>을 눌러 아래 세 개를 만듭니다. <code>index.html</code>은 이미 있을 테니 <strong>그대로 쓰고</strong> 두 개만 새로 만들면 됩니다.</p>
 
           <div class="term">
             <div class="term-bar">
@@ -133,6 +243,8 @@
 write.html
 detail.html</pre>
           </div>
+
+          <p>스타터에 딸려온 <code>style.css</code>나 <code>script.js</code>가 있어도 <strong>지우지 말고 그냥 두세요.</strong> 나중에 AI가 준 코드로 덮어쓰거나, 안 쓰면 그만입니다.</p>
 
           <div class="callout warn">
             <div class="title">⚠ 이름을 정확히 그대로</div>
@@ -246,7 +358,7 @@ detail.html</pre>
             </div>
           </details>
 
-          <h2><span class="stepno">4.</span> 받은 코드를 Replit에 옮기기</h2>
+          <h2><span class="stepno">4.</span> 받은 코드를 StackBlitz에 옮기기</h2>
 
           <p>오늘 가장 많이 반복하게 될 동작입니다. 세 번만 해보면 손에 익어요.</p>
 
@@ -269,14 +381,14 @@ detail.html</pre>
               <span class="num">3</span>
               <div class="body">
                 <h3>붙여넣습니다</h3>
-                <p>저장은 자동이라 따로 누를 게 없습니다. 파일 세 개를 각각 이렇게 채웁니다.</p>
+                <p>저장은 자동입니다. <strong>오른쪽 미리보기가 곧바로 바뀌는지</strong> 보세요. 파일 세 개를 각각 이렇게 채웁니다.</p>
               </div>
             </li>
             <li class="step">
               <span class="num">4</span>
               <div class="body">
-                <h3>Run을 누릅니다</h3>
-                <p>오른쪽에 화면이 떠야 합니다. 안 뜨면 미리보기 창의 새로고침을 한 번 눌러보세요.</p>
+                <h3>오른쪽 미리보기를 확인합니다</h3>
+                <p><strong>누를 버튼은 없습니다.</strong> 붙여넣는 순간 화면이 바뀝니다. 안 바뀌면 미리보기 위쪽의 새로고침(↻)을 한 번 누르세요.</p>
               </div>
             </li>
           </ul>
@@ -374,8 +486,8 @@ detail.html</pre>
               <div class="a"><p>"방금 준 코드는 취소하고, <strong>직전 버전으로 돌아가서</strong> 내가 말한 것만 바꿔줘"라고 하세요. 다음부터는 요청 끝에 <strong>"나머지는 그대로 두고"</strong>를 붙이면 크게 줄어듭니다.</p></div>
             </details>
             <details>
-              <summary>Replit에서 결제하라는 화면이 떠요</summary>
-              <div class="a"><p>닫으셔도 됩니다. 오늘 Replit은 <strong>코드 붙여넣고 Run 누르는 용도</strong>로만 씁니다. AI는 별도 채팅창에서 쓰니 유료 기능이 필요 없어요.</p></div>
+              <summary>StackBlitz에서 결제하라는 화면이 떠요</summary>
+              <div class="a"><p>닫으셔도 됩니다. 오늘 StackBlitz는 <strong>코드를 붙여넣고 화면을 보는 용도</strong>로만 씁니다. 유료가 필요한 건 비공개(private) 저장소인데, 오늘 만드는 저장소는 공개(public)라 무료 범위 안입니다. AI도 별도 채팅창에서 쓰니 관계없어요.</p></div>
             </details>
           </div>
 
@@ -384,7 +496,7 @@ detail.html</pre>
             <div class="in">
               <ul>
                 <li><strong>0~3분</strong> · 주제 고르기. 예시 표를 화면에 띄우고 <strong>"2분 드릴게요"</strong>라고 시간을 잘라주세요. 못 고른 사람은 기본으로 보냅니다.</li>
-                <li><strong>3~8분</strong> · Replit 화면 세 덩어리를 화면 공유로 같이 봅니다. 파일 만들기를 <em>한 번은 같이</em> 해보세요.</li>
+                <li><strong>3~8분</strong> · StackBlitz 화면 세 덩어리를 화면 공유로 같이 봅니다. <strong>New Project → HTML/CSS/JS</strong>와 파일 만들기를 <em>한 번은 같이</em> 해보세요. "Run 버튼이 없다"는 말을 미리 해두면 질문이 확 줄어듭니다.</li>
                 <li><strong>8~18분</strong> · 프롬프트를 복사해 각자 실행. 주제를 바꾼 사람은 <code>○○</code>를 채웠는지 봐주세요. 진행자는 돌아다니며 "파일 세 개 만들어졌는지"만 확인합니다.</li>
                 <li><strong>18~28분</strong> · 5단계 확인 항목을 같이 짚습니다. 여기서 <strong>손 들어 확인</strong>을 한 번 하세요.</li>
                 <li><strong>28~45분</strong> · 각자 하나씩 고치기. 빨리 끝낸 사람에게는 "카드에 마우스 올리면 떠오르게" 같은 과제를 주면 좋습니다.</li>

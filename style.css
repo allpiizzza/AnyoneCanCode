@@ -723,6 +723,82 @@ td.sym{ font-family:var(--mono); color:var(--red); font-size:13px; }
   color:var(--text-faint);
 }
 
+/* ---------- 화면 안내 그림 (StackBlitz UI 지도) ----------
+   실제 화면 배치를 본떠 직접 그린 SVG입니다. 남의 스크린샷을 쓰지 않는 이유는
+   ① 저작물이고 ② 문서가 갱신되면 링크가 깨지며 ③ 참가자 화면과 다르기 때문입니다.
+   색은 전부 토큰을 쓰므로 라이트 테마에서도 그대로 읽힙니다. */
+.uishot{
+  margin:22px 0;
+  padding:0;
+}
+.uishot svg{
+  display:block;
+  width:100%;
+  height:auto;
+}
+.uishot figcaption{
+  margin-top:10px;
+  font-size:13px;
+  line-height:1.7;
+  color:var(--text-dim);
+}
+.uishot figcaption b{ color:var(--text); font-weight:500; }
+
+/* 창 부위별 면 */
+.u-win{ fill:var(--panel); stroke:var(--border); stroke-width:1; }
+.u-bar{ fill:var(--panel-2); }
+.u-rail{ fill:var(--bg); }
+.u-side{ fill:var(--sidebar); }
+.u-edit{ fill:var(--editor); }
+.u-prev{ fill:#ffffff; }          /* 미리보기는 진짜 웹페이지라 항상 흰 바탕 */
+.u-line{ fill:none; stroke:var(--border); stroke-width:1; }
+
+/* 창 안의 잔글씨·아이콘 흉내 */
+.u-ph{ fill:var(--text-faint); opacity:.5; }      /* 자리표시 막대 */
+.u-ph.blue{ fill:var(--blue); opacity:.75; }
+.u-ph.orange{ fill:var(--orange); opacity:.7; }
+.u-ph.purple{ fill:var(--purple); opacity:.7; }
+.u-ph.ink{ fill:#3B1418; opacity:.35; }           /* 흰 미리보기 위의 글씨 */
+
+.u-dot-r{ fill:#ff5f57; }
+.u-dot-y{ fill:#febc2e; }
+.u-dot-g{ fill:#28c840; }
+
+/* 글자 */
+.u-t{
+  font-family:var(--mono);
+  font-size:11px;
+  fill:var(--text-dim);
+}
+.u-t.dim{ fill:var(--text-faint); }
+.u-t.on{ fill:var(--text); }
+.u-t.mid{ text-anchor:middle; }
+
+/* 강조 테두리 + 번호 핀 */
+.u-hl{
+  fill:none;
+  stroke:var(--yellow);
+  stroke-width:2;
+  rx:5;
+}
+.u-pin-c{ fill:var(--accent-bg); stroke:var(--accent); stroke-width:1.5; }
+.u-pin-t{
+  font-family:var(--mono);
+  font-size:12px;
+  font-weight:700;
+  fill:var(--accent);
+  text-anchor:middle;
+}
+.u-lead{ fill:none; stroke:var(--accent); stroke-width:1.5; stroke-dasharray:3 3; }
+
+@media (max-width:640px){
+  /* 좁은 화면에서 그림을 통째로 줄이면 글씨가 5px가 됩니다.
+     표(.table-wrap)와 같은 방식으로 그림 안에서만 가로로 넘겨 보게 합니다. */
+  .uishot{ overflow-x:auto; }
+  .uishot svg{ min-width:520px; }
+  .uishot figcaption{ font-size:12.5px; }
+}
+
 /* ---------- 자주 나오는 질문 (펼침) ---------- */
 .qa{
   border:1px solid var(--border);
