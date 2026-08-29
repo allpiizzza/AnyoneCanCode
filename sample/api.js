@@ -83,21 +83,66 @@ function normalize(raw) {
 
 /* ---------- 불러오기 ---------- */
 
+/* Apps Script 웹앱은 가끔 느리거나 JSON 대신 HTML을 돌려줍니다.
+   실제로 같은 주소를 세 번 불렀더니 30초 지연 / 404 / 정상이 섞여 나왔습니다.
+   그래서 반드시 시간을 끊고, 한 번은 다시 시도합니다.
+   끊지 않으면 화면이 "불러오는 중"에서 영영 멈춥니다. */
+var TIMEOUT_MS = 7000;        /* 첫 시도 */
+var RETRY_TIMEOUT_MS = 5000;  /* 다시 시도 — 둘을 합쳐 12초를 넘지 않게 */
+
+function fetchWithTimeout(url, opts, ms) {
+  opts = opts || {};
+  /* AbortController가 없는 아주 오래된 브라우저도 멈추지 않도록 시간 경쟁을 겁니다 */
+  var ctrl = (typeof AbortController !== 'undefined') ? new AbortController() : null;
+  if (ctrl) opts.signal = ctrl.signal;
+
+  return new Promise(function (resolve, reject) {
+    var done = false;
+    var timer = setTimeout(function () {
+      if (done) return;
+      done = true;
+      if (ctrl) { try { ctrl.abort(); } catch (e) {} }
+      reject(new Error('응답이 ' + Math.round(ms / 1000) + '초 안에 오지 않았습니다.'));
+    }, ms);
+
+    fetch(url, opts).then(function (r) {
+      if (done) return;
+      done = true;
+      clearTimeout(timer);
+      resolve(r);
+    }, function (err) {
+      if (done) return;
+      done = true;
+      clearTimeout(timer);
+      reject(err);
+    });
+  });
+}
+
+function readJson(r) {
+  return r.text().then(function (text) {
+    var raw;
+    try {
+      raw = JSON.parse(text);
+    } catch (e) {
+      /* 로그인 페이지나 오류 페이지(HTML)가 돌아온 경우 */
+      throw new Error('웹앱이 JSON 대신 다른 응답을 보냈습니다.');
+    }
+    if (raw && raw.ok === false) throw new Error(raw.error || '웹앱이 실패를 알려왔습니다.');
+    return raw;
+  });
+}
+
+function fetchPostsOnce(ms) {
+  return fetchWithTimeout(API_URL, { method: 'GET' }, ms).then(readJson);
+}
+
 /* 성공하면 {posts, offline:false}, 실패하면 {posts:예시, offline:true, reason} */
 function loadPosts() {
-  return fetch(API_URL, { method: 'GET' })
-    .then(function (r) { return r.text(); })
-    .then(function (text) {
-      var raw;
-      try {
-        raw = JSON.parse(text);
-      } catch (e) {
-        /* 로그인 페이지(HTML)가 돌아온 경우 — 배포 접근 권한이 "모든 사용자"가 아닙니다 */
-        throw new Error('웹앱이 JSON 대신 다른 응답을 보냈습니다. 배포 접근 권한을 확인하세요.');
-      }
-      if (raw && raw.ok === false) throw new Error(raw.error || '웹앱이 실패를 알려왔습니다.');
-      var posts = normalize(raw);
-      return { posts: posts, offline: false };
+  return fetchPostsOnce(TIMEOUT_MS)
+    .catch(function () { return fetchPostsOnce(RETRY_TIMEOUT_MS); })   /* 들쭉날쭉하니 한 번 더 */
+    .then(function (raw) {
+      return { posts: normalize(raw), offline: false };
     })
     .catch(function (err) {
       return { posts: SEED.slice(), offline: true, reason: String(err.message || err) };
@@ -120,21 +165,20 @@ function findPost(id) {
    application/json이면 브라우저가 미리 허락을 구하는 요청(OPTIONS)을 보내는데,
    Apps Script 웹앱은 거기에 답하지 못해 CORS 오류로 막힙니다. */
 function savePost(data) {
-  return fetch(API_URL, {
+  return fetchWithTimeout(API_URL, {
     method: 'POST',
     headers: { 'Content-Type': 'text/plain;charset=utf-8' },
     body: JSON.stringify(data)
-  })
-    .then(function (r) { return r.text(); })
-    .then(function (text) {
-      var raw;
-      try {
-        raw = JSON.parse(text);
-      } catch (e) {
-        throw new Error('웹앱이 JSON 대신 다른 응답을 보냈습니다. 배포 접근 권한을 확인하세요.');
-      }
-      if (raw && raw.ok === false) throw new Error(raw.error || '저장에 실패했습니다.');
-      return { ok: true };
+  }, TIMEOUT_MS)
+    .then(readJson)
+    .then(function () { return { ok: true }; })
+    .catch(function (err) {
+      /* 여기가 중요합니다. 응답을 못 받았다고 저장이 안 된 건 아닙니다.
+         실제로 시트에는 들어갔는데 응답만 이상하게 오는 경우를 겪었습니다.
+         "실패했다"고 단정하면 참가자가 같은 글을 두 번 올립니다. */
+      var e = new Error(err.message || String(err));
+      e.unsure = true;
+      throw e;
     });
 }
 

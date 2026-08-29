@@ -86,6 +86,13 @@ form.addEventListener('submit', function(e){
       location.href = 'index.html';
     })
     .catch(function(err){
+      if(err && err.unsure){
+        /* 응답을 못 받았을 뿐, 시트에는 들어갔을 수 있습니다.
+           "실패"라고 하면 같은 글을 두 번 올리게 됩니다. */
+        setMsg('답을 못 받았어요. 목록에서 올라갔는지 확인해주세요…', true);
+        setTimeout(function(){ location.href = 'index.html'; }, 1800);
+        return;
+      }
       btn.disabled = false;
       btn.textContent = label;
       setMsg('저장하지 못했어요 — ' + (err.message || err), true);

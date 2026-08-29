@@ -80,10 +80,17 @@ function render(posts){
   list.innerHTML = html;
 }
 
-document.getElementById('list').innerHTML =
-  '<div class="loading">📚 후기를 불러오는 중…</div>';
+var listBox = document.getElementById('list');
+listBox.innerHTML = '<div class="loading">📚 후기를 불러오는 중…</div>';
+
+/* 오래 걸리면 멈춘 것처럼 보이니 한마디 붙여줍니다 */
+var slowTimer = setTimeout(function(){
+  var el = listBox.querySelector('.loading');
+  if(el) el.textContent = '📚 조금 오래 걸리네요, 잠시만요…';
+}, 4000);
 
 loadPosts().then(function(res){
+  clearTimeout(slowTimer);
   if(res.offline) showOfflineBanner(res.reason);
   render(res.posts);
 });
