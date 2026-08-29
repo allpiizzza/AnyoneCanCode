@@ -45,7 +45,7 @@
           <p class="lead">STEP 1에서 만든 화면은 새로고침하면 글이 사라집니다. 어디에도 적어두질 않았으니까요. 그 <strong>"어딘가"를 오늘은 Google 스프레드시트</strong>로 씁니다. </p>
 
           <div class="brief">
-            <div class="brief-row"><span class="k">할 일</span><span class="v">코드를 <strong>두 번 나눠</strong> 받습니다 — ① 시트에 적어주는 Apps Script → 배포 → ② 그 주소를 부르는 화면 코드.</span></div>
+            <div class="brief-row"><span class="k">할 일</span><span class="v">① 시트에 적어주는 Apps Script → 배포 ② 배포 주소를 AI에게 공유해서 화면에 적용하기</span></div>
             <div class="brief-row"><span class="k">끝나면</span><span class="v">새로고침해도 글이 남습니다.</span></div>
             <div class="brief-row"><span class="k">미리 알림</span><span class="v">오늘 중 <strong>가장 어려운 구간</strong>입니다. 절반쯤은 한 번 막혀요. 정상입니다.</span></div>
           </div>
@@ -80,7 +80,7 @@
 
           <h2><span class="stepno">1.</span> 스프레드시트 준비하기</h2>
 
-          <p>새 Google 스프레드시트를 만들고, <strong>첫 번째 행</strong>에 <a href="step1.html">STEP 1에서 고른 네 칸</a>을 순서대로 입력합니다. 기본(책후기 게시판)이라면 이렇게요.</p>
+          <p>새 Google 스프레드시트를 만들고, <strong>첫 번째 행</strong>에 <a href="step1.html">STEP 1에서 고른 네 칸</a>을 입력합니다. 기본(책후기 게시판)이라면 이렇게요.</p>
 
           <div class="table-wrap">
             <table>
@@ -89,11 +89,21 @@
             </table>
           </div>
 
-          <p>다른 주제를 골랐다면 그 네 칸을 쓰면 됩니다. 예를 들어 별점 랭킹이라면 <code>가게 이름 · 추천인 · 별점 · 한줄평</code>, 회비 장부라면 <code>날짜 · 이름 · 항목 · 금액</code>이 됩니다. <strong>칸 개수와 순서만 STEP 1에서 만든 화면과 맞으면 됩니다.</strong></p>
+          <p>다른 주제를 골랐다면 그 네 칸을 쓰면 됩니다. 예를 들어 별점 랭킹이라면 <code>가게 이름 · 추천인 · 별점 · 한줄평</code>, 회비 장부라면 <code>날짜 · 이름 · 항목 · 금액</code>이 됩니다.</p>
+
+          <p><strong>순서는 마음대로 정해도 됩니다.</strong> 정해진 정답이 없어요. <code>가게 이름</code>이 먼저든 <code>별점</code>이 먼저든 상관없습니다. 다음 단계에서 <strong>정한 순서를 그대로 AI에게 알려주기만</strong> 하면, AI가 거기에 맞는 코드를 써줍니다.</p>
+
+          <p>그래서 <strong>시트를 먼저 만들고, 거기 적힌 그대로 프롬프트에 옮겨 적는 게</strong> 가장 안전합니다. 반대로 하면 "내가 뭐라고 말했더라"를 기억해서 시트를 맞춰야 해요.</p>
 
           <div class="callout warn">
-            <div class="title">⚠ 순서가 중요합니다</div>
-            <p>이 순서가 코드와 어긋나면 <strong>글은 저장되는데 화면에 엉뚱하게 나옵니다.</strong> 제목 자리에 작성자가 들어가는 식으로요. 원인을 찾기도 어려우니 지금 정확히 맞춰두세요.</p>
+            <div class="title">⚠ 한 번 정했으면 바꾸지 마세요</div>
+            <p>문제는 <strong>순서 그 자체가 아니라, 시트와 코드가 어긋나는 것</strong>입니다. 이렇게 어긋납니다.</p>
+            <ul>
+              <li>AI에게 말한 순서와 <strong>실제 시트가 다를 때</strong></li>
+              <li>코드를 다 받은 <strong>뒤에 시트 순서를 바꿀 때</strong></li>
+              <li>중간에 <strong>칸을 끼워 넣을 때</strong> — 뒤가 전부 한 칸씩 밀립니다</li>
+            </ul>
+            <p>이게 특히 고약한 이유는 <strong>에러가 안 뜬다는 것</strong>입니다. 저장도 되고 화면도 뜨는데 제목 자리에 작성자가 들어가 있어요. 콘솔에 빨간 글씨가 없으니 어디부터 봐야 할지 감이 안 잡힙니다. 칸을 바꾸고 싶어지면 시트만 고치지 말고 <strong>AI에게 "시트 순서를 이렇게 바꿨어"라고 말하고 코드를 다시 받으세요.</strong></p>
           </div>
 
           <h2><span class="stepno">2.</span> Apps Script 코드를 AI에게 요청하기</h2>
