@@ -273,8 +273,8 @@ function doPost(e) {
 - fetch의 headers를 Content-Type: text/plain 으로
 - body는 JSON.stringify로 만든 글자
 
-[형식] index.html, write.html, detail.html 세 파일의
-수정된 전체 코드로 다시 줘.</pre>
+[형식] 고친 파일 전체 코드로 다시 줘.
+파일마다 이름을 적어서, 어디에 붙여넣을지 알 수 있게 해줘.</pre>
           </div>
 
           <details class="more">
@@ -290,7 +290,7 @@ function doPost(e) {
                 <pre>// 세 파일 맨 위에 똑같이 넣습니다
 const API = 'https://script.google.com/macros/s/여기에_내_주소/exec';
 
-// [목록] index.html — 열릴 때 불러오기
+// [목록] 첫 화면(index.html) — 열릴 때 불러오기
 fetch(API)
   .then(r => r.json())
   .then(d => {
@@ -299,7 +299,7 @@ fetch(API)
     });
   });
 
-// [글쓰기] write.html — 등록 버튼
+// [글쓰기] 입력 화면 — 등록 버튼
 fetch(API, {
   method: 'POST',
   headers: { 'Content-Type': 'text/plain;charset=utf-8' },
@@ -307,7 +307,7 @@ fetch(API, {
 })
   .then(r => r.json())
   .then(d => {
-    if (d.ok) location.href = 'index.html';
+    if (d.ok) location.href = 'index.html';   // 목록으로 돌아가기
     else alert('저장 실패: ' + d.error);
   });</pre>
               </div>
