@@ -498,6 +498,7 @@ step1(화면 세 덩어리)과 step3(`Connect repository` · `Commit` 위치)에
 - 색은 전부 디자인 토큰(`--panel` `--blue` …)을 씁니다. **라이트 테마에서도 그대로 읽힙니다**
 - `<path>`에는 반드시 `fill:none`이 필요합니다. 빠뜨리면 리더선이 검은 덩어리로 칠해집니다 (`.u-lead` · `.u-line`에 지정해 두었습니다)
 - 좁은 화면에서는 그림을 줄이면 글씨가 5px가 되므로, 표처럼 **그림 안에서만 가로 스크롤**(`overflow-x:auto` + `svg{min-width:520px}`)합니다
+- **step1 그림에는 `Connect repository`를 그리지 마세요.** 실제 화면에는 사이드바 맨 위에 있지만, 그려두면 "STEP 1에서 저장소를 만드는 건가?"로 읽힙니다. 저장소는 STEP 3에서 만듭니다 — 코드가 다 만들어진 뒤 한 번에 올려야 Commit을 두 번 누르는 혼란이 없고, 45분짜리 STEP 1에서 GitHub 권한 팝업까지 터지지 않습니다.
 - 배치는 [공식 문서의 UI 개요 스크린샷](https://developer.stackblitz.com/guides/user-guide/ide-whats-on-your-screen)을 보고 맞췄습니다. **실물 스크린샷으로 교체하려면** 워크샵 계정으로 직접 찍은 것을 쓰세요 — 참가자 화면과 정확히 같아지고 저작권 문제도 없습니다
 
 > 정적(HTML/CSS/JS) 스타터를 쓰는 이유는 **`package.json`이 없어야 Vercel이 빌드 없이 그대로 띄우기** 때문입니다. Vite 계열 스타터를 고르면 STEP 3에서 빌드 설정을 만지게 되고, 비개발자에게는 그 순간이 벽이 됩니다.
