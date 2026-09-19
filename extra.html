@@ -102,11 +102,28 @@ Google Sheets 컬럼에 "답변"을 하나 추가할 거야.
             <table>
               <thead><tr><th>붙이고 싶은 것</th><th>지금 주소로 되나</th><th>이유</th></tr></thead>
               <tbody>
-                <tr><td>Google 스프레드시트 (오늘 한 것)</td><td>✅ 됩니다</td><td>브라우저에서 바로 부를 수 있음</td></tr>
-                <tr><td><a href="https://supabase.com" target="_blank" rel="noopener">Supabase</a> · Firebase</td><td>✅ 됩니다</td><td>같은 이유</td></tr>
-                <tr><td>Notion API</td><td>❌ 안 됩니다</td><td><strong>비밀 키를 숨겨야</strong> 해서 중간에 서버가 필요</td></tr>
+                <tr>
+                  <td>Google 스프레드시트 (오늘 한 것)</td>
+                  <td>✅ 됩니다</td>
+                  <td>화면 코드에 <strong>비밀 키가 없습니다.</strong> Apps Script 주소가 이미 중간에서 일을 해주고 있거든요</td>
+                </tr>
+                <tr>
+                  <td><a href="https://supabase.com" target="_blank" rel="noopener">Supabase</a> · Firebase</td>
+                  <td>⚠️ 조건부</td>
+                  <td>화면에 넣는 키는 <strong>공개돼도 되게 만들어진 키</strong>입니다. 대신 <strong>접근 규칙을 켠 경우에만</strong> 안전해요 — 안 켜두면 누구나 표 전체를 읽고 지울 수 있습니다</td>
+                </tr>
+                <tr>
+                  <td>Notion API</td>
+                  <td>❌ 안 됩니다</td>
+                  <td>발급되는 키가 <strong>내 워크스페이스 전체 권한</strong>이라 감출 곳이 필요합니다. 게다가 브라우저에서 부르는 것 자체를 막아뒀어요</td>
+                </tr>
               </tbody>
             </table>
+          </div>
+
+          <div class="callout">
+            <div class="title">✱ 세 줄의 차이는 "키" 하나입니다</div>
+            <p>브라우저에 <strong>둬도 되는 값</strong>과 <strong>절대 두면 안 되는 값</strong>이 따로 있습니다. 공개용으로 발급된 키(Supabase의 <code>anon</code> 키 같은 것)는 둬도 되지만, <strong>할 수 있는 일이 제한돼 있을 때만</strong> 그렇습니다. 무엇이든 할 수 있는 키(Supabase의 <code>service_role</code>, Notion의 통합 토큰)는 예외 없이 서버에만 둡니다.</p>
           </div>
 
           <p>그래서 이 과제는 <strong>Vercel로 옮기는 것까지</strong> 포함합니다. 같은 GitHub 저장소를 가져가기만 하면 되고, 오늘 만든 GitHub Pages 주소는 그대로 둡니다 — <strong>진짜 자산은 저장소이지 배포 서비스가 아니거든요.</strong></p>
@@ -127,6 +144,8 @@ Google Sheets 컬럼에 "답변"을 하나 추가할 거야.
 
           <p>그래서 <strong>내 사이트와 Notion 사이에 심부름꾼</strong>을 하나 둡니다. 키는 그 심부름꾼만 알고, 화면은 심부름꾼에게만 말을 겁니다. 그 심부름꾼을 공짜로 얹어주는 게 Vercel이에요. <strong>GitHub Pages로는 안 됩니다</strong> — 파일을 보여줄 뿐 무언가를 실행하지는 못하거든요.</p>
 
+          <p>사실 <strong>오늘 이미 심부름꾼을 하나 쓰고 있었습니다.</strong> STEP 2에서 만든 Apps Script 주소가 그 역할이었어요. 스프레드시트를 직접 건드린 게 아니라, 그 주소에 부탁을 했던 거죠. 달라지는 건 <strong>이번엔 그 심부름꾼을 직접 만든다</strong>는 것뿐입니다.</p>
+
           <div class="flow">
             <div class="fbox">
               <div class="ft">① 내 화면</div>
@@ -142,6 +161,101 @@ Google Sheets 컬럼에 "답변"을 하나 추가할 거야.
               <div class="ft">③ Notion</div>
               <div class="fd">글이 쌓임</div>
             </div>
+          </div>
+
+          <h3>왜 브라우저에는 못 숨기나요</h3>
+
+          <p>비유를 걷어내고 말하면 이렇습니다. <strong>브라우저에서 실행되는 코드는 방문자의 컴퓨터로 통째로 내려받아진 뒤, 그 자리에서 실행됩니다.</strong> 서버 코드처럼 멀리 있는 남의 컴퓨터 안에서 몰래 도는 게 아니라, HTML·CSS·JS 파일이 방문자에게 파일 그대로 전달돼요. <strong>숨길 곳이 아예 없는 겁니다.</strong></p>
+
+          <details class="more">
+            <summary>＋ 정말 다 보이는지 지금 확인해보기</summary>
+            <div class="in">
+              <ul>
+                <li>아무 사이트에서나 <code>F12</code>(맥은 <code>Cmd+Option+I</code>)로 개발자도구를 열고 <strong>Sources</strong> 탭에 들어가면, 그 사이트가 쓰는 JS 코드 원본이 그대로 읽힙니다</li>
+                <li><strong>Network</strong> 탭에서는 그 사이트가 어떤 주소로 요청을 보내는지, 무슨 값을 실어 보내는지까지 다 보입니다. 코드에 <code>const API_KEY = "sk-abc123..."</code>처럼 적어뒀다면 이 값도 그대로 노출돼요</li>
+                <li>"코드를 압축(minify)해서 알아보기 어렵게 만들면 안전하지 않나요?" — 압축은 변수 이름을 짧게 줄이는 것뿐입니다. 파일은 여전히 통째로 내려가고, 되돌려 읽는 도구도 흔해요. <strong>숨기는 게 아니라 읽기 불편하게 만드는 것</strong>이라, 진짜 비밀을 감추는 용도로는 쓸 수 없습니다</li>
+              </ul>
+            </div>
+          </details>
+
+          <p>비유로 돌아오면, <strong>손님 자리는 원래 누구나 앉아서 메뉴판이든 테이블이든 벽에 붙은 안내문이든 다 뜯어볼 수 있는 공간</strong>입니다. "여기엔 아무것도 숨기면 안 된다"가 웹의 기본 구조예요. 그러니 정말 숨겨야 하는 건 애초에 손님 자리에 놓지 않고, 손님이 절대 못 들어가는 주방에만 둡니다.</p>
+
+          <details class="more">
+            <summary>＋ 웨이터는 실제로 어떻게 생겼나요 — 코드로 보기</summary>
+            <div class="in">
+              <p>Vercel 프로젝트의 <code>/api</code> 폴더에 파일 하나만 만들면 그게 웨이터가 됩니다. 아래는 <strong>이해를 돕기 위한 다른 예시</strong>(글 요약 기능)예요 — 오늘 만들 Notion용 실제 코드는 이 문서 아래쪽에 따로 있습니다.</p>
+              <div class="term">
+                <div class="term-bar">
+                  <div class="dots"><i class="dot r"></i><i class="dot y"></i><i class="dot g"></i></div>
+                  <div class="name">api/summarize.js — 웨이터</div>
+                  <button class="copy-btn">COPY</button>
+                </div>
+                <pre>export default async function handler(req, res) {
+  // 1. 손님(브라우저)이 보낸 주문서를 받습니다
+  const { text } = req.body;
+
+  // 2. 비밀 레시피(API 키)를 꺼냅니다
+  //    코드에 직접 적혀 있지 않고, Vercel 환경변수에 따로 보관돼 있습니다
+  const apiKey = process.env.OPENAI_API_KEY;
+
+  // 3. 주방(외부 API)에 가서 진짜 작업을 시킵니다
+  const response = await fetch('https://api.openai.com/v1/chat/completions', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + apiKey   // ← 레시피는 여기서만 쓰입니다
+    },
+    body: JSON.stringify({
+      model: 'gpt-4o-mini',
+      messages: [{ role: 'user', content: '다음 글을 요약해줘: ' + text }]
+    })
+  });
+
+  const data = await response.json();
+
+  // 4. 완성된 요리(결과)를 손님에게 서빙합니다
+  res.status(200).json({ summary: data.choices[0].message.content });
+}</pre>
+              </div>
+              <p>손님 자리, 그러니까 화면 코드는 <strong>이게 전부</strong>입니다. 키가 한 글자도 없죠.</p>
+              <div class="term">
+                <div class="term-bar">
+                  <div class="dots"><i class="dot r"></i><i class="dot y"></i><i class="dot g"></i></div>
+                  <div class="name">index.html 안 — 손님 자리</div>
+                  <button class="copy-btn">COPY</button>
+                </div>
+                <pre>async function askSummary(text) {
+  const res = await fetch('/api/summarize', {
+    method: 'POST',
+    body: JSON.stringify({ text })
+  });
+  const data = await res.json();
+  console.log(data.summary);
+}</pre>
+              </div>
+              <ul>
+                <li>브라우저는 <code>/api/summarize</code>라는 <strong>호출 벨만 누를 뿐</strong>, 키가 뭔지 끝까지 모릅니다</li>
+                <li><code>process.env.OPENAI_API_KEY</code>는 코드에 없습니다. Vercel 대시보드의 <code>Settings → Environment Variables</code>에 등록해둔 값을 <strong>서버가 실행될 때만</strong> 읽어가요. 그래서 개발자도구로 아무리 뒤져도 안 보입니다</li>
+              </ul>
+            </div>
+          </details>
+
+          <p>여기서 <strong>주방은 우리가 만드는 게 아닙니다.</strong> Notion, OpenAI 같은 곳이 이미 차려놓은 주방을 빌려 쓰는 거예요. 우리 웨이터가 "이 데이터베이스에 글 하나 추가해줘"라고 요청을 보내면, 주방이 자기네 데이터베이스에 실제로 행을 만들고 "이렇게 만들었어요"라는 응답을 돌려줍니다. <strong>진짜 일은 전부 주방에서 일어나고</strong>, 웨이터는 주문을 정확히 전달하고 결과를 받아오는 중간 역할만 합니다.</p>
+
+          <div class="table-wrap">
+            <table>
+              <thead><tr><th>비유</th><th>실제</th><th>하는 일</th></tr></thead>
+              <tbody>
+                <tr><td>손님</td><td>브라우저 (내 화면 코드)</td><td>"이거 해주세요"라고 부르기만 함. 주방이 어디인지, 키가 뭔지 <strong>몰라도 됨</strong></td></tr>
+                <tr><td>웨이터</td><td>서버 (Vercel의 <code>/api</code> 함수)</td><td>키를 보관하고, 손님 주문을 주방 언어로 바꿔 전달</td></tr>
+                <tr><td>주방</td><td>외부 API (Notion · OpenAI …)</td><td>이미 만들어진 서비스. 저장·생성 같은 <strong>실제 작업</strong>을 수행</td></tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="callout warn">
+            <div class="title">✱ 키가 새면 요금이 샙니다</div>
+            <p>주방 문을 여는 열쇠(API 키)는 "이 앱은 승인된 앱"이라는 확인용입니다. 이게 화면 코드에 있으면 사이트에 들어온 <strong>아무나 개발자도구로 꺼내 가서 내 이름으로 무제한 요청</strong>을 보낼 수 있어요. Notion이라면 내 워크스페이스가 통째로 열리고, 유료 API라면 요금이 그대로 청구됩니다.</p>
           </div>
 
           <h3>Notion으로 데이터 옮겨보기 <span class="badge blue">AI에게 묻기</span></h3>
