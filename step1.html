@@ -129,7 +129,19 @@
                 <p>위쪽 가운데 프로젝트 제목을 눌러 <code>book-review</code>처럼 <strong>영문 소문자</strong>로 바꿔둡니다. 나중에 저장소 이름이 될 자리예요.</p>
               </div>
             </li>
+            <li class="step">
+              <span class="num">4</span>
+              <div class="body">
+                <h3>파일 목록에 <strong>폴더</strong>가 있으면 지우기</h3>
+                <p>왼쪽 파일 목록에 <code>css</code>나 <code>js</code> 같은 <strong>폴더</strong>가 보이면, 폴더 이름에 <strong>오른쪽 클릭 → Delete</strong>로 지우세요. 오늘은 파일을 전부 <strong>폴더 없이 한 곳에</strong> 둡니다.</p>
+              </div>
+            </li>
           </ul>
+
+          <div class="callout warn">
+            <div class="title">⚠ 이 한 줄이 오늘 가장 많이 막히는 지점을 없앱니다</div>
+            <p>AI는 파일을 <strong>한 곳에 나란히</strong> 두는 구조로 코드를 줍니다. 그런데 시작 프로젝트에 <code>css</code> 폴더가 있으면, AI가 준 <code>index.html</code>은 <code>style.css</code>를 찾는데 내 파일은 <code>css/style.css</code>에 있게 돼요. <strong>이름은 맞는데 위치가 달라서</strong> 디자인이 하나도 안 붙습니다. 지금 지워두면 이 일이 아예 안 생깁니다.</p>
+          </div>
 
           <h3>화면은 세 덩어리입니다</h3>
 
@@ -297,6 +309,7 @@
 - 맨 처음 열리는 화면의 파일 이름은 index.html로 해줘.
   나머지 파일 이름은 네가 알아서 정하고, 답변에 이름을 적어줘
 - 파일끼리 연결하는 링크는 상대경로로 해줘 (예: write.html)
+- 파일은 전부 폴더 없이 한 곳에 두고, CSS는 style.css 파일 하나로 해줘
 
 [형식] 세 파일의 전체 코드로 줘.</pre>
           </div>
@@ -338,7 +351,12 @@
 디자인은 깔끔하고 따뜻한 느낌으로, 파스텔톤 색상을 사용해줘.
 
 지금은 데이터 저장 없이 화면 디자인만 먼저 만들어줘.
-더미 데이터(예시 글 2~3개)를 넣어서 화면이 어떻게 보이는지 확인할 수 있게 해줘.</pre>
+더미 데이터(예시 글 2~3개)를 넣어서 화면이 어떻게 보이는지 확인할 수 있게 해줘.
+
+파일은 이렇게 해줘:
+- 맨 처음 열리는 화면의 파일 이름은 index.html로 해줘
+- 파일은 전부 폴더 없이 한 곳에 두고, CSS는 style.css 파일 하나로 해줘
+- 파일끼리 연결하는 링크는 상대경로로 해줘 (예: write.html)</pre>
               </div>
             </div>
           </details>
